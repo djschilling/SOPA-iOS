@@ -52,19 +52,19 @@ class LevelTranslator {
                 if (currentTile?.tileType != TileType.NONE) {
                     if (row == 0) {
                         checkInvalidTile(tile: currentTile!);
-                        currentTile?.right = true
+                        currentTile?.bottom = true
                     }
                     if (row == rows - 1) {
                         checkInvalidTile(tile: currentTile!);
-                        currentTile?.left = true
+                        currentTile?.top = true
                     }
                     if (column == 0) {
                         checkInvalidTile(tile: currentTile!);
-                        currentTile?.bottom = true
+                        currentTile?.right = true
                     }
                     if (column == columns - 1) {
                         checkInvalidTile(tile: currentTile!);
-                        currentTile?.bottom = true
+                        currentTile?.left = true
                     }
                 }
                 tiles[column][row] = currentTile!;

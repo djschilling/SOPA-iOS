@@ -21,6 +21,9 @@
 		63F661641F9B4C6C0043ABCF /* LevelTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661631F9B4C6C0043ABCF /* LevelTranslator.swift */; };
 		63F661661F9B53A30043ABCF /* TileCharacterMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661651F9B53A30043ABCF /* TileCharacterMapping.swift */; };
 		63F661681F9B88440043ABCF /* LevelTranslatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661671F9B88440043ABCF /* LevelTranslatorTest.swift */; };
+		63F6616A1F9B94380043ABCF /* GameEndService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661691F9B94380043ABCF /* GameEndService.swift */; };
+		63F6616D1F9B96420043ABCF /* PathState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F6616C1F9B96420043ABCF /* PathState.swift */; };
+		63F661721F9BA9D60043ABCF /* GameFieldService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661711F9BA9D60043ABCF /* GameFieldService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,9 @@
 		63F661631F9B4C6C0043ABCF /* LevelTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelTranslator.swift; sourceTree = "<group>"; };
 		63F661651F9B53A30043ABCF /* TileCharacterMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCharacterMapping.swift; sourceTree = "<group>"; };
 		63F661671F9B88440043ABCF /* LevelTranslatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelTranslatorTest.swift; sourceTree = "<group>"; };
+		63F661691F9B94380043ABCF /* GameEndService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndService.swift; sourceTree = "<group>"; };
+		63F6616C1F9B96420043ABCF /* PathState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathState.swift; sourceTree = "<group>"; };
+		63F661711F9BA9D60043ABCF /* GameFieldService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFieldService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,9 +125,7 @@
 		63F661561F9B37040043ABCF /* model */ = {
 			isa = PBXGroup;
 			children = (
-				63F661571F9B37A80043ABCF /* Level.swift */,
-				63F661591F9B39640043ABCF /* Tile.swift */,
-				63F6615B1F9B3B0B0043ABCF /* TileType.swift */,
+				63F6616B1F9B961A0043ABCF /* game */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -129,8 +133,7 @@
 		63F6615F1F9B48000043ABCF /* model */ = {
 			isa = PBXGroup;
 			children = (
-				63F661601F9B48250043ABCF /* GameFieldServiceTest.swift */,
-				63F661671F9B88440043ABCF /* LevelTranslatorTest.swift */,
+				63F6616E1F9BA61D0043ABCF /* game */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -142,6 +145,28 @@
 				63F661651F9B53A30043ABCF /* TileCharacterMapping.swift */,
 			);
 			path = helper;
+			sourceTree = "<group>";
+		};
+		63F6616B1F9B961A0043ABCF /* game */ = {
+			isa = PBXGroup;
+			children = (
+				63F661571F9B37A80043ABCF /* Level.swift */,
+				63F661591F9B39640043ABCF /* Tile.swift */,
+				63F6615B1F9B3B0B0043ABCF /* TileType.swift */,
+				63F661691F9B94380043ABCF /* GameEndService.swift */,
+				63F6616C1F9B96420043ABCF /* PathState.swift */,
+				63F661711F9BA9D60043ABCF /* GameFieldService.swift */,
+			);
+			path = game;
+			sourceTree = "<group>";
+		};
+		63F6616E1F9BA61D0043ABCF /* game */ = {
+			isa = PBXGroup;
+			children = (
+				63F661601F9B48250043ABCF /* GameFieldServiceTest.swift */,
+				63F661671F9B88440043ABCF /* LevelTranslatorTest.swift */,
+			);
+			path = game;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,9 +272,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63F661721F9BA9D60043ABCF /* GameFieldService.swift in Sources */,
 				63F661291F9B346E0043ABCF /* GameScene.swift in Sources */,
 				63F6612B1F9B346E0043ABCF /* GameViewController.swift in Sources */,
+				63F6616A1F9B94380043ABCF /* GameEndService.swift in Sources */,
 				63F661641F9B4C6C0043ABCF /* LevelTranslator.swift in Sources */,
+				63F6616D1F9B96420043ABCF /* PathState.swift in Sources */,
 				63F6615A1F9B39640043ABCF /* Tile.swift in Sources */,
 				63F661661F9B53A30043ABCF /* TileCharacterMapping.swift in Sources */,
 				63F661581F9B37A80043ABCF /* Level.swift in Sources */,

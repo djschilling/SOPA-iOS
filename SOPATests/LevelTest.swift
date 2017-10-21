@@ -22,7 +22,7 @@ class LevelTest: XCTestCase {
     }
     
     func testExample() {
-        var level = Level()
+        let level = Level()
         level.startX = 4
         XCTAssertTrue(level.startX == 4)
         

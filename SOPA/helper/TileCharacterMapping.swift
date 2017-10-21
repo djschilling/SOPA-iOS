@@ -30,7 +30,7 @@ import Foundation
 
     let CHARACTER_TILE_MAP = [
         "s": Tile(top: false, bottom: false, left: false, right: false, tileType: TileType.START, shortcut: "s"),
-        "f": Tile(top: false, bottom: false, left: false, right: false, tileType: TileType.START, shortcut: "f"),
+        "f": Tile(top: false, bottom: false, left: false, right: false, tileType: TileType.FINISH, shortcut: "f"),
         "n": Tile(top: false, bottom: false, left: false, right: false, tileType: TileType.NONE, shortcut: "n"),
         "o": Tile(top: false, bottom: false, left: false, right: false, tileType: TileType.PUZZLE, shortcut: "o"),
         "t": Tile(top: true, bottom: false, left: false, right: false, tileType: TileType.PUZZLE, shortcut: "t"),

@@ -24,6 +24,7 @@
 		63F6616A1F9B94380043ABCF /* GameEndService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661691F9B94380043ABCF /* GameEndService.swift */; };
 		63F6616D1F9B96420043ABCF /* PathState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F6616C1F9B96420043ABCF /* PathState.swift */; };
 		63F661721F9BA9D60043ABCF /* GameFieldService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661711F9BA9D60043ABCF /* GameFieldService.swift */; };
+		D4CB84D81F9BA2BF001AB1E3 /* ResourceMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CB84D71F9BA2BF001AB1E3 /* ResourceMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		63F661691F9B94380043ABCF /* GameEndService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndService.swift; sourceTree = "<group>"; };
 		63F6616C1F9B96420043ABCF /* PathState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathState.swift; sourceTree = "<group>"; };
 		63F661711F9BA9D60043ABCF /* GameFieldService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFieldService.swift; sourceTree = "<group>"; };
+		D4CB84D71F9BA2BF001AB1E3 /* ResourceMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,11 +101,11 @@
 		63F661211F9B346E0043ABCF /* SOPA */ = {
 			isa = PBXGroup;
 			children = (
+				D4CB84D61F9BA25C001AB1E3 /* controller */,
+				D4CB84D51F9BA23E001AB1E3 /* view */,
 				63F661621F9B4C450043ABCF /* helper */,
 				63F661561F9B37040043ABCF /* model */,
 				63F661221F9B346E0043ABCF /* AppDelegate.swift */,
-				63F661281F9B346E0043ABCF /* GameScene.swift */,
-				63F6612A1F9B346E0043ABCF /* GameViewController.swift */,
 				63F6612C1F9B346E0043ABCF /* Main.storyboard */,
 				63F6612F1F9B346E0043ABCF /* Assets.xcassets */,
 				63F661311F9B346E0043ABCF /* LaunchScreen.storyboard */,
@@ -167,6 +169,23 @@
 				63F661671F9B88440043ABCF /* LevelTranslatorTest.swift */,
 			);
 			path = game;
+			sourceTree = "<group>";
+		};
+		D4CB84D51F9BA23E001AB1E3 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				63F661281F9B346E0043ABCF /* GameScene.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		D4CB84D61F9BA25C001AB1E3 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				63F6612A1F9B346E0043ABCF /* GameViewController.swift */,
+				D4CB84D71F9BA2BF001AB1E3 /* ResourceMapper.swift */,
+			);
+			path = controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +298,7 @@
 				63F661641F9B4C6C0043ABCF /* LevelTranslator.swift in Sources */,
 				63F6616D1F9B96420043ABCF /* PathState.swift in Sources */,
 				63F6615A1F9B39640043ABCF /* Tile.swift in Sources */,
+				D4CB84D81F9BA2BF001AB1E3 /* ResourceMapper.swift in Sources */,
 				63F661661F9B53A30043ABCF /* TileCharacterMapping.swift in Sources */,
 				63F661581F9B37A80043ABCF /* Level.swift in Sources */,
 				63F661231F9B346E0043ABCF /* AppDelegate.swift in Sources */,

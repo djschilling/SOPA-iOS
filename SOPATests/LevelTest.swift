@@ -22,7 +22,8 @@ class LevelTest: XCTestCase {
     }
     
     func testExample() {
-        let level = Level(id: 5, tiles: [], startX: 4, startY: 4, minimumMovesToSolve: 3, tilesCount: 4)
+        var level = Level()
+        level.startX = 4
         XCTAssertTrue(level.startX == 4)
         
     }

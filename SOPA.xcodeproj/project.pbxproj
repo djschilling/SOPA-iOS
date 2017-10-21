@@ -15,19 +15,14 @@
 		63F6612E1F9B346E0043ABCF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63F6612C1F9B346E0043ABCF /* Main.storyboard */; };
 		63F661301F9B346E0043ABCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63F6612F1F9B346E0043ABCF /* Assets.xcassets */; };
 		63F661331F9B346E0043ABCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63F661311F9B346E0043ABCF /* LaunchScreen.storyboard */; };
-		63F6613E1F9B346E0043ABCF /* SOPATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F6613D1F9B346E0043ABCF /* SOPATests.swift */; };
-		63F661491F9B346E0043ABCF /* SOPAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661481F9B346E0043ABCF /* SOPAUITests.swift */; };
+		63F661581F9B37A80043ABCF /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661571F9B37A80043ABCF /* Level.swift */; };
+		63F6615A1F9B39640043ABCF /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661591F9B39640043ABCF /* Tile.swift */; };
+		63F6615C1F9B3B0B0043ABCF /* TileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F6615B1F9B3B0B0043ABCF /* TileType.swift */; };
+		63F6615E1F9B41B30043ABCF /* LevelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F6615D1F9B41B30043ABCF /* LevelTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		63F6613A1F9B346E0043ABCF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 63F661171F9B346E0043ABCF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 63F6611E1F9B346E0043ABCF;
-			remoteInfo = SOPA;
-		};
-		63F661451F9B346E0043ABCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 63F661171F9B346E0043ABCF /* Project object */;
 			proxyType = 1;
@@ -48,11 +43,11 @@
 		63F661321F9B346E0043ABCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63F661341F9B346E0043ABCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63F661391F9B346E0043ABCF /* SOPATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SOPATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		63F6613D1F9B346E0043ABCF /* SOPATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOPATests.swift; sourceTree = "<group>"; };
 		63F6613F1F9B346E0043ABCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		63F661441F9B346E0043ABCF /* SOPAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SOPAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		63F661481F9B346E0043ABCF /* SOPAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOPAUITests.swift; sourceTree = "<group>"; };
-		63F6614A1F9B346E0043ABCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63F661571F9B37A80043ABCF /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		63F661591F9B39640043ABCF /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		63F6615B1F9B3B0B0043ABCF /* TileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileType.swift; sourceTree = "<group>"; };
+		63F6615D1F9B41B30043ABCF /* LevelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,13 +65,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		63F661411F9B346E0043ABCF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -85,7 +73,6 @@
 			children = (
 				63F661211F9B346E0043ABCF /* SOPA */,
 				63F6613C1F9B346E0043ABCF /* SOPATests */,
-				63F661471F9B346E0043ABCF /* SOPAUITests */,
 				63F661201F9B346E0043ABCF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -95,7 +82,6 @@
 			children = (
 				63F6611F1F9B346E0043ABCF /* SOPA.app */,
 				63F661391F9B346E0043ABCF /* SOPATests.xctest */,
-				63F661441F9B346E0043ABCF /* SOPAUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +89,7 @@
 		63F661211F9B346E0043ABCF /* SOPA */ = {
 			isa = PBXGroup;
 			children = (
+				63F661561F9B37040043ABCF /* model */,
 				63F661221F9B346E0043ABCF /* AppDelegate.swift */,
 				63F661241F9B346E0043ABCF /* GameScene.sks */,
 				63F661261F9B346E0043ABCF /* Actions.sks */,
@@ -119,19 +106,20 @@
 		63F6613C1F9B346E0043ABCF /* SOPATests */ = {
 			isa = PBXGroup;
 			children = (
-				63F6613D1F9B346E0043ABCF /* SOPATests.swift */,
 				63F6613F1F9B346E0043ABCF /* Info.plist */,
+				63F6615D1F9B41B30043ABCF /* LevelTest.swift */,
 			);
 			path = SOPATests;
 			sourceTree = "<group>";
 		};
-		63F661471F9B346E0043ABCF /* SOPAUITests */ = {
+		63F661561F9B37040043ABCF /* model */ = {
 			isa = PBXGroup;
 			children = (
-				63F661481F9B346E0043ABCF /* SOPAUITests.swift */,
-				63F6614A1F9B346E0043ABCF /* Info.plist */,
+				63F661571F9B37A80043ABCF /* Level.swift */,
+				63F661591F9B39640043ABCF /* Tile.swift */,
+				63F6615B1F9B3B0B0043ABCF /* TileType.swift */,
 			);
-			path = SOPAUITests;
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,24 +160,6 @@
 			productReference = 63F661391F9B346E0043ABCF /* SOPATests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		63F661431F9B346E0043ABCF /* SOPAUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 63F661531F9B346E0043ABCF /* Build configuration list for PBXNativeTarget "SOPAUITests" */;
-			buildPhases = (
-				63F661401F9B346E0043ABCF /* Sources */,
-				63F661411F9B346E0043ABCF /* Frameworks */,
-				63F661421F9B346E0043ABCF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				63F661461F9B346E0043ABCF /* PBXTargetDependency */,
-			);
-			name = SOPAUITests;
-			productName = SOPAUITests;
-			productReference = 63F661441F9B346E0043ABCF /* SOPAUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -205,11 +175,6 @@
 						ProvisioningStyle = Automatic;
 					};
 					63F661381F9B346E0043ABCF = {
-						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 63F6611E1F9B346E0043ABCF;
-					};
-					63F661431F9B346E0043ABCF = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 63F6611E1F9B346E0043ABCF;
@@ -231,7 +196,6 @@
 			targets = (
 				63F6611E1F9B346E0043ABCF /* SOPA */,
 				63F661381F9B346E0043ABCF /* SOPATests */,
-				63F661431F9B346E0043ABCF /* SOPAUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -256,13 +220,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		63F661421F9B346E0043ABCF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -272,7 +229,10 @@
 			files = (
 				63F661291F9B346E0043ABCF /* GameScene.swift in Sources */,
 				63F6612B1F9B346E0043ABCF /* GameViewController.swift in Sources */,
+				63F6615A1F9B39640043ABCF /* Tile.swift in Sources */,
+				63F661581F9B37A80043ABCF /* Level.swift in Sources */,
 				63F661231F9B346E0043ABCF /* AppDelegate.swift in Sources */,
+				63F6615C1F9B3B0B0043ABCF /* TileType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,15 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63F6613E1F9B346E0043ABCF /* SOPATests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63F661401F9B346E0043ABCF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				63F661491F9B346E0043ABCF /* SOPAUITests.swift in Sources */,
+				63F6615E1F9B41B30043ABCF /* LevelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,11 +251,6 @@
 			isa = PBXTargetDependency;
 			target = 63F6611E1F9B346E0043ABCF /* SOPA */;
 			targetProxy = 63F6613A1F9B346E0043ABCF /* PBXContainerItemProxy */;
-		};
-		63F661461F9B346E0043ABCF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 63F6611E1F9B346E0043ABCF /* SOPA */;
-			targetProxy = 63F661451F9B346E0043ABCF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -439,6 +386,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S8SS3476QC;
 				INFOPLIST_FILE = SOPA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPA;
@@ -453,6 +401,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S8SS3476QC;
 				INFOPLIST_FILE = SOPA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPA;
@@ -468,6 +417,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S8SS3476QC;
 				INFOPLIST_FILE = SOPATests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPATests;
@@ -484,6 +434,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S8SS3476QC;
 				INFOPLIST_FILE = SOPATests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPATests;
@@ -491,36 +442,6 @@
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SOPA.app/SOPA";
-			};
-			name = Release;
-		};
-		63F661541F9B346E0043ABCF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SOPAUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPAUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SOPA;
-			};
-			name = Debug;
-		};
-		63F661551F9B346E0043ABCF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SOPAUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPAUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SOPA;
 			};
 			name = Release;
 		};
@@ -550,15 +471,6 @@
 			buildConfigurations = (
 				63F661511F9B346E0043ABCF /* Debug */,
 				63F661521F9B346E0043ABCF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		63F661531F9B346E0043ABCF /* Build configuration list for PBXNativeTarget "SOPAUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				63F661541F9B346E0043ABCF /* Debug */,
-				63F661551F9B346E0043ABCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

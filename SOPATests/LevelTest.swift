@@ -1,5 +1,5 @@
 //
-//  SOPATests.swift
+//  LevelTest.swift
 //  SOPATests
 //
 //  Created by David Schilling on 21.10.17.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import SOPA
 
-class SOPATests: XCTestCase {
+class LevelTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -22,8 +22,9 @@ class SOPATests: XCTestCase {
     }
     
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let level = Level(id: 5, tiles: [], startX: 4, startY: 4, minimumMovesToSolve: 3, tilesCount: 4)
+        XCTAssertTrue(level.startX == 4)
+        
     }
     
     func testPerformanceExample() {

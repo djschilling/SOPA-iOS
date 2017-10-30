@@ -14,7 +14,7 @@ class GameEndService {
     private var field: [[Tile]]?;
     private let directionsX = [0, 1, 0, -1]
     private let directionsY = [1, 0, -1, 0]
-    
+
     func solvedPuzzle(startX: Int, startY: Int, width: Int, height: Int, field: [[Tile]], tilesCountForLevel: Int) -> Bool {
         self.field = field
         initializePathState(width: width, height: height)

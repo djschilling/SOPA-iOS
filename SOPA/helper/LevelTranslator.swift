@@ -41,7 +41,7 @@ class LevelTranslator {
         let columns = fieldLines[0].count
         let rows = fieldLines.count
         let dummyTile = Tile(top: false, bottom: false, left: false, right: false, tileType: TileType.NONE, shortcut: "a")
-        var tiles = [[Tile]](repeating: [Tile](repeating: dummyTile, count: 6), count: 6)
+        var tiles = [[Tile]](repeating: [Tile](repeating: dummyTile, count: rows), count: columns)
 
         
         for column in 0...columns - 1 {

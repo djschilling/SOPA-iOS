@@ -11,18 +11,6 @@ import XCTest
 @testable import SOPA
 
 class LevelTranslatorTest: XCTestCase {
-    var SOLVED_LEVEL = [
-        "21",
-        "4",
-        "4",
-        "#",
-        "nnnnnn",
-        "noooon",
-        "saaaaf",
-        "noooon",
-        "noooon",
-        "nnnnnn"
-    ]
     var SOLVED_LEVEL_2 = [
         "1",
         "2",
@@ -34,9 +22,14 @@ class LevelTranslatorTest: XCTestCase {
         "nnnn"
     ]
 
-    func testExample() {
+    func testLevelFromString() {
         let levelTranslator = LevelTranslator()
-        let level = levelTranslator.fromString(levelLines: SOLVED_LEVEL)
-        XCTAssert(level.minimumMovesToSolve == 4)
+        let level = levelTranslator.fromString(levelLines: SOLVED_LEVEL_2)
+        let tiles = level.tiles
+        XCTAssert(level.minimumMovesToSolve == 2)
+        
+        XCTAssertTrue(tiles[3][2].tileType == TileType.PUZZLE)
+        XCTAssertTrue(tiles[3][1].tileType == TileType.NONE)
+
     }
 }

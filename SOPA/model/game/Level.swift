@@ -16,4 +16,8 @@ class Level {
     var movesCounter = 0
     var minimumMovesToSolve: Int?
     var tilesCount: Int?
+    
+    func increaseMovesCounter()  {
+        movesCounter += 1;
+    }
 }

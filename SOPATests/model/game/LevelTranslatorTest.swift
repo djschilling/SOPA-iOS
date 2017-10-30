@@ -32,4 +32,6 @@ class LevelTranslatorTest: XCTestCase {
         XCTAssertTrue(tiles[3][1].tileType == TileType.FINISH)
 
     }
+    
+   
 }

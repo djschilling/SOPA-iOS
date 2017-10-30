@@ -28,8 +28,8 @@ class LevelTranslatorTest: XCTestCase {
         let tiles = level.tiles
         XCTAssert(level.minimumMovesToSolve == 2)
         
-        XCTAssertTrue(tiles[3][2].tileType == TileType.PUZZLE)
-        XCTAssertTrue(tiles[3][1].tileType == TileType.NONE)
+        XCTAssertTrue(tiles[3][2].tileType == TileType.NONE)
+        XCTAssertTrue(tiles[3][1].tileType == TileType.FINISH)
 
     }
 }

@@ -57,11 +57,11 @@ class GameFieldService {
             let playableColumns = level.tiles[0].count - 2;
             if (rowOrColumn < playableColumns) {
                 var shiftRelevant = false
-                let dummyTile = Tile(top: false, bottom: false, left: false, right: false, tileType: TileType.NONE, shortcut: "a")
+                let dummyTile = Tile(top: false, bottom: false, left: false, right: false, tileType: TileType.NONE, shortcut: "ä")
                 var tileLine = [Tile](repeating: dummyTile, count: playableColumns)
                 
                 for column in 0...playableColumns - 1 {
-                    tileLine[column] = level.tiles[rowOrColumn + 1][column]
+                    tileLine[column] = level.tiles[rowOrColumn + 1][column + 1]
                     //level.tiles[rowOrColumn + 1][column] = nil TODO: wirklich nötig?
                     
                     if (tileLine[column].shortcut != "o") {

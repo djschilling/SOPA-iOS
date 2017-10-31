@@ -29,6 +29,9 @@
 		64CA8A691FA7C569009BDBC2 /* levels in Resources */ = {isa = PBXBuildFile; fileRef = 64CA8A681FA7C568009BDBC2 /* levels */; };
 		64CA8A6A1FA7C569009BDBC2 /* levels in Resources */ = {isa = PBXBuildFile; fileRef = 64CA8A681FA7C568009BDBC2 /* levels */; };
 		64CA8A6C1FA7C605009BDBC2 /* FileHandlerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA8A6B1FA7C605009BDBC2 /* FileHandlerTest.swift */; };
+		64CA8A6E1FA89654009BDBC2 /* LevelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA8A6D1FA89654009BDBC2 /* LevelService.swift */; };
+		64CA8A701FA89AD4009BDBC2 /* LevelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA8A6F1FA89AD4009BDBC2 /* LevelInfo.swift */; };
+		64CA8A741FA8B179009BDBC2 /* LevelResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA8A731FA8B179009BDBC2 /* LevelResult.swift */; };
 		D4CB84D81F9BA2BF001AB1E3 /* ResourceMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CB84D71F9BA2BF001AB1E3 /* ResourceMapper.swift */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +70,9 @@
 		64CA8A571FA7BE39009BDBC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64CA8A681FA7C568009BDBC2 /* levels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = levels; sourceTree = "<group>"; };
 		64CA8A6B1FA7C605009BDBC2 /* FileHandlerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandlerTest.swift; sourceTree = "<group>"; };
+		64CA8A6D1FA89654009BDBC2 /* LevelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelService.swift; sourceTree = "<group>"; };
+		64CA8A6F1FA89AD4009BDBC2 /* LevelInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelInfo.swift; sourceTree = "<group>"; };
+		64CA8A731FA8B179009BDBC2 /* LevelResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelResult.swift; sourceTree = "<group>"; };
 		D4CB84D71F9BA2BF001AB1E3 /* ResourceMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,6 +161,7 @@
 				63F661631F9B4C6C0043ABCF /* LevelTranslator.swift */,
 				63F661651F9B53A30043ABCF /* TileCharacterMapping.swift */,
 				64CA8A501FA79936009BDBC2 /* FileHandler.swift */,
+				64CA8A6D1FA89654009BDBC2 /* LevelService.swift */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -168,6 +175,8 @@
 				63F661691F9B94380043ABCF /* GameEndService.swift */,
 				63F6616C1F9B96420043ABCF /* PathState.swift */,
 				63F661711F9BA9D60043ABCF /* GameFieldService.swift */,
+				64CA8A6F1FA89AD4009BDBC2 /* LevelInfo.swift */,
+				64CA8A731FA8B179009BDBC2 /* LevelResult.swift */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -308,6 +317,7 @@
 				63F661721F9BA9D60043ABCF /* GameFieldService.swift in Sources */,
 				63F661291F9B346E0043ABCF /* GameScene.swift in Sources */,
 				63F6612B1F9B346E0043ABCF /* GameViewController.swift in Sources */,
+				64CA8A741FA8B179009BDBC2 /* LevelResult.swift in Sources */,
 				63F6616A1F9B94380043ABCF /* GameEndService.swift in Sources */,
 				63F661641F9B4C6C0043ABCF /* LevelTranslator.swift in Sources */,
 				63F6616D1F9B96420043ABCF /* PathState.swift in Sources */,
@@ -315,6 +325,8 @@
 				D4CB84D81F9BA2BF001AB1E3 /* ResourceMapper.swift in Sources */,
 				64CA8A511FA79936009BDBC2 /* FileHandler.swift in Sources */,
 				63F661661F9B53A30043ABCF /* TileCharacterMapping.swift in Sources */,
+				64CA8A701FA89AD4009BDBC2 /* LevelInfo.swift in Sources */,
+				64CA8A6E1FA89654009BDBC2 /* LevelService.swift in Sources */,
 				63F661581F9B37A80043ABCF /* Level.swift in Sources */,
 				63F661231F9B346E0043ABCF /* AppDelegate.swift in Sources */,
 				63F6615C1F9B3B0B0043ABCF /* TileType.swift in Sources */,

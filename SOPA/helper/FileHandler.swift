@@ -9,7 +9,7 @@
 import Foundation
 
 class FileHandler {
-    init(huhu : Int) {
+    init() {
         
     }
     func readFromFile(filename : String) -> [String] {
@@ -27,6 +27,10 @@ class FileHandler {
     
     private func multipleLineStringToArray(data: String) -> [String] {
         return data.components(separatedBy: "\n")
+    }
+    
+    func getFilenamesInFolder(folder: String) -> [String]{
+        return [] //TODO: Implement!
     }
 }
 

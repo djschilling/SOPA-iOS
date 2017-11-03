@@ -16,6 +16,11 @@ class Level {
     var movesCounter = 0
     var minimumMovesToSolve: Int?
     var tilesCount: Int?
+    var levelInfo: LevelInfo?
+    
+    init() {
+        //TODO: Has implemented yet
+    }
     
     func increaseMovesCounter()  {
         movesCounter += 1;

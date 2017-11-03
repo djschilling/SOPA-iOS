@@ -29,8 +29,17 @@ class FileHandler {
         return data.components(separatedBy: "\n")
     }
     
-    func getFilenamesInFolder(folder: String) -> [String]{
-        return [] //TODO: Implement!
+    func getFilenamesInFolder(folder: String) -> [String] {
+        let docsPath = Bundle.main.resourcePath! + "/" + folder
+        let fileManager = FileManager.default
+        
+        do {
+            let docsArray = try fileManager.contentsOfDirectory(atPath: docsPath)
+            return docsArray;
+        } catch {
+            print(error)
+        }
+        return []
     }
 }
 

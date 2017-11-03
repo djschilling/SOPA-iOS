@@ -15,5 +15,11 @@ class FileHandlerTest: XCTestCase {
     func testReadFile() {
         let fileHandler = FileHandler()
         XCTAssertEqual(fileHandler.readFromFile(filename: "levels/level0.txt") , FILE_LEVEL0_CONTENT)
+        
+        let levelFileService : LevelFileService = LevelFileService()
+        XCTAssertTrue(levelFileService.getAvailableLevelIds().count == 100)
+    }
+    
+    func getLevelIDs() {
     }
 }

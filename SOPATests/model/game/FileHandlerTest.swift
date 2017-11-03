@@ -13,7 +13,7 @@ import XCTest
 class FileHandlerTest: XCTestCase {
     let FILE_LEVEL0_CONTENT = ["Erste Linie", "Zweite Linie", "Dritte Linie", "", "5. Linie", ""]
     func testReadFile() {
-        let fileHandler = FileHandler(huhu : 1)
+        let fileHandler = FileHandler()
         XCTAssertEqual(fileHandler.readFromFile(filename: "levels/level0.txt") , FILE_LEVEL0_CONTENT)
     }
 }

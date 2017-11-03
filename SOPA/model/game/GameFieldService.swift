@@ -9,11 +9,7 @@
 import Foundation
 
 class GameFieldService {
-    private let gameEndService: GameEndService
-
-    init(gameEndService: GameEndService) {
-        self.gameEndService = gameEndService
-    }
+    private let gameEndService = GameEndService()
     
     func solvedPuzzle(level: Level) -> Bool {
         return gameEndService.solvedPuzzle(startX: level.startX!, startY: level.startY!, width: level.tiles.count, height: level.tiles[0].count, field: level.tiles, tilesCountForLevel: level.tilesCount!)

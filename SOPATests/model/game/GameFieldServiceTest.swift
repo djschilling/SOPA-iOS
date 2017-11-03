@@ -11,7 +11,7 @@ import XCTest
 
 class GameFieldServiceTest: XCTestCase {
     
-    let sut = GameFieldService(gameEndService: GameEndService())
+    let sut = GameFieldService()
     let levelTranslator = LevelTranslator()
 
     let SOLVED_LEVEL_STINGS = [

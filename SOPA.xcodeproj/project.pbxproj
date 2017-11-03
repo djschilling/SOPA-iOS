@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63E2228B1FA896070002A398 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E2228A1FA896070002A398 /* GameService.swift */; };
+		63E2228E1FA8976E0002A398 /* GameSceneObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E2228D1FA8976E0002A398 /* GameSceneObserver.swift */; };
+		63E222901FA89A200002A398 /* GameServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E2228F1FA89A200002A398 /* GameServiceImpl.swift */; };
 		63F661231F9B346E0043ABCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661221F9B346E0043ABCF /* AppDelegate.swift */; };
 		63F661291F9B346E0043ABCF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661281F9B346E0043ABCF /* GameScene.swift */; };
 		63F6612B1F9B346E0043ABCF /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F6612A1F9B346E0043ABCF /* GameViewController.swift */; };
@@ -46,6 +49,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		63E2228A1FA896070002A398 /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
+		63E2228D1FA8976E0002A398 /* GameSceneObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneObserver.swift; sourceTree = "<group>"; };
+		63E2228F1FA89A200002A398 /* GameServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameServiceImpl.swift; sourceTree = "<group>"; };
 		63F6611F1F9B346E0043ABCF /* SOPA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SOPA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63F661221F9B346E0043ABCF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63F661281F9B346E0043ABCF /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -94,6 +100,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63E2228C1FA8974A0002A398 /* observer */ = {
+			isa = PBXGroup;
+			children = (
+				63E2228D1FA8976E0002A398 /* GameSceneObserver.swift */,
+			);
+			path = observer;
+			sourceTree = "<group>";
+		};
 		63F661161F9B346E0043ABCF = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +129,7 @@
 		63F661211F9B346E0043ABCF /* SOPA */ = {
 			isa = PBXGroup;
 			children = (
+				63E2228C1FA8974A0002A398 /* observer */,
 				64CA8A681FA7C568009BDBC2 /* levels */,
 				D4CB84D61F9BA25C001AB1E3 /* controller */,
 				D4CB84D51F9BA23E001AB1E3 /* view */,
@@ -177,6 +192,8 @@
 				63F661711F9BA9D60043ABCF /* GameFieldService.swift */,
 				64CA8A6F1FA89AD4009BDBC2 /* LevelInfo.swift */,
 				64CA8A731FA8B179009BDBC2 /* LevelResult.swift */,
+				63E2228A1FA896070002A398 /* GameService.swift */,
+				63E2228F1FA89A200002A398 /* GameServiceImpl.swift */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -315,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63F661721F9BA9D60043ABCF /* GameFieldService.swift in Sources */,
+				63E2228B1FA896070002A398 /* GameService.swift in Sources */,
 				63F661291F9B346E0043ABCF /* GameScene.swift in Sources */,
 				63F6612B1F9B346E0043ABCF /* GameViewController.swift in Sources */,
 				64CA8A741FA8B179009BDBC2 /* LevelResult.swift in Sources */,
@@ -328,6 +346,8 @@
 				64CA8A701FA89AD4009BDBC2 /* LevelInfo.swift in Sources */,
 				64CA8A6E1FA89654009BDBC2 /* LevelService.swift in Sources */,
 				63F661581F9B37A80043ABCF /* Level.swift in Sources */,
+				63E2228E1FA8976E0002A398 /* GameSceneObserver.swift in Sources */,
+				63E222901FA89A200002A398 /* GameServiceImpl.swift in Sources */,
 				63F661231F9B346E0043ABCF /* AppDelegate.swift in Sources */,
 				63F6615C1F9B3B0B0043ABCF /* TileType.swift in Sources */,
 			);
@@ -486,7 +506,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = S8SS3476QC;
 				INFOPLIST_FILE = SOPA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPA;
@@ -501,7 +521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = S8SS3476QC;
 				INFOPLIST_FILE = SOPA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPA;

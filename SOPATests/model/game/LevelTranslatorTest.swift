@@ -19,7 +19,8 @@ class LevelTranslatorTest: XCTestCase {
         "nnnn",
         "saaf",
         "noon",
-        "nnnn"
+        "nnnn",
+        ""
     ]
 
     func testLevelFromString() {

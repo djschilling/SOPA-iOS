@@ -39,7 +39,10 @@ class LevelTranslator {
     private func getTiles(fieldLines: [String], level: Level) -> [[Tile]] {
         
         let columns = fieldLines[0].count
-        let rows = fieldLines.count - 1 //Caused By an empty line
+        var rows = fieldLines.count
+        if(fieldLines[fieldLines.count - 1] == "") {
+            rows = fieldLines.count - 1
+        }
         let dummyTile = Tile(top: false, bottom: false, left: false, right: false, tileType: TileType.NONE, shortcut: "a")
         var tiles = [[Tile]](repeating: [Tile](repeating: dummyTile, count: rows), count: columns)
 

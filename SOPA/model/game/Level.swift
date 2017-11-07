@@ -19,10 +19,30 @@ class Level {
     var levelInfo: LevelInfo?
     
     init() {
-        //TODO: Has implemented yet
+    }
+    init(level: Level) {
+        copyTilesFrom(tiles: level.tiles)
+        self.id = level.id
+        if level.levelInfo == nil {
+            levelInfo = nil;
+        } else {
+            levelInfo = LevelInfo(levelInfo: level.levelInfo!);
+        }
+        minimumMovesToSolve = level.minimumMovesToSolve;
+        startX = level.startX;
+        startY = level.startY;
+        tilesCount = level.tilesCount;
     }
     
     func increaseMovesCounter()  {
         movesCounter += 1;
+    }
+    
+    private func copyTilesFrom(tiles: [[Tile]]) {
+        for i in [0...tiles.count - 1] {
+            for j in [0...tiles[0].count - 1 ] {
+                self.tiles[i][j] = tiles[i][j]
+            }
+        }
     }
 }

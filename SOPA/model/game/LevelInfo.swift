@@ -20,10 +20,18 @@ class LevelInfo {
         self.fewestMoves = fewestMoves
         self.stars = stars
     }
+    
     init(levelInfo: LevelInfo) {
         self.levelId = levelInfo.levelId
         self.locked = levelInfo.locked
         self.fewestMoves = levelInfo.fewestMoves
         self.stars = levelInfo.stars
+    }
+    
+    init(levelInfoMO: LevelInfoMO) {
+        self.levelId = Int(levelInfoMO.id)
+        self.fewestMoves = Int(levelInfoMO.fewest_moves)
+        self.locked = levelInfoMO.locked
+        self.stars = Int(levelInfoMO.stars)
     }
 }

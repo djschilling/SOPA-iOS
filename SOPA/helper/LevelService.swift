@@ -11,22 +11,17 @@ protocol LevelService {
     
     func getLevelCount() -> Int;
     
-    func getLevelById(id: Int) -> Level;
+    func getLevelById(id: Int) -> Level?;
     
     func getLevelInfos() -> [LevelInfo];
     
-    
-    func getLastUnlocked() -> LevelInfo;
-    
+    func getLastUnlocked() -> LevelInfo?;
     
     func updateLevelInfos();
     
-    
     func calculateLevelResult(level: Level) -> LevelResult;
     
-    
     func persistLevelResult(levelResult: LevelResult ) -> LevelInfo;
-    
     
     func unlockLevel(levelId: Int);
 }

@@ -20,33 +20,8 @@ class GameScene: SKScene {
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     override func didMove(to view: SKView) {
-        let columns = level.tiles.count
-        let rows = level.tiles[0].count
-        let tileSize = size.width / CGFloat(level.tiles.count - 2)
-        
-        for column in 0...columns - 1 {
-            for row in 0...rows - 1 {
-                let tile = level.tiles[column][row]
-                let shortcut = tile.shortcut
-                let tileType = tile.tileType
-                
-                if (shortcut != "n") {
-                    let tileNode = SKSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut  )]!)
-                    tileNode.size.width = tileSize
-                    tileNode.size.height = tileSize
-                    
-                    tileNode.position = CGPoint(x: tileSize * CGFloat(toBorders(value: column - 1, from: 0, to: columns - 3)) + (tileSize / 2.0), y: size.height - tileSize * CGFloat(toBorders(value: row - 1, from: 0, to: rows-3)) + (tileSize / 2.0) - tileSize)
-                    
-                    if (tileType == TileType.START || tileType == TileType.FINISH) {
-                        rotateStartAndFinishTile(tile: tileNode, column: column, row: row, columns: columns, rows: rows)
-                    }
-                    
-                    addChild(tileNode)
-                }
-            }
-        }
+        addGameFieldNode(toView: view)
     }
     
     func rotateStartAndFinishTile(tile: SKSpriteNode, column: Int, row: Int, columns: Int, rows: Int) {
@@ -79,6 +54,36 @@ class GameScene: SKScene {
             return to
         }
         return value
+    }
+    
+    func addGameFieldNode(toView: SKView) {
+        let gameFieldNode = SKNode()
+        let columns = level.tiles.count
+        let rows = level.tiles[0].count
+        let tileSize = size.width / CGFloat(level.tiles.count - 2)
+        
+        for column in 0...columns - 1 {
+            for row in 0...rows - 1 {
+                let tile = level.tiles[column][row]
+                let shortcut = tile.shortcut
+                let tileType = tile.tileType
+                
+                if (shortcut != "n") {
+                    let tileNode = SKSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut  )]!)
+                    tileNode.size.width = tileSize
+                    tileNode.size.height = tileSize
+                    
+                    tileNode.position = CGPoint(x: tileSize * CGFloat(toBorders(value: column - 1, from: 0, to: columns - 3)) + (tileSize / 2.0), y: size.height - tileSize * CGFloat(toBorders(value: row - 1, from: 0, to: rows-3)) + (tileSize / 2.0) - tileSize)
+                    
+                    if (tileType == TileType.START || tileType == TileType.FINISH) {
+                        rotateStartAndFinishTile(tile: tileNode, column: column, row: row, columns: columns, rows: rows)
+                    }
+                    
+                    gameFieldNode.addChild(tileNode)
+                }
+            }
+        }
+        addChild(gameFieldNode)
     }
 }
 

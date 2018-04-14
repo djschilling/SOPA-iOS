@@ -11,25 +11,11 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let SOLVED_LEVEL = [
-            "21",
-            "4",
-            "4",
-            "#",
-            "nnnnnn",
-            "noooon",
-            "saaaaf",
-            "noooon",
-            "noooon",
-            "nnnnnn"
-        ]
-        
-        let levelTranslator = LevelTranslator()
-        let level = levelTranslator.fromString(levelLines: SOLVED_LEVEL)
+        let levelService = LevelServiceImpl(appDelegate: UIApplication.shared.delegate as! AppDelegate)
+        let level = levelService.getLevelById(id: 1)!
         let scene = GameScene(size: view.bounds.size, level: level)
         let skView = view as! SKView
         
@@ -39,11 +25,11 @@ class GameViewController: UIViewController {
         scene.scaleMode = .resizeFill
         skView.presentScene(scene)
     }
-
+    
     override var shouldAutorotate: Bool {
         return true
     }
-
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
@@ -51,12 +37,12 @@ class GameViewController: UIViewController {
             return .all
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
-
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }

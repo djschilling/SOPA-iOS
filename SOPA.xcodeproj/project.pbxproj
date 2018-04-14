@@ -56,7 +56,6 @@
 		646902D8207F6B8900283F71 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6493FB182070D5E10044B4E0 /* Observer.swift */; };
 		646902D9207F6BA800283F71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661221F9B346E0043ABCF /* AppDelegate.swift */; };
 		646902DA207F6BD500283F71 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661281F9B346E0043ABCF /* GameScene.swift */; };
-		646902E1207F702C00283F71 /* LevelInfoDataSourceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646902E0207F702C00283F71 /* LevelInfoDataSourceTest.swift */; };
 		649209971FB3216500ED019D /* StarCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649209961FB3216500ED019D /* StarCalculator.swift */; };
 		6493FB652073D6510044B4E0 /* SOPA.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6493FB632073D6510044B4E0 /* SOPA.xcdatamodeld */; };
 		6493FB662073D6510044B4E0 /* SOPA.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6493FB632073D6510044B4E0 /* SOPA.xcdatamodeld */; };
@@ -110,7 +109,6 @@
 		6446C2FA1FAC80DB00806A10 /* LevelTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelTranslator.swift; sourceTree = "<group>"; };
 		646902BA207E3AD000283F71 /* LevelInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelInfo.swift; sourceTree = "<group>"; };
 		646902BC207E60E800283F71 /* LevelInfoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelInfoDataSource.swift; sourceTree = "<group>"; };
-		646902E0207F702C00283F71 /* LevelInfoDataSourceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelInfoDataSourceTest.swift; sourceTree = "<group>"; };
 		649209961FB3216500ED019D /* StarCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarCalculator.swift; sourceTree = "<group>"; };
 		6493FB182070D5E10044B4E0 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		6493FB642073D6510044B4E0 /* SOPA.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SOPA.xcdatamodel; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 		63F6613C1F9B346E0043ABCF /* SOPATests */ = {
 			isa = PBXGroup;
 			children = (
-				646902C0207F6A4B00283F71 /* coreData */,
 				63F6615F1F9B48000043ABCF /* model */,
 				63F6613F1F9B346E0043ABCF /* Info.plist */,
 				63F6615D1F9B41B30043ABCF /* LevelTest.swift */,
@@ -252,14 +249,6 @@
 				64CA8A6B1FA7C605009BDBC2 /* FileHandlerTest.swift */,
 			);
 			path = game;
-			sourceTree = "<group>";
-		};
-		646902C0207F6A4B00283F71 /* coreData */ = {
-			isa = PBXGroup;
-			children = (
-				646902E0207F702C00283F71 /* LevelInfoDataSourceTest.swift */,
-			);
-			path = coreData;
 			sourceTree = "<group>";
 		};
 		64A9CAC1207E23B60072058D /* database */ = {
@@ -438,7 +427,6 @@
 				64CA8A6C1FA7C605009BDBC2 /* FileHandlerTest.swift in Sources */,
 				64BCCC55207F97A9008B145D /* LevelServiceImp.swift in Sources */,
 				646902CA207F6B7600283F71 /* Tile.swift in Sources */,
-				646902E1207F702C00283F71 /* LevelInfoDataSourceTest.swift in Sources */,
 				6493FB662073D6510044B4E0 /* SOPA.xcdatamodeld in Sources */,
 				646902D8207F6B8900283F71 /* Observer.swift in Sources */,
 				646902BE207E60E800283F71 /* LevelInfoDataSource.swift in Sources */,

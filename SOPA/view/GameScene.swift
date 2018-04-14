@@ -20,7 +20,7 @@ class GameScene: SKScene {
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func didMove(to view: SKView) {
         let columns = level.tiles.count
         let rows = level.tiles[0].count
@@ -31,13 +31,13 @@ class GameScene: SKScene {
                 let tile = level.tiles[column][row]
                 let shortcut = tile.shortcut
                 let tileType = tile.tileType
-
+                
                 if (shortcut != "n") {
-                    let tileNode = SKSpriteNode(imageNamed: TILE_TEXTURES[String(shortcut)]!)
+                    let tileNode = SKSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut  )]!)
                     tileNode.size.width = tileSize
                     tileNode.size.height = tileSize
                     
-                    tileNode.position = CGPoint(x: tileSize * CGFloat(max(column - 1, 0)) + (tileSize / 2.0), y: size.height - tileSize * CGFloat(max(row - 1, 0)) + (tileSize / 2.0))
+                    tileNode.position = CGPoint(x: tileSize * CGFloat(toBorders(value: column - 1, from: 0, to: columns - 3)) + (tileSize / 2.0), y: size.height - tileSize * CGFloat(toBorders(value: row - 1, from: 0, to: rows-3)) + (tileSize / 2.0) - tileSize)
                     
                     if (tileType == TileType.START || tileType == TileType.FINISH) {
                         rotateStartAndFinishTile(tile: tileNode, column: column, row: row, columns: columns, rows: rows)
@@ -52,8 +52,8 @@ class GameScene: SKScene {
     func rotateStartAndFinishTile(tile: SKSpriteNode, column: Int, row: Int, columns: Int, rows: Int) {
         if (row == 0) {
             // TOP
-            tile.zRotation = CGFloat(Double.pi) / 2
-            tile.position = CGPoint(x: tile.position.x, y: tile.position.y + tile.size.height)
+            tile.zRotation = -CGFloat(Double.pi) / 2
+            tile.position = CGPoint(x: tile.position.x, y: tile.position.y)
             
         } else if (column == 0) {
             // LEFT
@@ -61,15 +61,24 @@ class GameScene: SKScene {
             
         } else if (row == rows - 1) {
             // BOTTOM
-            tile.zRotation = (CGFloat(Double.pi) / 2) * 3
-            tile.position = CGPoint(x: tile.position.x, y: tile.position.y - tile.size.height)
+            tile.zRotation = -(CGFloat(Double.pi) / 2) * 3
+            tile.position = CGPoint(x: tile.position.x, y: tile.position.y)
             
         } else if (column == columns - 1) {
             // RIGHT
             tile.zRotation = CGFloat(Double.pi)
-            tile.position = CGPoint(x: tile.position.x - tile.size.width, y: tile.position.y)
+            tile.position = CGPoint(x: tile.position.x, y: tile.position.y)
             
         }
+    }
+    func toBorders(value: Int, from: Int, to: Int) -> Int {
+        if value < from {
+            return from
+        }
+        if value > to {
+            return to
+        }
+        return value
     }
 }
 

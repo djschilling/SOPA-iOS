@@ -58,6 +58,7 @@ class GameScene: SKScene {
     
     func addGameFieldNode(toView: SKView) {
         let gameFieldNode = SKNode()
+        gameFieldNode.isUserInteractionEnabled = true
         let columns = level.tiles.count
         let rows = level.tiles[0].count
         let tileSize = size.width / CGFloat(level.tiles.count - 2)
@@ -69,7 +70,8 @@ class GameScene: SKScene {
                 let tileType = tile.tileType
                 
                 if (shortcut != "n") {
-                    let tileNode = SKSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut  )]!)
+                    let tileNode = TileSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut  )]!)
+                    tileNode.isUserInteractionEnabled = true
                     tileNode.size.width = tileSize
                     tileNode.size.height = tileSize
                     

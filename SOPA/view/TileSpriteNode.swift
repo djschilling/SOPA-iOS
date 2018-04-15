@@ -10,6 +10,6 @@ import Foundation
 import SpriteKit
 class TileSpriteNode: SKSpriteNode {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("tile touched")
+            print("tile touched")   
     }
 }

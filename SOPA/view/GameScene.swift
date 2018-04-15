@@ -11,6 +11,7 @@ import GameplayKit
 
 class GameScene: SKScene {
     var level: Level
+    var gameFieldNode: SKNode?
     
     init(size: CGSize, level: Level) {
         self.level = level
@@ -57,8 +58,8 @@ class GameScene: SKScene {
     }
     
     func addGameFieldNode(toView: SKView) {
-        let gameFieldNode = SKNode()
-        gameFieldNode.isUserInteractionEnabled = true
+        gameFieldNode = SKNode()
+        //gameFieldNode.isUserInteractionEnabled = true
         let columns = level.tiles.count
         let rows = level.tiles[0].count
         let tileSize = size.width / CGFloat(level.tiles.count - 2)
@@ -70,8 +71,8 @@ class GameScene: SKScene {
                 let tileType = tile.tileType
                 
                 if (shortcut != "n") {
-                    let tileNode = TileSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut  )]!)
-                    tileNode.isUserInteractionEnabled = true
+                    let tileNode = TileSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut)]!)
+                   // tileNode.isUserInteractionEnabled = true
                     tileNode.size.width = tileSize
                     tileNode.size.height = tileSize
                     
@@ -81,11 +82,40 @@ class GameScene: SKScene {
                         rotateStartAndFinishTile(tile: tileNode, column: column, row: row, columns: columns, rows: rows)
                     }
                     
-                    gameFieldNode.addChild(tileNode)
+                    gameFieldNode!.addChild(tileNode)
                 }
             }
         }
-        addChild(gameFieldNode)
+        addChild(gameFieldNode!)
     }
+    var currentTouch : UITouch? = nil
+    var startPoint: CGPoint? = nil
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(currentTouch == nil) {
+            print("set new touch:")
+            currentTouch = touches.first
+            startPoint = currentTouch?.location(in: self)
+            print(startPoint)
+        } else {
+            print("ignore touch")
+        }
+    }
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(touches.contains(currentTouch!)) {
+            print("moved")
+            let newPos = currentTouch?.location(in: self)
+            print(newPos)
+            gameFieldNode?.position.x = newPos!.x - startPoint!.x
+            gameFieldNode?.position.y = newPos!.y - startPoint!.y
+        }
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(touches.contains(currentTouch!)) {
+            print("Touch ended")
+            print(currentTouch?.location(in: self))
+            currentTouch = nil
+        }
+    }
+
 }
 

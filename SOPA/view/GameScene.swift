@@ -17,6 +17,7 @@ class GameScene: SKScene {
     let gameFieldService = GameFieldService()
     let MIN_MOVE = CGFloat(30)
     var tileSize: CGFloat?
+    var levelSolved = false
     
     init(size: CGSize, level: Level) {
         self.level = level
@@ -57,7 +58,6 @@ class GameScene: SKScene {
             // RIGHT
             tile.zRotation = CGFloat(Double.pi)
             tile.position = CGPoint(x: tile.position.x, y: tile.position.y)
-            
         }
     }
     func toBorders(value: Int, from: Int, to: Int) -> Int {
@@ -73,34 +73,37 @@ class GameScene: SKScene {
     func updateGameField() {
         puzzlesNode.removeAllChildren()
         startEndNode.removeAllChildren()
-        //gameFieldNode.isUserInteractionEnabled = true
         let columns = level.tiles.count
         let rows = level.tiles[0].count
-        var puzzleTileNodes = Array(repeating: Array(repeating: TileSpriteNode(), count: rows - 2), count: columns - 2)
         tileSize = size.width / CGFloat(level.tiles.count - 2)
         for column in 0...columns - 1 {
             for row in 0...rows - 1 {
-                let tile = level.tiles[column][row]
-                let shortcut = tile.shortcut
-                let tileType = tile.tileType
-                
-                if (shortcut != "n") {
-                    let tileNode = TileSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut)]!)
-                    // tileNode.isUserInteractionEnabled = true
-                    tileNode.size.width = tileSize!
-                    tileNode.size.height = tileSize!
-                    
-                    tileNode.position = CGPoint(x: tileSize! * CGFloat(toBorders(value: column - 1, from: 0, to: columns - 3)) + (tileSize! / 2.0), y: size.height - tileSize! * CGFloat(toBorders(value: row - 1, from: 0, to: rows-3)) + (tileSize! / 2.0) - tileSize!)
-                    
-                    if (tileType == TileType.START || tileType == TileType.FINISH) {
-                        rotateStartAndFinishTile(tile: tileNode, column: column, row: row, columns: columns, rows: rows)
-                        startEndNode.addChild(tileNode)
-                    }
-                    if (tileType == TileType.PUZZLE) {
-                        puzzleTileNodes[column - 1][row - 1] = tileNode
-                        puzzlesNode.addChild(tileNode)
-                    }
-                }
+                addTile(column: column, row: row, columns: columns, rows: rows)
+            }
+        }
+        if(gameFieldService.solvedPuzzle(level: level)) {
+            levelSolved = true
+            print("Level Solved")
+        }
+    }
+    func addTile(column: Int, row: Int, columns: Int, rows: Int) {
+        let tile = level.tiles[column][row]
+        let shortcut = tile.shortcut
+        let tileType = tile.tileType
+        
+        if (shortcut != "n") {
+            let tileNode = TileSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut)]!)
+            tileNode.size.width = tileSize!
+            tileNode.size.height = tileSize!
+            
+            tileNode.position = CGPoint(x: tileSize! * CGFloat(toBorders(value: column - 1, from: 0, to: columns - 3)) + (tileSize! / 2.0), y: size.height - tileSize! * CGFloat(toBorders(value: row - 1, from: 0, to: rows-3)) + (tileSize! / 2.0) - tileSize!)
+            
+            if (tileType == TileType.START || tileType == TileType.FINISH) {
+                rotateStartAndFinishTile(tile: tileNode, column: column, row: row, columns: columns, rows: rows)
+                startEndNode.addChild(tileNode)
+            }
+            if (tileType == TileType.PUZZLE) {
+                puzzlesNode.addChild(tileNode)
             }
         }
     }
@@ -119,26 +122,26 @@ class GameScene: SKScene {
         }
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if(touches.contains(currentTouch!)) {
+        if(touches.contains(currentTouch!) && !levelSolved) {
             let newPos = currentTouch?.location(in: self)
             let deltaX = newPos!.x - startPoint!.x
             let deltaY = newPos!.y - startPoint!.y
             if(abs(deltaX) > abs(deltaY)) {
                 if(deltaX > MIN_MOVE) {
-                    gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: yToRow(startPoint!.y), steps: 1)
+                    _ = gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: yToRow(startPoint!.y), steps: 1)
                     updateGameField()
                 }
                 if(deltaX < -MIN_MOVE) {
-                    gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: yToRow(startPoint!.y), steps: -1)
+                    _ = gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: yToRow(startPoint!.y), steps: -1)
                     updateGameField()
                 }
             } else {
                 if(deltaY > MIN_MOVE) {
-                    gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: xToColumn(startPoint!.x), steps: -1)
+                    _ = gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: xToColumn(startPoint!.x), steps: -1)
                     updateGameField()
                 }
                 if(deltaY < -MIN_MOVE) {
-                    gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: xToColumn(startPoint!.x), steps: 1)
+                    _ = gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: xToColumn(startPoint!.x), steps: 1)
                     updateGameField()
                 }
             }

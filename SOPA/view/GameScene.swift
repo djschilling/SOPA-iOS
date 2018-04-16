@@ -76,23 +76,27 @@ class GameScene: SKScene {
         let columns = level.tiles.count
         let rows = level.tiles[0].count
         tileSize = size.width / CGFloat(level.tiles.count - 2)
+        if(gameFieldService.solvedPuzzle(level: level)) {
+            levelSolved = true
+        }
         for column in 0...columns - 1 {
             for row in 0...rows - 1 {
                 addTile(column: column, row: row, columns: columns, rows: rows)
             }
         }
-        if(gameFieldService.solvedPuzzle(level: level)) {
-            levelSolved = true
-            print("Level Solved")
-        }
+        
     }
     func addTile(column: Int, row: Int, columns: Int, rows: Int) {
         let tile = level.tiles[column][row]
         let shortcut = tile.shortcut
         let tileType = tile.tileType
-        
         if (shortcut != "n") {
-            let tileNode = TileSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut)]!)
+            let tileNode: TileSpriteNode
+            if(levelSolved) {
+                tileNode = TileSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut).uppercased()]!)
+            } else {
+                tileNode = TileSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut)]!)
+            }
             tileNode.size.width = tileSize!
             tileNode.size.height = tileSize!
             

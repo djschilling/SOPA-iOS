@@ -29,13 +29,8 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         gameFieldNode!.update()
     }
-    func moveVertical(column:  Int, steps: Int) {
-        gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: column, steps: steps)
-        levelSolved = gameFieldService.solvedPuzzle(level: level)
-    }
-    
-    func moveHorizontal(row:  Int, steps: Int) {
-        gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: row, steps: steps)
+    func moveLine(horizontal: Bool, rowOrColumn:  Int, steps: Int) {
+        gameFieldService.shiftLine(level: level, horizontal: horizontal, rowOrColumn: rowOrColumn, steps: steps)
         levelSolved = gameFieldService.solvedPuzzle(level: level)
     }
 }

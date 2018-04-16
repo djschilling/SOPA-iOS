@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  GamieFieldNode.swift
 //  SOPA
 //
 //  Created by Raphael Schilling on 16.04.18.
@@ -15,11 +15,13 @@ class GameFieldNode : SKNode {
     let gameScene: GameScene
     var tileSize: CGFloat
     let MIN_MOVE = CGFloat(30)
+    var puzzleTiles: [[TileSpriteNode]]
     
     init(level: Level, gameScene: GameScene) {
         self.level = level
         self.gameScene = gameScene
         tileSize = gameScene.size.width / CGFloat(level.tiles.count - 2)
+        puzzleTiles = Array(repeating: Array(repeating: TileSpriteNode(), count: level.tiles[0].count - 2), count: level.tiles.count - 2)
         super.init()
         addChild(startEndNode)
         addChild(puzzlesNode)
@@ -65,6 +67,7 @@ class GameFieldNode : SKNode {
             }
             if (tileType == TileType.PUZZLE) {
                 puzzlesNode.addChild(tileNode)
+                puzzleTiles[column - 1][row - 1] = tileNode
             }
         }
     }
@@ -121,24 +124,45 @@ class GameFieldNode : SKNode {
             let deltaY = newPos!.y - startPoint!.y
             if(abs(deltaX) > abs(deltaY)) {
                 if(deltaX > MIN_MOVE) {
-                    gameScene.moveHorizontal(row:  yToRow(startPoint!.y), steps: 1)
-                    update()
+                    let row = yToRow(startPoint!.y)
+                    gameScene.moveLine(horizontal: true, rowOrColumn:  row, steps: 1)
+                    animateTileSwipe(horizontal: true, rowOrColumn: row, steps: 1)
                 }
                 if(deltaX < -MIN_MOVE) {
-                    gameScene.moveHorizontal(row:  yToRow(startPoint!.y), steps: -1)
-                    update()
+                    let row = yToRow(startPoint!.y)
+                    gameScene.moveLine(horizontal: true, rowOrColumn:  row, steps: -1)
+                    animateTileSwipe(horizontal: true, rowOrColumn: row, steps: -1)
                 }
             } else {
                 if(deltaY > MIN_MOVE) {
-                    gameScene.moveVertical(column:  xToColumn(startPoint!.x), steps: -1)
-                    update()
+                    let column = xToColumn(startPoint!.x)
+                    gameScene.moveLine(horizontal: false, rowOrColumn:  column, steps: -1)
+                    animateTileSwipe(horizontal: false, rowOrColumn: column, steps: -1)
                 }
                 if(deltaY < -MIN_MOVE) {
-                    gameScene.moveVertical(column:  xToColumn(startPoint!.x), steps: 1)
-                    update()
+                    let column = xToColumn(startPoint!.x)
+                    gameScene.moveLine(horizontal: false, rowOrColumn:  column, steps: 1)
+                    animateTileSwipe(horizontal: false, rowOrColumn: column, steps: 1)
                 }
             }
             currentTouch = nil
+        }
+    }
+    
+    func animateTileSwipe(horizontal: Bool, rowOrColumn: Int, steps: Int) {
+        
+        if(horizontal) {
+            let moveAction = SKAction.moveBy(x: tileSize * CGFloat(steps), y: 0, duration: 0.25)
+            moveAction.timingMode = SKActionTimingMode.easeInEaseOut
+            for column in 0..<puzzleTiles.count {
+                puzzleTiles[column][rowOrColumn].run(moveAction, completion: {self.update()})
+            }
+        } else {
+            let moveAction = SKAction.moveBy(x: 0, y: -tileSize * CGFloat(steps), duration: 0.25)
+            moveAction.timingMode = SKActionTimingMode.easeInEaseOut
+            for row in 0..<puzzleTiles[rowOrColumn].count {
+                puzzleTiles[rowOrColumn][row].run(moveAction, completion: {self.update()})
+            }
         }
     }
     func yToRow(_ y: CGFloat) -> Int {

@@ -125,24 +125,24 @@ class GameFieldNode : SKNode {
             if(abs(deltaX) > abs(deltaY)) {
                 if(deltaX > MIN_MOVE) {
                     let row = yToRow(startPoint!.y)
-                    gameScene.moveLine(horizontal: true, rowOrColumn:  row, steps: 1)
                     animateTileSwipe(horizontal: true, rowOrColumn: row, steps: 1)
+                    gameScene.moveLine(horizontal: true, rowOrColumn:  row, steps: 1)
                 }
                 if(deltaX < -MIN_MOVE) {
                     let row = yToRow(startPoint!.y)
-                    gameScene.moveLine(horizontal: true, rowOrColumn:  row, steps: -1)
                     animateTileSwipe(horizontal: true, rowOrColumn: row, steps: -1)
+                    gameScene.moveLine(horizontal: true, rowOrColumn:  row, steps: -1)
                 }
             } else {
                 if(deltaY > MIN_MOVE) {
                     let column = xToColumn(startPoint!.x)
-                    gameScene.moveLine(horizontal: false, rowOrColumn:  column, steps: -1)
                     animateTileSwipe(horizontal: false, rowOrColumn: column, steps: -1)
+                    gameScene.moveLine(horizontal: false, rowOrColumn:  column, steps: -1)
                 }
                 if(deltaY < -MIN_MOVE) {
                     let column = xToColumn(startPoint!.x)
-                    gameScene.moveLine(horizontal: false, rowOrColumn:  column, steps: 1)
                     animateTileSwipe(horizontal: false, rowOrColumn: column, steps: 1)
+                    gameScene.moveLine(horizontal: false, rowOrColumn:  column, steps: 1)
                 }
             }
             currentTouch = nil
@@ -150,15 +150,15 @@ class GameFieldNode : SKNode {
     }
     
     func animateTileSwipe(horizontal: Bool, rowOrColumn: Int, steps: Int) {
-        
+        update()
         if(horizontal) {
-            let moveAction = SKAction.moveBy(x: tileSize * CGFloat(steps), y: 0, duration: 0.25)
+            let moveAction = SKAction.moveBy(x: tileSize * CGFloat(steps), y: 0, duration: 3)
             moveAction.timingMode = SKActionTimingMode.easeInEaseOut
             for column in 0..<puzzleTiles.count {
                 puzzleTiles[column][rowOrColumn].run(moveAction, completion: {self.update()})
             }
         } else {
-            let moveAction = SKAction.moveBy(x: 0, y: -tileSize * CGFloat(steps), duration: 0.25)
+            let moveAction = SKAction.moveBy(x: 0, y: -tileSize * CGFloat(steps), duration: 0.28)
             moveAction.timingMode = SKActionTimingMode.easeInEaseOut
             for row in 0..<puzzleTiles[rowOrColumn].count {
                 puzzleTiles[rowOrColumn][row].run(moveAction, completion: {self.update()})

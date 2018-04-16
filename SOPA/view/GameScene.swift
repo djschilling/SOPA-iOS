@@ -11,18 +11,31 @@ import GameplayKit
 
 class GameScene: SKScene {
     var level: Level
-    var gameFieldNode: SKNode?
+    let gameFieldNode = SKNode()
+    let startEndNode = SKNode()
+    let puzzlesNode = SKNode()
+    let gameFieldService = GameFieldService()
+    let MIN_MOVE = CGFloat(30)
+    var tileSize: CGFloat?
     
     init(size: CGSize, level: Level) {
         self.level = level
         super.init(size: size)
+        initNodes()
+    }
+    
+    func initNodes() {
+        gameFieldNode.addChild(startEndNode)
+        gameFieldNode.addChild(puzzlesNode)
+        puzzlesNode.zPosition = -1
+        addChild(gameFieldNode)
     }
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     override func didMove(to view: SKView) {
-        addGameFieldNode(toView: view)
+        updateGameField()
     }
     
     func rotateStartAndFinishTile(tile: SKSpriteNode, column: Int, row: Int, columns: Int, rows: Int) {
@@ -57,13 +70,14 @@ class GameScene: SKScene {
         return value
     }
     
-    func addGameFieldNode(toView: SKView) {
-        gameFieldNode = SKNode()
+    func updateGameField() {
+        puzzlesNode.removeAllChildren()
+        startEndNode.removeAllChildren()
         //gameFieldNode.isUserInteractionEnabled = true
         let columns = level.tiles.count
         let rows = level.tiles[0].count
-        let tileSize = size.width / CGFloat(level.tiles.count - 2)
-        
+        var puzzleTileNodes = Array(repeating: Array(repeating: TileSpriteNode(), count: rows - 2), count: columns - 2)
+        tileSize = size.width / CGFloat(level.tiles.count - 2)
         for column in 0...columns - 1 {
             for row in 0...rows - 1 {
                 let tile = level.tiles[column][row]
@@ -72,50 +86,71 @@ class GameScene: SKScene {
                 
                 if (shortcut != "n") {
                     let tileNode = TileSpriteNode(imageNamed: TILE_TEXTURES[String(tile.shortcut)]!)
-                   // tileNode.isUserInteractionEnabled = true
-                    tileNode.size.width = tileSize
-                    tileNode.size.height = tileSize
+                    // tileNode.isUserInteractionEnabled = true
+                    tileNode.size.width = tileSize!
+                    tileNode.size.height = tileSize!
                     
-                    tileNode.position = CGPoint(x: tileSize * CGFloat(toBorders(value: column - 1, from: 0, to: columns - 3)) + (tileSize / 2.0), y: size.height - tileSize * CGFloat(toBorders(value: row - 1, from: 0, to: rows-3)) + (tileSize / 2.0) - tileSize)
+                    tileNode.position = CGPoint(x: tileSize! * CGFloat(toBorders(value: column - 1, from: 0, to: columns - 3)) + (tileSize! / 2.0), y: size.height - tileSize! * CGFloat(toBorders(value: row - 1, from: 0, to: rows-3)) + (tileSize! / 2.0) - tileSize!)
                     
                     if (tileType == TileType.START || tileType == TileType.FINISH) {
                         rotateStartAndFinishTile(tile: tileNode, column: column, row: row, columns: columns, rows: rows)
+                        startEndNode.addChild(tileNode)
                     }
-                    
-                    gameFieldNode!.addChild(tileNode)
+                    if (tileType == TileType.PUZZLE) {
+                        puzzleTileNodes[column - 1][row - 1] = tileNode
+                        puzzlesNode.addChild(tileNode)
+                    }
                 }
             }
         }
-        addChild(gameFieldNode!)
     }
+    
     var currentTouch : UITouch? = nil
     var startPoint: CGPoint? = nil
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if(currentTouch == nil) {
-            print("set new touch:")
             currentTouch = touches.first
             startPoint = currentTouch?.location(in: self)
-            print(startPoint)
-        } else {
-            print("ignore touch")
         }
     }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         if(touches.contains(currentTouch!)) {
-            print("moved")
-            let newPos = currentTouch?.location(in: self)
-            print(newPos)
-            gameFieldNode?.position.x = newPos!.x - startPoint!.x
-            gameFieldNode?.position.y = newPos!.y - startPoint!.y
+            currentTouch = nil
         }
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if(touches.contains(currentTouch!)) {
-            print("Touch ended")
-            print(currentTouch?.location(in: self))
+            let newPos = currentTouch?.location(in: self)
+            let deltaX = newPos!.x - startPoint!.x
+            let deltaY = newPos!.y - startPoint!.y
+            if(abs(deltaX) > abs(deltaY)) {
+                if(deltaX > MIN_MOVE) {
+                    gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: yToRow(startPoint!.y), steps: 1)
+                    updateGameField()
+                }
+                if(deltaX < -MIN_MOVE) {
+                    gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: yToRow(startPoint!.y), steps: -1)
+                    updateGameField()
+                }
+            } else {
+                if(deltaY > MIN_MOVE) {
+                    gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: xToColumn(startPoint!.x), steps: -1)
+                    updateGameField()
+                }
+                if(deltaY < -MIN_MOVE) {
+                    gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: xToColumn(startPoint!.x), steps: 1)
+                    updateGameField()
+                }
+            }
             currentTouch = nil
         }
     }
-
+    func yToRow(_ y: CGFloat) -> Int {
+        return Int((size.height - y) / tileSize!)
+    }
+    
+    func xToColumn(_ x : CGFloat) -> Int {
+        return Int(x / tileSize!)
+    }
 }
 

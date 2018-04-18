@@ -152,7 +152,7 @@ class GameFieldNode : SKNode {
     func animateTileSwipe(horizontal: Bool, rowOrColumn: Int, steps: Int) {
         update()
         if(horizontal) {
-            let moveAction = SKAction.moveBy(x: tileSize * CGFloat(steps), y: 0, duration: 3)
+            let moveAction = SKAction.moveBy(x: tileSize * CGFloat(steps), y: 0, duration: 0.28)
             moveAction.timingMode = SKActionTimingMode.easeInEaseOut
             for column in 0..<puzzleTiles.count {
                 puzzleTiles[column][rowOrColumn].run(moveAction, completion: {self.update()})

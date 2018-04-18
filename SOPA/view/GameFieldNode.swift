@@ -16,6 +16,7 @@ class GameFieldNode : SKNode {
     var tileSize: CGFloat
     let MIN_MOVE = CGFloat(30)
     var puzzleTiles: [[TileSpriteNode]]
+    let FIELD_SART_FROM_TOP = CGFloat(0.1)
     
     init(level: Level, gameScene: GameScene) {
         self.level = level
@@ -35,7 +36,7 @@ class GameFieldNode : SKNode {
         fieldBorderSprite.zPosition = -2
         let sceneWidth = gameScene.size.width
         fieldBorderSprite.position.x = sceneWidth / 2
-        fieldBorderSprite.position.y = gameScene.size.height - sceneWidth / 2
+        fieldBorderSprite.position.y = gameScene.size.height * (1 - FIELD_SART_FROM_TOP) - sceneWidth / 2
         fieldBorderSprite.size.width = sceneWidth
         fieldBorderSprite.size.height = sceneWidth
         self.addChild(fieldBorderSprite)
@@ -71,7 +72,7 @@ class GameFieldNode : SKNode {
             tileNode.size.width = tileSize
             tileNode.size.height = tileSize
             
-            tileNode.position = CGPoint(x: tileSize * CGFloat(toBorders(value: column - 1, from: 0, to: columns - 3)) + (tileSize / 2.0), y: gameScene.size.height - tileSize * CGFloat(toBorders(value: row - 1, from: 0, to: rows-3)) + (tileSize / 2.0) - tileSize)
+            tileNode.position = CGPoint(x: tileSize * CGFloat(toBorders(value: column - 1, from: 0, to: columns - 3)) + (tileSize / 2.0), y: gameScene.size.height * (1 - FIELD_SART_FROM_TOP) - tileSize * CGFloat(toBorders(value: row - 1, from: 0, to: rows-3)) + (tileSize / 2.0) - tileSize)
             
             if (tileType == TileType.START || tileType == TileType.FINISH) {
                 rotateStartAndFinishTile(tile: tileNode, column: column, row: row, columns: columns, rows: rows)
@@ -184,7 +185,7 @@ class GameFieldNode : SKNode {
         }
     }
     func yToRow(_ y: CGFloat) -> Int {
-        return Int((gameScene.size.height - y) / tileSize)
+        return Int((gameScene.size.height * (1 - FIELD_SART_FROM_TOP) - y) / tileSize)
     }
     
     func xToColumn(_ x : CGFloat) -> Int {

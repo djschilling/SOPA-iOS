@@ -23,10 +23,22 @@ class GameFieldNode : SKNode {
         tileSize = gameScene.size.width / CGFloat(level.tiles.count - 2)
         puzzleTiles = Array(repeating: Array(repeating: TileSpriteNode(), count: level.tiles[0].count - 2), count: level.tiles.count - 2)
         super.init()
+        addBorders()
         addChild(startEndNode)
         addChild(puzzlesNode)
         puzzlesNode.zPosition = -1
         self.isUserInteractionEnabled = true
+    }
+    
+    func addBorders() {
+        let fieldBorderSprite = SKSpriteNode(imageNamed: "borders")
+        fieldBorderSprite.zPosition = -2
+        let sceneWidth = gameScene.size.width
+        fieldBorderSprite.position.x = sceneWidth / 2
+        fieldBorderSprite.position.y = gameScene.size.height - sceneWidth / 2
+        fieldBorderSprite.size.width = sceneWidth
+        fieldBorderSprite.size.height = sceneWidth
+        self.addChild(fieldBorderSprite)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -150,6 +162,12 @@ class GameFieldNode : SKNode {
     }
     
     func animateTileSwipe(horizontal: Bool, rowOrColumn: Int, steps: Int) {
+        if(rowOrColumn < 0) {
+            return
+        }
+        if((horizontal && rowOrColumn + 2 >= level.tiles[0].count) || (!horizontal && rowOrColumn + 2 >= level.tiles.count) ) {
+            return
+        }
         update()
         if(horizontal) {
             let moveAction = SKAction.moveBy(x: tileSize * CGFloat(steps), y: 0, duration: 0.28)

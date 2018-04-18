@@ -19,6 +19,9 @@ class GameFieldService {
         if (rowOrColumn < 0) {
             return false
         }
+        if((horizontal && rowOrColumn + 2 >= level.tiles[0].count) || (!horizontal && rowOrColumn + 2 >= level.tiles.count)) {
+            return false
+        }
 
         if (horizontal) {
             let playableRows = level.tiles.count - 2;

@@ -15,16 +15,21 @@ class GameScene: SKScene {
     
     let gameFieldService = GameFieldService()
     var levelSolved = false
+    let BUTTON_SIZE = CGFloat(0.3)
     
     init(size: CGSize, level: Level) {
         self.level = level
         super.init(size: size)
-        gameFieldNode = GameFieldNode(level: level, gameScene: self)
+        gameFieldNode = GameFieldNode(gameScene: self)
         addChild(gameFieldNode!)
+        addButtons()
     }
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addButtons() {
     }
     override func didMove(to view: SKView) {
         gameFieldNode!.update()
@@ -33,5 +38,7 @@ class GameScene: SKScene {
         gameFieldService.shiftLine(level: level, horizontal: horizontal, rowOrColumn: rowOrColumn, steps: steps)
         levelSolved = gameFieldService.solvedPuzzle(level: level)
     }
+    
+  
 }
 

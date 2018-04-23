@@ -11,15 +11,14 @@ import SpriteKit
 class GameFieldNode : SKNode {
     let startEndNode = SKNode()
     let puzzlesNode = SKNode()
-    let level: Level
     let gameScene: GameScene
     var tileSize: CGFloat
     let MIN_MOVE = CGFloat(30)
     var puzzleTiles: [[TileSpriteNode]]
     let FIELD_SART_FROM_TOP = CGFloat(0.1)
     
-    init(level: Level, gameScene: GameScene) {
-        self.level = level
+    init(gameScene: GameScene) {
+        let level = gameScene.level
         self.gameScene = gameScene
         tileSize = gameScene.size.width / CGFloat(level.tiles.count - 2)
         puzzleTiles = Array(repeating: Array(repeating: TileSpriteNode(), count: level.tiles[0].count - 2), count: level.tiles.count - 2)
@@ -49,8 +48,8 @@ class GameFieldNode : SKNode {
     func update() {
         puzzlesNode.removeAllChildren()
         startEndNode.removeAllChildren()
-        let columns = level.tiles.count
-        let rows = level.tiles[0].count
+        let columns = gameScene.level.tiles.count
+        let rows = gameScene.level.tiles[0].count
         for column in 0...columns - 1 {
             for row in 0...rows - 1 {
                 addTile(column: column, row: row, columns: columns, rows: rows, levelSolved: gameScene.levelSolved)
@@ -59,7 +58,7 @@ class GameFieldNode : SKNode {
     }
     
     func addTile(column: Int, row: Int, columns: Int, rows: Int, levelSolved: Bool) {
-        let tile = level.tiles[column][row]
+        let tile = gameScene.level.tiles[column][row]
         let shortcut = tile.shortcut
         let tileType = tile.tileType
         if (shortcut != "n") {
@@ -166,7 +165,7 @@ class GameFieldNode : SKNode {
         if(rowOrColumn < 0) {
             return
         }
-        if((horizontal && rowOrColumn + 2 >= level.tiles[0].count) || (!horizontal && rowOrColumn + 2 >= level.tiles.count) ) {
+        if((horizontal && rowOrColumn + 2 >= gameScene.level.tiles[0].count) || (!horizontal && rowOrColumn + 2 >= gameScene.level.tiles.count) ) {
             return
         }
         update()

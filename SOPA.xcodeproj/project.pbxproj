@@ -17,6 +17,10 @@
 		63F661681F9B88440043ABCF /* LevelTranslatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661671F9B88440043ABCF /* LevelTranslatorTest.swift */; };
 		64182B122082604300CF639A /* TileSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64182B112082604300CF639A /* TileSpriteNode.swift */; };
 		64182B142084BC7C00CF639A /* GameFieldNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64182B132084BC7C00CF639A /* GameFieldNode.swift */; };
+		64182B16208771A600CF639A /* SpriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64182B15208771A600CF639A /* SpriteButton.swift */; };
+		64182B17208771A600CF639A /* SpriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64182B15208771A600CF639A /* SpriteButton.swift */; };
+		64182B19208DCE0A00CF639A /* LevelModeGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64182B18208DCE0A00CF639A /* LevelModeGameScene.swift */; };
+		64182B1A208DCE0A00CF639A /* LevelModeGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64182B18208DCE0A00CF639A /* LevelModeGameScene.swift */; };
 		6446C2E11FAC802900806A10 /* GameEndService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446C2D61FAC802600806A10 /* GameEndService.swift */; };
 		6446C2E31FAC802900806A10 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446C2D71FAC802700806A10 /* GameService.swift */; };
 		6446C2E51FAC802900806A10 /* PathState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446C2D81FAC802700806A10 /* PathState.swift */; };
@@ -96,6 +100,8 @@
 		63F661671F9B88440043ABCF /* LevelTranslatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelTranslatorTest.swift; sourceTree = "<group>"; };
 		64182B112082604300CF639A /* TileSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSpriteNode.swift; sourceTree = "<group>"; };
 		64182B132084BC7C00CF639A /* GameFieldNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFieldNode.swift; sourceTree = "<group>"; };
+		64182B15208771A600CF639A /* SpriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteButton.swift; sourceTree = "<group>"; };
+		64182B18208DCE0A00CF639A /* LevelModeGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelModeGameScene.swift; sourceTree = "<group>"; };
 		6446C2D61FAC802600806A10 /* GameEndService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEndService.swift; sourceTree = "<group>"; };
 		6446C2D71FAC802700806A10 /* GameService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
 		6446C2D81FAC802700806A10 /* PathState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathState.swift; sourceTree = "<group>"; };
@@ -267,8 +273,10 @@
 			isa = PBXGroup;
 			children = (
 				63F661281F9B346E0043ABCF /* GameScene.swift */,
-				64182B112082604300CF639A /* TileSpriteNode.swift */,
 				64182B132084BC7C00CF639A /* GameFieldNode.swift */,
+				64182B112082604300CF639A /* TileSpriteNode.swift */,
+				64182B15208771A600CF639A /* SpriteButton.swift */,
+				64182B18208DCE0A00CF639A /* LevelModeGameScene.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -391,6 +399,7 @@
 				649209971FB3216500ED019D /* StarCalculator.swift in Sources */,
 				64BCCC54207F97A9008B145D /* LevelServiceImp.swift in Sources */,
 				646902D6207F6B8800283F71 /* Observer.swift in Sources */,
+				64182B16208771A600CF639A /* SpriteButton.swift in Sources */,
 				6446C2FD1FAC80DC00806A10 /* LevelService.swift in Sources */,
 				6446C2ED1FAC802900806A10 /* GameFieldService.swift in Sources */,
 				63F661291F9B346E0043ABCF /* GameScene.swift in Sources */,
@@ -401,6 +410,7 @@
 				D4CB84D81F9BA2BF001AB1E3 /* ResourceMapper.swift in Sources */,
 				6446C2E51FAC802900806A10 /* PathState.swift in Sources */,
 				646902BD207E60E800283F71 /* LevelInfoDataSource.swift in Sources */,
+				64182B19208DCE0A00CF639A /* LevelModeGameScene.swift in Sources */,
 				646902D5207F6B8800283F71 /* GameSceneObserver.swift in Sources */,
 				6446C2E11FAC802900806A10 /* GameEndService.swift in Sources */,
 				6446C2E71FAC802900806A10 /* Tile.swift in Sources */,
@@ -423,11 +433,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				646902C8207F6B7600283F71 /* LevelResult.swift in Sources */,
+				64182B17208771A600CF639A /* SpriteButton.swift in Sources */,
 				646902C3207F6B7600283F71 /* GameEndService.swift in Sources */,
 				646902C4207F6B7600283F71 /* GameFieldService.swift in Sources */,
 				646902C5207F6B7600283F71 /* GameService.swift in Sources */,
 				646902CC207F6B7600283F71 /* StarCalculator.swift in Sources */,
 				646902D3207F6B8200283F71 /* GameViewController.swift in Sources */,
+				64182B1A208DCE0A00CF639A /* LevelModeGameScene.swift in Sources */,
 				63F661611F9B48250043ABCF /* GameFieldServiceTest.swift in Sources */,
 				646902C9207F6B7600283F71 /* PathState.swift in Sources */,
 				63F6615E1F9B41B30043ABCF /* LevelTest.swift in Sources */,

@@ -39,6 +39,7 @@ class Level {
     }
     
     private func copyTilesFrom(tiles: [[Tile]]) {
+        self.tiles = Array(repeating: Array(repeating: Tile(top: false, bottom: false, left: false, right: false, tileType: TileType.UNDEFINED, shortcut: "u"), count: tiles[0].count), count: tiles.count)
         for i in [0...tiles.count - 1] {
             for j in [0...tiles[0].count - 1 ] {
                 self.tiles[i][j] = tiles[i][j]

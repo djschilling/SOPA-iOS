@@ -31,5 +31,6 @@ class LevelModeGameScene: GameScene {
         levelSolved = false
         gameFieldNode?.update()
         currentMoves = 0
+        currentMovesNode.text = String(currentMoves)
     }
 }

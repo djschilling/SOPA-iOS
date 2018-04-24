@@ -16,6 +16,8 @@ class GameScene: SKScene {
     let gameFieldService = GameFieldService()
     var levelSolved = false
     let BUTTON_SIZE = CGFloat(0.3)
+    let currentMovesNode = SKLabelNode(fontNamed: "Impact")
+    var currentMoves: Int = 0
     
     init(size: CGSize, level: Level) {
         self.level = level
@@ -23,7 +25,8 @@ class GameScene: SKScene {
         gameFieldNode = GameFieldNode(gameScene: self)
         addChild(gameFieldNode!)
         addButtons()
-        addLabels()
+        addStaticLabels()
+        addDynamicLabels()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -33,7 +36,7 @@ class GameScene: SKScene {
     func addButtons() {
     }
     
-    func addLabels() {
+    func addStaticLabels() {
         let minMovesLabel = SKLabelNode(fontNamed: "Impact")
         minMovesLabel.text = "Min. Moves:"
         minMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
@@ -53,13 +56,42 @@ class GameScene: SKScene {
         levelLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         levelLabel.text = "Level"
         addChild(levelLabel)
+        
+        let levelNumber = SKLabelNode(fontNamed: "Impact")
+        levelNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        levelNumber.position.y = levelLabel.fontSize
+        levelNumber.fontSize *= 2
+        levelNumber.text = String(level.id!)
+        addChild(levelNumber)
+        
+        let minMovesNumber = SKLabelNode(fontNamed: "Impact")
+        minMovesNumber.text = String(level.minimumMovesToSolve!)
+        minMovesNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        minMovesNumber.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
+        minMovesNumber.position.y = size.height - minMovesLabel.fontSize
+        minMovesNumber.fontSize *= 2
+        addChild(minMovesNumber)
+    }
+    
+    func addDynamicLabels() {
+        currentMovesNode.text = String(currentMoves)
+        currentMovesNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
+        currentMovesNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
+        currentMovesNode.position.y = size.height - currentMovesNode.fontSize
+        currentMovesNode.fontSize *= 2
+        currentMovesNode.position.x = size.width
+        addChild(currentMovesNode)
     }
     
     override func didMove(to view: SKView) {
         gameFieldNode!.update()
     }
     func moveLine(horizontal: Bool, rowOrColumn:  Int, steps: Int) {
-        gameFieldService.shiftLine(level: level, horizontal: horizontal, rowOrColumn: rowOrColumn, steps: steps)
+        if gameFieldService.shiftLine(level: level, horizontal: horizontal, rowOrColumn: rowOrColumn, steps: steps) {
+            currentMoves = currentMoves + 1
+            currentMovesNode.text = String(currentMoves)
+
+        }
         levelSolved = gameFieldService.solvedPuzzle(level: level)
     }
     

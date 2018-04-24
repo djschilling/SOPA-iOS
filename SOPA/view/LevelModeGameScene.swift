@@ -30,5 +30,6 @@ class LevelModeGameScene: GameScene {
         level = Level(level: levelCopy)
         levelSolved = false
         gameFieldNode?.update()
+        currentMoves = 0
     }
 }

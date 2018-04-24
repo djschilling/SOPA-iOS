@@ -15,7 +15,7 @@ class GameFieldNode : SKNode {
     var tileSize: CGFloat
     let MIN_MOVE = CGFloat(30)
     var puzzleTiles: [[TileSpriteNode]]
-    let FIELD_SART_FROM_TOP = CGFloat(0.1)
+    let FIELD_SART_FROM_TOP = CGFloat(0.2)
     
     init(gameScene: GameScene) {
         let level = gameScene.level

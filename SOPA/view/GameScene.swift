@@ -23,6 +23,7 @@ class GameScene: SKScene {
         gameFieldNode = GameFieldNode(gameScene: self)
         addChild(gameFieldNode!)
         addButtons()
+        addLabels()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -31,6 +32,29 @@ class GameScene: SKScene {
     
     func addButtons() {
     }
+    
+    func addLabels() {
+        let minMovesLabel = SKLabelNode(fontNamed: "Impact")
+        minMovesLabel.text = "Min. Moves:"
+        minMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        minMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
+        minMovesLabel.position.y = size.height
+        addChild(minMovesLabel)
+        
+        let currentMovesLabel = SKLabelNode(fontNamed: "Impact")
+        currentMovesLabel.text = "Current moves:"
+        currentMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
+        currentMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
+        currentMovesLabel.position.y = size.height
+        currentMovesLabel.position.x = size.width
+        addChild(currentMovesLabel)
+        
+        let levelLabel = SKLabelNode(fontNamed: "Impact")
+        levelLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        levelLabel.text = "Level"
+        addChild(levelLabel)
+    }
+    
     override func didMove(to view: SKView) {
         gameFieldNode!.update()
     }

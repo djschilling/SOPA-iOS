@@ -33,4 +33,12 @@ class LevelModeGameScene: GameScene {
         currentMoves = 0
         currentMovesNode.text = String(currentMoves)
     }
+    
+    override func onLevelSolved() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
+            let closeDoorAnimation = SKTransition.doorsCloseHorizontal(withDuration: 1)
+            let newScene = LevelModeGameScene(size: self.size, level: self.levelCopy)
+            self.view?.presentScene(newScene, transition: closeDoorAnimation)
+        }
+    }
 }

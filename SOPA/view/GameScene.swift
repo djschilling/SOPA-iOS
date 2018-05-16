@@ -83,6 +83,10 @@ class GameScene: SKScene {
         addChild(currentMovesNode)
     }
     
+    func onLevelSolved() {
+        print("Level Solved")
+    }
+    
     override func didMove(to view: SKView) {
         gameFieldNode!.update()
     }
@@ -90,9 +94,11 @@ class GameScene: SKScene {
         if gameFieldService.shiftLine(level: level, horizontal: horizontal, rowOrColumn: rowOrColumn, steps: steps) {
             currentMoves = currentMoves + 1
             currentMovesNode.text = String(currentMoves)
-
         }
         levelSolved = gameFieldService.solvedPuzzle(level: level)
+        if levelSolved {
+            onLevelSolved()
+        }
     }
     
   

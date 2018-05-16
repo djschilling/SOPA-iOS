@@ -10,17 +10,15 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    var level: Level
     var gameFieldNode: GameFieldNode?
     
-    let gameFieldService = GameFieldService()
+    let gameService : GameService
     var levelSolved = false
     let BUTTON_SIZE = CGFloat(0.3)
     let currentMovesNode = SKLabelNode(fontNamed: "Impact")
-    var currentMoves: Int = 0
     
     init(size: CGSize, level: Level) {
-        self.level = level
+        gameService = GameServiceImpl(level: level)
         super.init(size: size)
         gameFieldNode = GameFieldNode(gameScene: self)
         addChild(gameFieldNode!)
@@ -61,11 +59,11 @@ class GameScene: SKScene {
         levelNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         levelNumber.position.y = levelLabel.fontSize
         levelNumber.fontSize *= 2
-        levelNumber.text = String(level.id!)
+        levelNumber.text = String(gameService.getLevel().id!)
         addChild(levelNumber)
         
         let minMovesNumber = SKLabelNode(fontNamed: "Impact")
-        minMovesNumber.text = String(level.minimumMovesToSolve!)
+        minMovesNumber.text = String(gameService.getLevel().minimumMovesToSolve!)
         minMovesNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         minMovesNumber.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
         minMovesNumber.position.y = size.height - minMovesLabel.fontSize
@@ -74,7 +72,7 @@ class GameScene: SKScene {
     }
     
     func addDynamicLabels() {
-        currentMovesNode.text = String(currentMoves)
+        currentMovesNode.text = String(gameService.getLevel().movesCounter)
         currentMovesNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
         currentMovesNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
         currentMovesNode.position.y = size.height - currentMovesNode.fontSize
@@ -91,11 +89,9 @@ class GameScene: SKScene {
         gameFieldNode!.update()
     }
     func moveLine(horizontal: Bool, rowOrColumn:  Int, steps: Int) {
-        if gameFieldService.shiftLine(level: level, horizontal: horizontal, rowOrColumn: rowOrColumn, steps: steps) {
-            currentMoves = currentMoves + 1
-            currentMovesNode.text = String(currentMoves)
-        }
-        levelSolved = gameFieldService.solvedPuzzle(level: level)
+        gameService.shiftLine(horizontal: horizontal, row: rowOrColumn, steps: steps)
+        currentMovesNode.text = String(gameService.getLevel().movesCounter)
+        levelSolved = gameService.solvedPuzzle()
         if levelSolved {
             onSolvedGame()
         }

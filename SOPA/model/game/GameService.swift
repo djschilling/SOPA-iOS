@@ -12,13 +12,7 @@ protocol GameService {
 
     func solvedPuzzle() -> Bool
 
-    func shiftLine(horizontal: Bool, row: Int, steps: Int, silent: Bool)
+    func shiftLine(horizontal: Bool, row: Int, steps: Int)
 
     func getLevel() -> Level
-
-    func attach(observer: GameSceneObserver)
-
-    func detatch(observer: GameSceneObserver)
-
-    func notifyAllObserver()
 }

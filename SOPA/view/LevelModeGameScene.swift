@@ -28,11 +28,7 @@ class LevelModeGameScene: GameScene {
         addChild(restartButton!)
     }
     func restartLevel() {
-        level = Level(level: levelCopy)
-        levelSolved = false
-        gameFieldNode?.update()
-        currentMoves = 0
-        currentMovesNode.text = String(currentMoves)
+      
     }
     
     override func onSolvedGame() {

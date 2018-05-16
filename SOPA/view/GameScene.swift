@@ -83,7 +83,7 @@ class GameScene: SKScene {
         addChild(currentMovesNode)
     }
     
-    func onLevelSolved() {
+    func onSolvedGame() {
         print("Level Solved")
     }
     
@@ -97,7 +97,7 @@ class GameScene: SKScene {
         }
         levelSolved = gameFieldService.solvedPuzzle(level: level)
         if levelSolved {
-            onLevelSolved()
+            onSolvedGame()
         }
     }
     

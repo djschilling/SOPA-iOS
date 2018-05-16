@@ -10,6 +10,7 @@ import Foundation
 import SpriteKit
 class LevelModeGameScene: GameScene {
     let levelCopy: Level
+    var restartButton: SpriteButton?
     override init(size: CGSize, level: Level) {
         levelCopy = Level(level: level)
         super.init(size: size, level: level)
@@ -19,12 +20,12 @@ class LevelModeGameScene: GameScene {
         fatalError("init(coder:) has not been implemented")
     }
     override func addButtons() {
-        let restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
-        restartButton.size.height = BUTTON_SIZE * size.width
-        restartButton.size.width = BUTTON_SIZE *  size.width
-        restartButton.position.y = BUTTON_SIZE *  size.width / 2
-        restartButton.position.x = size.width - BUTTON_SIZE *  size.width / 2
-        addChild(restartButton)
+        restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
+        restartButton!.size.height = BUTTON_SIZE * size.width
+        restartButton!.size.width = BUTTON_SIZE *  size.width
+        restartButton!.position.y = BUTTON_SIZE *  size.width / 2
+        restartButton!.position.x = size.width - BUTTON_SIZE *  size.width / 2
+        addChild(restartButton!)
     }
     func restartLevel() {
         level = Level(level: levelCopy)
@@ -34,7 +35,9 @@ class LevelModeGameScene: GameScene {
         currentMovesNode.text = String(currentMoves)
     }
     
-    override func onLevelSolved() {
+    override func onSolvedGame() {
+        restartButton!.isUserInteractionEnabled = false
+        restartButton!.isHidden = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
             let closeDoorAnimation = SKTransition.doorsCloseHorizontal(withDuration: 1)
             let newScene = LevelModeGameScene(size: self.size, level: self.levelCopy)

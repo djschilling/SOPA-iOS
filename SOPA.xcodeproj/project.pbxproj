@@ -74,6 +74,7 @@
 		64CA8A691FA7C569009BDBC2 /* levels in Resources */ = {isa = PBXBuildFile; fileRef = 64CA8A681FA7C568009BDBC2 /* levels */; };
 		64CA8A6A1FA7C569009BDBC2 /* levels in Resources */ = {isa = PBXBuildFile; fileRef = 64CA8A681FA7C568009BDBC2 /* levels */; };
 		64CA8A6C1FA7C605009BDBC2 /* FileHandlerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA8A6B1FA7C605009BDBC2 /* FileHandlerTest.swift */; };
+		64D5B8CF20ADE2680007D982 /* LevelModeScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D5B8CE20ADE2680007D982 /* LevelModeScoreScene.swift */; };
 		D4CB84D81F9BA2BF001AB1E3 /* ResourceMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CB84D71F9BA2BF001AB1E3 /* ResourceMapper.swift */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +130,7 @@
 		64CA8A571FA7BE39009BDBC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64CA8A681FA7C568009BDBC2 /* levels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = levels; sourceTree = "<group>"; };
 		64CA8A6B1FA7C605009BDBC2 /* FileHandlerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandlerTest.swift; sourceTree = "<group>"; };
+		64D5B8CE20ADE2680007D982 /* LevelModeScoreScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelModeScoreScene.swift; sourceTree = "<group>"; };
 		D4CB84D71F9BA2BF001AB1E3 /* ResourceMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -289,6 +291,7 @@
 				64182B112082604300CF639A /* TileSpriteNode.swift */,
 				64182B15208771A600CF639A /* SpriteButton.swift */,
 				64182B18208DCE0A00CF639A /* LevelModeGameScene.swift */,
+				64D5B8CE20ADE2680007D982 /* LevelModeScoreScene.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				64182B142084BC7C00CF639A /* GameFieldNode.swift in Sources */,
 				6446C2FF1FAC80DC00806A10 /* FileHandler.swift in Sources */,
 				6493FB652073D6510044B4E0 /* SOPA.xcdatamodeld in Sources */,
+				64D5B8CF20ADE2680007D982 /* LevelModeScoreScene.swift in Sources */,
 				63F661231F9B346E0043ABCF /* AppDelegate.swift in Sources */,
 				6446C3031FAC80DC00806A10 /* LevelTranslator.swift in Sources */,
 				64182B122082604300CF639A /* TileSpriteNode.swift in Sources */,

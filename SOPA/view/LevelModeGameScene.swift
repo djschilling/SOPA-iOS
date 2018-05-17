@@ -36,7 +36,7 @@ class LevelModeGameScene: GameScene {
         restartButton!.isHidden = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
             let closeDoorAnimation = SKTransition.doorsCloseHorizontal(withDuration: 1)
-            let newScene = LevelModeGameScene(size: self.size, level: self.levelCopy)
+            let newScene = LevelModeScoreScene(size: self.size, levelResult: LevelResult(levelId: 1, moveCount: 1, stars: 1))
             self.view?.presentScene(newScene, transition: closeDoorAnimation)
         }
     }

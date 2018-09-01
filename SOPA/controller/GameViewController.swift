@@ -14,8 +14,8 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let levelService = LevelServiceImpl(appDelegate: UIApplication.shared.delegate as! AppDelegate)
-        let level = levelService.getLevelById(id: 1)!
+        ResourcesManager.prepareManager(appDelegate: UIApplication.shared.delegate as! AppDelegate)
+        let level = ResourcesManager.getInstance().levelService!.getLevelById(id: 1)!
         let scene = LevelModeGameScene(size: view.bounds.size, level: level)
         let skView = view as! SKView
         

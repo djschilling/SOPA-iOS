@@ -109,7 +109,9 @@ class LevelModeScoreScene: SKScene {
     }
     
     func levelChoiceMenu() {
-        
+        let closeDoorAnimation = SKTransition.doorsCloseHorizontal(withDuration: 1)
+        let newScene = LevelChoiceScene(size: size, levelService: ResourcesManager.getInstance().levelService!)
+        self.view?.presentScene(newScene, transition: closeDoorAnimation)
     }
     
     func startNextLevel() {

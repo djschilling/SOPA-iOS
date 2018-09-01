@@ -15,6 +15,9 @@ class LevelChoiceScene: SKScene {
     init(size: CGSize, levelService: LevelService) {
         levelInfos = levelService.getLevelInfos()
         super.init(size: size)
+        let restartButton = LevelSelectButton(id: 1)
+        addChild(restartButton)
+
  
     }
  

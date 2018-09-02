@@ -16,7 +16,8 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         ResourcesManager.prepareManager(appDelegate: UIApplication.shared.delegate as! AppDelegate)
         let level = ResourcesManager.getInstance().levelService!.getLevelById(id: 1)!
-        let scene = LevelModeGameScene(size: view.bounds.size, level: level)
+        //let scene = LevelModeGameScene(size: view.bounds.size, level: level)
+        let scene = LevelChoiceScene(size: view.bounds.size, levelService: ResourcesManager.getInstance().levelService!)
         let skView = view as! SKView
         
         skView.showsFPS = true

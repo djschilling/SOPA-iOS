@@ -13,11 +13,11 @@ class LevelSelectButton: SKSpriteNode {
     let levelInfo: LevelInfo
     init(levelInfo: LevelInfo) {
         self.levelInfo = levelInfo
-        if locked {
+        if levelInfo.locked {
             let texture = SKTexture(imageNamed: "Level")
             super.init(texture: texture, color: UIColor.clear, size: texture.size())
             isUserInteractionEnabled = true
-            addStars(stars: (levelInfo?.levelId)!)
+            addStars(stars: levelInfo.levelId)
         } else {
             let texture = SKTexture(imageNamed: "LevelSW")
             super.init(texture: texture, color: UIColor.clear, size: texture.size())
@@ -33,6 +33,6 @@ class LevelSelectButton: SKSpriteNode {
     }
     
     func addStars(stars: Int) {
-        addChild(<#T##node: SKNode##SKNode#>)
+        addChild(SKSpriteNode(imageNamed: "star"))
     }
 }

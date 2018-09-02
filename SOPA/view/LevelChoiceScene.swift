@@ -15,8 +15,10 @@ class LevelChoiceScene: SKScene {
     init(size: CGSize, levelService: LevelService) {
         levelInfos = levelService.getLevelInfos()
         super.init(size: size)
-        let restartButton = LevelSelectButton(levelInfo: LevelInfo(levelId: 1, locked: true, fewestMoves: 2, stars: 2))
-        addChild(restartButton)
+        let levelButton = LevelSelectButton(levelInfo: LevelInfo(levelId: 1, locked: true, fewestMoves: 2, stars: 2))
+        levelButton.position = CGPoint(x: 200, y: 200)
+        addChild(levelButton)
+
 
  
     }

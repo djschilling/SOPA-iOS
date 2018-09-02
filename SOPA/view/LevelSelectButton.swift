@@ -10,12 +10,10 @@ import Foundation
 import SpriteKit
 
 class LevelSelectButton: SKSpriteNode {
-    let id: Int
-    init(id: Int) {
-        self.id = id
-        let levelInfo = ResourcesManager.getInstance().levelService?.getLevelById(id: id)?.levelInfo
-        let locked = levelInfo?.locked
-        if locked! {
+    let levelInfo: LevelInfo
+    init(levelInfo: LevelInfo) {
+        self.levelInfo = levelInfo
+        if locked {
             let texture = SKTexture(imageNamed: "Level")
             super.init(texture: texture, color: UIColor.clear, size: texture.size())
             isUserInteractionEnabled = true
@@ -31,10 +29,10 @@ class LevelSelectButton: SKSpriteNode {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        ResourcesManager.getInstance().levelService?.getLevelById(id: id)
+        ResourcesManager.getInstance().levelService?.getLevelById(id: 1)
     }
     
     func addStars(stars: Int) {
-        
+        addChild(<#T##node: SKNode##SKNode#>)
     }
 }

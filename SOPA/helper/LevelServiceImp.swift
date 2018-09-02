@@ -9,7 +9,9 @@
 import Foundation
 class LevelServiceImpl: LevelService {
     func getLevelById(id: Int) -> Level? {
-        return levelFileService.getLevel(id: id)
+        let level: Level = levelFileService.getLevel(id: id)
+        level.levelInfo = levelInfoDataSource.getLevelInfoById(id: level.id!)
+        return level
     }
     
     let levelInfoDataSource: LevelInfoDataSource

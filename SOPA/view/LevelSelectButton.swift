@@ -33,6 +33,26 @@ class LevelSelectButton: SKSpriteNode {
     }
     
     func addStars(stars: Int) {
-        addChild(SKSpriteNode(imageNamed: "star"))
+        let star1: SKSpriteNode = generateStar(achieved: stars >= 1)
+        let star2: SKSpriteNode = generateStar(achieved: stars >= 2)
+        let star3: SKSpriteNode = generateStar(achieved: stars >= 3)
+        star1.position = CGPoint(x: -size.width * 0.25, y: -size.height * 0.2)
+        star2.position = CGPoint(x: 0, y: -size.height * 0.27    )
+        star3.position = CGPoint(x: size.width * 0.25, y: -size.height * 0.2)
+
+        addChild(star1)
+        addChild(star2)
+        addChild(star3)
+
+    }
+    
+    func generateStar(achieved: Bool) -> SKSpriteNode {
+        var star = SKSpriteNode(imageNamed: "starSW")
+        if achieved {
+            star = SKSpriteNode(imageNamed: "star")
+        }
+        star.size = CGSize(width: size.width/3, height: size.height/3)
+        star.zPosition = zPosition + 1
+        return star
     }
 }

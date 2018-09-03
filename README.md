@@ -1,5 +1,8 @@
 # Sopa #
 
+
+[![Build Status](https://travis-ci.org/djschilling/SOPA-iOS.svg?branch=master)](https://travis-ci.org/djschilling/SOPA-iOS)
+
 * [Overview](https://github.com/djschilling/SOPA-iOS/#overview)
 * [Gamemodes](https://github.com/djschilling/SOPA-iOS/#gamemodes)
 * [Development](https://github.com/djschilling/SOPA-iOS/#development)

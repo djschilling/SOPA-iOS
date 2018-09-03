@@ -20,7 +20,7 @@ class LevelSelectButton: SKSpriteNode {
             super.init(texture: texture, color: UIColor.clear, size: levelButtonPositioner.getLevelSize())
             isUserInteractionEnabled = true
             position = levelButtonPositioner.getLevelPosition(id: levelInfo.levelId)
-            addStars(stars: levelInfo.levelId)
+            addStars(stars: levelInfo.stars)
             addLable(id: levelInfo.levelId, color: orange)
 
         } else {

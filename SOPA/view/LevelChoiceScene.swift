@@ -15,8 +15,11 @@ class LevelChoiceScene: SKScene {
     init(size: CGSize, levelService: LevelService) {
         levelInfos = levelService.getLevelInfos()
         super.init(size: size)
-        let levelButton = LevelSelectButton(levelInfo: levelInfos[0], levelButtonPositioner: LevelButtonPositioner())
-        addChild(levelButton)
+        
+        for levelInfo in levelInfos{
+            let levelButton = LevelSelectButton(levelInfo: levelInfo, levelButtonPositioner: LevelButtonPositioner(size: size))
+            addChild(levelButton)
+        }
 
 
  

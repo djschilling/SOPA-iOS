@@ -24,4 +24,6 @@ protocol LevelService {
     func persistLevelResult(levelResult: LevelResult ) -> LevelInfo;
     
     func unlockLevel(levelId: Int);
+    
+    func deleteAllLevelInfos();
 }

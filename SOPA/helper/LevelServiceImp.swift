@@ -45,7 +45,7 @@ class LevelServiceImpl: LevelService {
                 }
             }
             if !found {
-                _ = levelInfoDataSource.createLevelInfo(levelInfo: LevelInfo(levelId: currentId, locked: true, fewestMoves: -1, stars: 0))
+                _ = levelInfoDataSource.createLevelInfo(levelInfo: LevelInfo(levelId: currentId, locked: (currentId != 1), fewestMoves: -1, stars: 0))
             }
         }
     }
@@ -69,5 +69,9 @@ class LevelServiceImpl: LevelService {
         let levelInfo = levelInfoDataSource.getLevelInfoById(id: levelId)
         levelInfo?.locked = false
         _ = levelInfoDataSource.updateLevelInfo(levelInfo: levelInfo!)
+    }
+    
+    func deleteAllLevelInfos() {
+        levelInfoDataSource.deleteAllLevelInfos()
     }
 }

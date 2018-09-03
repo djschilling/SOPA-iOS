@@ -11,17 +11,21 @@ import SpriteKit
 
 class LevelSelectButton: SKSpriteNode {
     let levelInfo: LevelInfo
-    init(levelInfo: LevelInfo) {
+    init(levelInfo: LevelInfo, levelButtonPositioner: LevelButtonPositioner) {
         self.levelInfo = levelInfo
-        if levelInfo.locked {
+        if !levelInfo.locked {
             let texture = SKTexture(imageNamed: "Level")
-            super.init(texture: texture, color: UIColor.clear, size: texture.size())
+            super.init(texture: texture, color: UIColor.clear, size: levelButtonPositioner.getLevelSize())
             isUserInteractionEnabled = true
+            position = levelButtonPositioner.getLevelPosition(id: levelInfo.levelId)
             addStars(stars: levelInfo.levelId)
         } else {
             let texture = SKTexture(imageNamed: "LevelSW")
-            super.init(texture: texture, color: UIColor.clear, size: texture.size())
+            super.init(texture: texture, color: UIColor.clear, size: levelButtonPositioner.getLevelSize())
+            position = levelButtonPositioner.getLevelPosition(id: levelInfo.levelId)
+
         }
+
     }
     
     required init?(coder aDecoder: NSCoder) {

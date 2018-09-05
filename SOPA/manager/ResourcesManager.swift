@@ -7,16 +7,18 @@
 //
 
 import Foundation
+import SpriteKit
 class ResourcesManager {
     static let INSTANCE = ResourcesManager()
     var levelService: LevelService?
+    var storyService: StoryService?
     
     static func getInstance() -> ResourcesManager {
         return INSTANCE;
     }
     
-    static func prepareManager(appDelegate: AppDelegate) {
+    static func prepareManager(appDelegate: AppDelegate, size: CGSize, skView: SKView) {
         getInstance().levelService = LevelServiceImpl(appDelegate: appDelegate)
-        
+        getInstance().storyService = StoryServiceImpl(size: size, levelService: getInstance().levelService!, skView: skView)
     }
 }

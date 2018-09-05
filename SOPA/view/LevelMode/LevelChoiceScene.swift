@@ -12,18 +12,15 @@ import SpriteKit
 
 class LevelChoiceScene: SKScene {
     let levelInfos: [LevelInfo]
+    let levelButtonArea: LevelButtonArea
+    
     init(size: CGSize, levelService: LevelService) {
         levelInfos = levelService.getLevelInfos()
+        levelButtonArea = LevelButtonArea(size: size, levelInfos: levelInfos)
         super.init(size: size)
-        
-        for levelInfo in levelInfos{
-            let levelButton = LevelSelectButton(levelInfo: levelInfo, levelButtonPositioner: LevelButtonPositioner(size: size))
-            addChild(levelButton)
-        }
-
-
- 
+        addChild(levelButtonArea)
     }
+
  
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

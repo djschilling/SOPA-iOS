@@ -18,7 +18,7 @@ class LevelSelectButton: SKSpriteNode {
         if !levelInfo.locked {
             let texture = SKTexture(imageNamed: "Level")
             super.init(texture: texture, color: UIColor.clear, size: levelButtonPositioner.getLevelSize())
-            isUserInteractionEnabled = true
+            //isUserInteractionEnabled = true
             position = levelButtonPositioner.getLevelPosition(id: levelInfo.levelId)
             addStars(stars: levelInfo.stars)
             addLable(id: levelInfo.levelId, color: orange)
@@ -38,7 +38,9 @@ class LevelSelectButton: SKSpriteNode {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        ResourcesManager.getInstance().levelService?.getLevelById(id: 1)
+        let closeDoorAnimation = SKTransition.doorsCloseHorizontal(withDuration: 1)
+        let newScene = LevelModeGameScene(size: size, level: ResourcesManager.getInstance().levelService!.getLevelById(id: levelInfo.levelId + 1)!)
+     //   presentScene(newScene, transition: closeDoorAnimation)
     }
     
     func addStars(stars: Int) {
@@ -76,4 +78,6 @@ class LevelSelectButton: SKSpriteNode {
         star.zPosition = zPosition + 1
         return star
     }
+    
+
 }

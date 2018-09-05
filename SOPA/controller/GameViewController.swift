@@ -14,18 +14,10 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ResourcesManager.prepareManager(appDelegate: UIApplication.shared.delegate as! AppDelegate)
+        ResourcesManager.prepareManager(appDelegate: UIApplication.shared.delegate as! AppDelegate, size: view.bounds.size, skView: view as! SKView)
         ResourcesManager.getInstance().levelService?.updateLevelInfos()
-        //let level = ResourcesManager.getInstance().levelService!.getLevelById(id: 1)!
-        //let scene = LevelModeGameScene(size: view.bounds.size, level: level)
-        let scene = LevelChoiceScene(size: view.bounds.size, levelService: ResourcesManager.getInstance().levelService!)
-        let skView = view as! SKView
-        
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.ignoresSiblingOrder = true
-        scene.scaleMode = .resizeFill
-        skView.presentScene(scene)
+        ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
+       
     }
     
     override var shouldAutorotate: Bool {

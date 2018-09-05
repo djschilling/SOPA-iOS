@@ -58,7 +58,7 @@ class LevelServiceImpl: LevelService {
     func persistLevelResult(levelResult: LevelResult) -> LevelInfo {
         let levelInfo = levelInfoDataSource.getLevelInfoById(id: levelResult.levelId)
         
-        if levelInfo!.fewestMoves == -1 || levelInfo!.fewestMoves < levelResult.moveCount {
+        if levelInfo!.fewestMoves == -1 || levelInfo!.fewestMoves > levelResult.moveCount {
             levelInfo?.fewestMoves = levelResult.moveCount
             levelInfo?.stars = levelResult.stars
         }

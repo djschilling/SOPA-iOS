@@ -9,10 +9,8 @@
 import Foundation
 import SpriteKit
 class LevelModeGameScene: GameScene {
-    let levelCopy: Level
     var restartButton: SpriteButton?
     override init(size: CGSize, level: Level) {
-        levelCopy = Level(level: level)
         super.init(size: size, level: level)
     }
     
@@ -28,7 +26,7 @@ class LevelModeGameScene: GameScene {
         addChild(restartButton!)
     }
     func restartLevel() {
-      
+      ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: gameService.getLevel().id!)
     }
     
     override func onSolvedGame() {
@@ -38,6 +36,7 @@ class LevelModeGameScene: GameScene {
         let levelService = ResourcesManager.getInstance().levelService
         let levelResult = levelService!.calculateLevelResult(level: level)
         levelService?.persistLevelResult(levelResult: levelResult)
+        levelService?.unlockLevel(levelId: level.id! + 1)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
             ResourcesManager.getInstance().storyService?.loadLevelModeScoreScene(levelResult: levelResult)
         }

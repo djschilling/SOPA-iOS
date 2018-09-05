@@ -18,7 +18,6 @@ class LevelSelectButton: SKSpriteNode {
         if !levelInfo.locked {
             let texture = SKTexture(imageNamed: "Level")
             super.init(texture: texture, color: UIColor.clear, size: levelButtonPositioner.getLevelSize())
-            //isUserInteractionEnabled = true
             position = levelButtonPositioner.getLevelPosition(id: levelInfo.levelId)
             addStars(stars: levelInfo.stars)
             addLable(id: levelInfo.levelId, color: orange)
@@ -37,12 +36,7 @@ class LevelSelectButton: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let closeDoorAnimation = SKTransition.doorsCloseHorizontal(withDuration: 1)
-        let newScene = LevelModeGameScene(size: size, level: ResourcesManager.getInstance().levelService!.getLevelById(id: levelInfo.levelId + 1)!)
-     //   presentScene(newScene, transition: closeDoorAnimation)
-    }
-    
+
     func addStars(stars: Int) {
         let star1: SKSpriteNode = generateStar(achieved: stars >= 1)
         let star2: SKSpriteNode = generateStar(achieved: stars >= 2)
@@ -79,5 +73,4 @@ class LevelSelectButton: SKSpriteNode {
         return star
     }
     
-
 }

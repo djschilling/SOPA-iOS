@@ -14,10 +14,11 @@ class GameScene: SKScene {
     
     let gameService : GameService
     var levelSolved = false
-    let BUTTON_SIZE = CGFloat(0.3)
+    let BUTTON_SIZE: CGFloat
     let currentMovesNode = SKLabelNode(fontNamed: "Impact")
     
     init(size: CGSize, level: Level) {
+        BUTTON_SIZE = CGFloat(0.14) * size.height
         gameService = GameServiceImpl(level: level)
         super.init(size: size)
         gameFieldNode = GameFieldNode(gameScene: self)

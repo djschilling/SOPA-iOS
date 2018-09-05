@@ -10,6 +10,7 @@ import Foundation
 import SpriteKit
 class LevelModeGameScene: GameScene {
     var restartButton: SpriteButton?
+    var levelChoiceButton: SpriteButton?
     override init(size: CGSize, level: Level) {
         super.init(size: size, level: level)
     }
@@ -19,19 +20,33 @@ class LevelModeGameScene: GameScene {
     }
     override func addButtons() {
         restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
-        restartButton!.size.height = BUTTON_SIZE * size.width
-        restartButton!.size.width = BUTTON_SIZE *  size.width
-        restartButton!.position.y = BUTTON_SIZE *  size.width / 2
-        restartButton!.position.x = size.width - BUTTON_SIZE *  size.width / 2
+        restartButton!.size.height = BUTTON_SIZE
+        restartButton!.size.width = BUTTON_SIZE
+        restartButton!.position.y = BUTTON_SIZE / 2
+        restartButton!.position.x = size.width - BUTTON_SIZE / 2
         addChild(restartButton!)
+        
+        levelChoiceButton = SpriteButton(imageNamed: "LevelChoice", onClick: loadLevelChoiceScene)
+        levelChoiceButton!.size.height = BUTTON_SIZE
+        levelChoiceButton!.size.width = BUTTON_SIZE
+        levelChoiceButton!.position.y = BUTTON_SIZE / 2
+        levelChoiceButton!.position.x =  restartButton!.position.x - restartButton!.size.width
+        addChild(levelChoiceButton!)
     }
+    
     func restartLevel() {
       ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: gameService.getLevel().id!)
+    }
+    
+    func loadLevelChoiceScene() {
+        ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
     }
     
     override func onSolvedGame() {
         restartButton!.isUserInteractionEnabled = false
         restartButton!.isHidden = true
+        levelChoiceButton!.isUserInteractionEnabled = false
+        levelChoiceButton!.isHidden = true
         let level = gameService.getLevel()
         let levelService = ResourcesManager.getInstance().levelService
         let levelResult = levelService!.calculateLevelResult(level: level)

@@ -27,7 +27,6 @@ class LevelButtonArea: SKSpriteNode {
             levelButtons.append(levelButton)
             addChild(levelButton)
         }
-        //position.x = -size.width
         isUserInteractionEnabled = true
 
     }
@@ -66,42 +65,33 @@ class LevelButtonArea: SKSpriteNode {
     func tabOn(location: CGPoint) {
         var node: SKNode? = atPoint(location)
 
-        if node is LevelSelectButton {
-            ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: (node as! LevelSelectButton).levelInfo.levelId)
-            return
+        if !(node is LevelSelectButton) {
+            if node is SKLabelNode || node is SKSpriteNode {
+                node = node?.parent
+            }
         }
-
-        if node is SKLabelNode || node is SKSpriteNode {
-            node = node?.parent
-
-            if node is LevelSelectButton {
+        
+        if node is LevelSelectButton {
+            if !(node as! LevelSelectButton).levelInfo.locked {
                 ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: (node as! LevelSelectButton).levelInfo.levelId)
             }
-
-        } else {
-            return
         }
-
-    
     }
     
     func swipeLeft() {
         let moveAction = SKAction.moveBy(x: pageSize.width, y: 0, duration: 0.28)
         moveAction.timingMode = SKActionTimingMode.easeInEaseOut
-       // isUserInteractionEnabled = false
 
         run(moveAction, completion: {self.update()})
 
     }
     func update() {
-        isUserInteractionEnabled = true
 
     }
     
     func swipeRight() {
         let moveAction = SKAction.moveBy(x: -pageSize.width, y: 0, duration: 0.28)
         moveAction.timingMode = SKActionTimingMode.easeInEaseOut
-    //    isUserInteractionEnabled = false
         run(moveAction, completion: {self.update()})
     }
     

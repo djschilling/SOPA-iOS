@@ -62,10 +62,24 @@ class LevelButtonArea: SKSpriteNode {
     }
     
     func tabOn(location: CGPoint) {
-        let node = atPoint(location)
+        var node: SKNode? = atPoint(location)
+
         if node is LevelSelectButton {
             ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: (node as! LevelSelectButton).levelInfo.levelId)
+            return
         }
+
+        if node is SKLabelNode || node is SKSpriteNode {
+            node = node?.parent
+
+            if node is LevelSelectButton {
+                ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: (node as! LevelSelectButton).levelInfo.levelId)
+            }
+
+        } else {
+            return
+        }
+
     
     }
     

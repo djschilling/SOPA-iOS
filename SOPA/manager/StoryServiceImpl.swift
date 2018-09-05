@@ -8,33 +8,39 @@
 
 import Foundation
 import SpriteKit
+
 class StoryServiceImpl: StoryService {
-    
-    var currentScene: SKScene?
+
+    //var currentScene: SKScene?
+    var currentView: SKView
     let size: CGSize
     let levelService: LevelService
-    
+
     init(size: CGSize, levelService: LevelService, skView: SKView) {
         self.size = size
         self.levelService = levelService
-        currentScene = LevelChoiceScene(size: size, levelService: levelService)
+        currentView = skView
         skView.showsFPS = true
         skView.showsNodeCount = true
         skView.ignoresSiblingOrder = true
-        currentScene?.scaleMode = .resizeFill
-        skView.presentScene(currentScene)
     }
+
     func loadLevelCoiceScene() {
-        if currentScene == nil {
-            currentScene = LevelChoiceScene(size: size, levelService: levelService)
-        }
+        let levelChoiceScene = LevelChoiceScene(size: size, levelService: levelService)
+        levelChoiceScene.scaleMode = .resizeFill
+        currentView.presentScene(levelChoiceScene)
+
     }
-    
+
     func loadLevelModeGameScene(levelId: Int) {
         let levelModeGameScene = LevelModeGameScene(size: size, level: levelService.getLevelById(id: levelId)!)
-        currentScene?.view?.presentScene(levelModeGameScene)
-        currentScene = levelModeGameScene
+        currentView.presentScene(levelModeGameScene)
     }
-    
-    
+
+    func loadLevelModeScoreScene(levelResult: LevelResult) {
+        let levelModeScoreScene = LevelModeScoreScene(size: size, levelResult: levelResult)
+        currentView.presentScene(levelModeScoreScene)
+    }
+
+
 }

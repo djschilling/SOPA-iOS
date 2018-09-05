@@ -17,7 +17,6 @@ class GameServiceImpl: GameService {
     init(level: Level) {
         self.level = level
         self.solvedCurrentPuzzle = gameFieldService.solvedPuzzle(level: level)
-        level.increaseMovesCounter()
     }
 
     func solvedPuzzle() -> Bool {

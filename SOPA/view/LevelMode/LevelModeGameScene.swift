@@ -34,10 +34,12 @@ class LevelModeGameScene: GameScene {
     override func onSolvedGame() {
         restartButton!.isUserInteractionEnabled = false
         restartButton!.isHidden = true
+        let level = gameService.getLevel()
+        let levelService = ResourcesManager.getInstance().levelService
+        let levelResult = levelService!.calculateLevelResult(level: level)
+        levelService?.persistLevelResult(levelResult: levelResult)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
-            let closeDoorAnimation = SKTransition.doorsCloseHorizontal(withDuration: 1)
-            let newScene = LevelModeScoreScene(size: self.size, levelResult: LevelResult(levelId: 1, moveCount: 1, stars: 1))
-            self.view?.presentScene(newScene, transition: closeDoorAnimation)
+            ResourcesManager.getInstance().storyService?.loadLevelModeScoreScene(levelResult: levelResult)
         }
     }
 }

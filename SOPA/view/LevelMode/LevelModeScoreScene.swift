@@ -47,7 +47,7 @@ class LevelModeScoreScene: SKScene {
     
     func addStaticObjects() {
         let titleLableA = SKLabelNode(fontNamed: "Impact")
-        titleLableA.text = String(17) + ". Level"
+        titleLableA.text = String(levelResult.levelId) + ". Level"
         titleLableA.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         titleLableA.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
         titleLableA.position.y = size.height * TITLE_HEIGHT

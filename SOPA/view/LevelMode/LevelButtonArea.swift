@@ -15,8 +15,10 @@ class LevelButtonArea: SKSpriteNode {
     let MIN_DELTA_SWIPE = CGFloat(100)
     let MAX_DELTA_TAB = CGFloat(50)
     var levelButtons: [LevelSelectButton] = []
+    let pageSize: CGSize
     
     init(size: CGSize, levelInfos: [LevelInfo]) {
+        pageSize = size
         let pageCount = 1 + (levelInfos.count - 1) / 12
 
         super.init(texture: nil, color: UIColor.clear, size: CGSize(width: size.width * CGFloat(pageCount), height: size.height))
@@ -84,13 +86,23 @@ class LevelButtonArea: SKSpriteNode {
     }
     
     func swipeLeft() {
-        print("swipeLeft()")
+        let moveAction = SKAction.moveBy(x: pageSize.width, y: 0, duration: 0.28)
+        moveAction.timingMode = SKActionTimingMode.easeInEaseOut
+       // isUserInteractionEnabled = false
+
+        run(moveAction, completion: {self.update()})
+
+    }
+    func update() {
+        isUserInteractionEnabled = true
 
     }
     
     func swipeRight() {
-        print("swipeRight()")
-
+        let moveAction = SKAction.moveBy(x: -pageSize.width, y: 0, duration: 0.28)
+        moveAction.timingMode = SKActionTimingMode.easeInEaseOut
+    //    isUserInteractionEnabled = false
+        run(moveAction, completion: {self.update()})
     }
     
 }

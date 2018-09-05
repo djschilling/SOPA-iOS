@@ -16,10 +16,13 @@ class LevelButtonArea: SKSpriteNode {
     let MAX_DELTA_TAB = CGFloat(50)
     var levelButtons: [LevelSelectButton] = []
     let pageSize: CGSize
+    let pageCount: Int
+    var currentLevelPage: Int
     
     init(size: CGSize, levelInfos: [LevelInfo]) {
         pageSize = size
-        let pageCount = 1 + (levelInfos.count - 1) / 12
+        currentLevelPage = 0
+        pageCount = 1 + (levelInfos.count - 1) / 12
 
         super.init(texture: nil, color: UIColor.clear, size: CGSize(width: size.width * CGFloat(pageCount), height: size.height))
         for levelInfo in levelInfos{
@@ -79,20 +82,26 @@ class LevelButtonArea: SKSpriteNode {
     }
     
     func swipeLeft() {
-        let moveAction = SKAction.moveBy(x: pageSize.width, y: 0, duration: 0.28)
-        moveAction.timingMode = SKActionTimingMode.easeInEaseOut
-
-        run(moveAction, completion: {self.update()})
-
+        if currentLevelPage > 0 {
+            currentLevelPage = currentLevelPage - 1
+            let moveAction = SKAction.moveBy(x: pageSize.width, y: 0, duration: 0.28)
+            moveAction.timingMode = SKActionTimingMode.easeInEaseOut
+            
+            run(moveAction, completion: {self.update()})
+        }
+       
     }
     func update() {
 
     }
     
     func swipeRight() {
-        let moveAction = SKAction.moveBy(x: -pageSize.width, y: 0, duration: 0.28)
-        moveAction.timingMode = SKActionTimingMode.easeInEaseOut
-        run(moveAction, completion: {self.update()})
+        if currentLevelPage < pageCount - 1 {
+            currentLevelPage = currentLevelPage + 1
+            let moveAction = SKAction.moveBy(x: -pageSize.width, y: 0, duration: 0.28)
+            moveAction.timingMode = SKActionTimingMode.easeInEaseOut
+            run(moveAction, completion: {self.update()})
+        }
     }
     
 }

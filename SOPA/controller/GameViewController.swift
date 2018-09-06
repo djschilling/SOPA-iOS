@@ -16,9 +16,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         ResourcesManager.prepareManager(appDelegate: UIApplication.shared.delegate as! AppDelegate, size: view.bounds.size, skView: view as! SKView)
         ResourcesManager.getInstance().levelService?.updateLevelInfos()
-        ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
-
-       
+        ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()       
     }
     
     override var shouldAutorotate: Bool {

@@ -73,8 +73,9 @@ class LevelModeScoreScene: SKScene {
         yourMovesLable.fontSize = size.height * 0.05
         addChild(yourMovesLable)
         
+        let level = ResourcesManager.getInstance().levelService!.getLevelById(id: levelResult.levelId)!
         let movesPossibleLable = SKLabelNode(fontNamed: "Impact")
-        movesPossibleLable.text = "Moves for 3 stars:\t" + String(levelResult.moveCount)
+        movesPossibleLable.text = "Moves for 3 stars:\t" + String(level.minimumMovesToSolve!)
         movesPossibleLable.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         movesPossibleLable.verticalAlignmentMode = SKLabelVerticalAlignmentMode.bottom
         movesPossibleLable.position.y = size.height * (0.52)
@@ -113,8 +114,12 @@ class LevelModeScoreScene: SKScene {
     }
     
     func startNextLevel() {
-        ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: levelResult.levelId + 1)
-
+        if ResourcesManager.getInstance().levelService?.getLevelCount() == levelResult.levelId {
+            ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
+        } else {
+            ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: levelResult.levelId + 1)
+        }
+        
     }
 
     required init(coder aDecoder: NSCoder) {

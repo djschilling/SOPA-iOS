@@ -113,7 +113,7 @@ class LevelModeScoreScene: SKScene {
     }
     
     func startNextLevel() {
-        ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: levelResult.levelId)
+        ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: levelResult.levelId + 1)
 
     }
 

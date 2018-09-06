@@ -72,6 +72,8 @@
 		646902DA207F6BD500283F71 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F661281F9B346E0043ABCF /* GameScene.swift */; };
 		646E6AE9213E80F7001D195B /* LevelButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646E6AE8213E80F7001D195B /* LevelButtonArea.swift */; };
 		646E6AEA213E80F7001D195B /* LevelButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646E6AE8213E80F7001D195B /* LevelButtonArea.swift */; };
+		648558C321412BBD00B61C31 /* EffectSpriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648558C221412BBD00B61C31 /* EffectSpriteButton.swift */; };
+		648558C421412BBD00B61C31 /* EffectSpriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648558C221412BBD00B61C31 /* EffectSpriteButton.swift */; };
 		649209971FB3216500ED019D /* StarCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649209961FB3216500ED019D /* StarCalculator.swift */; };
 		6493FB652073D6510044B4E0 /* SOPA.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6493FB632073D6510044B4E0 /* SOPA.xcdatamodeld */; };
 		6493FB662073D6510044B4E0 /* SOPA.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6493FB632073D6510044B4E0 /* SOPA.xcdatamodeld */; };
@@ -140,6 +142,7 @@
 		646902BA207E3AD000283F71 /* LevelInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelInfo.swift; sourceTree = "<group>"; };
 		646902BC207E60E800283F71 /* LevelInfoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelInfoDataSource.swift; sourceTree = "<group>"; };
 		646E6AE8213E80F7001D195B /* LevelButtonArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelButtonArea.swift; sourceTree = "<group>"; };
+		648558C221412BBD00B61C31 /* EffectSpriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectSpriteButton.swift; sourceTree = "<group>"; };
 		649209961FB3216500ED019D /* StarCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarCalculator.swift; sourceTree = "<group>"; };
 		6493FB182070D5E10044B4E0 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		6493FB642073D6510044B4E0 /* SOPA.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SOPA.xcdatamodel; sourceTree = "<group>"; };
@@ -315,6 +318,7 @@
 				642E2B3E213B0B1E002669E5 /* LevelSelectButton.swift */,
 				642E2B41213D257C002669E5 /* LevelButtonPositioner.swift */,
 				646E6AE8213E80F7001D195B /* LevelButtonArea.swift */,
+				648558C221412BBD00B61C31 /* EffectSpriteButton.swift */,
 			);
 			path = LevelMode;
 			sourceTree = "<group>";
@@ -477,6 +481,7 @@
 				64182B19208DCE0A00CF639A /* LevelModeGameScene.swift in Sources */,
 				646902D5207F6B8800283F71 /* GameSceneObserver.swift in Sources */,
 				64AD42AA213FBFB900B5A3FC /* StoryService.swift in Sources */,
+				648558C321412BBD00B61C31 /* EffectSpriteButton.swift in Sources */,
 				6446C2E11FAC802900806A10 /* GameEndService.swift in Sources */,
 				6446C2E71FAC802900806A10 /* Tile.swift in Sources */,
 				642E2B3C213AB33A002669E5 /* ResourcesManager.swift in Sources */,
@@ -521,6 +526,7 @@
 				6493FB662073D6510044B4E0 /* SOPA.xcdatamodeld in Sources */,
 				646902D8207F6B8900283F71 /* Observer.swift in Sources */,
 				64AD42AB213FBFB900B5A3FC /* StoryService.swift in Sources */,
+				648558C421412BBD00B61C31 /* EffectSpriteButton.swift in Sources */,
 				646902BE207E60E800283F71 /* LevelInfoDataSource.swift in Sources */,
 				646902D1207F6B7D00283F71 /* TileCharacterMapping.swift in Sources */,
 				642E2B3D213AB33A002669E5 /* ResourcesManager.swift in Sources */,

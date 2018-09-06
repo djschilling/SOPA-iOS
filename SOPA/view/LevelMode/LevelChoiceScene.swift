@@ -12,34 +12,39 @@ import SpriteKit
 
 class LevelChoiceScene: SKScene {
     private let levelInfos: [LevelInfo]
-    private let levelButtonArea: LevelButtonArea
-    private var leftButton: SpriteButton?
-    private var rightButton: SpriteButton?
+    private var levelButtonArea: LevelButtonArea?
+    private var leftButton: EffectSpriteButton?
+    private var rightButton: EffectSpriteButton?
 
     init(size: CGSize, levelService: LevelService) {
         levelInfos = levelService.getLevelInfos()
-        levelButtonArea = LevelButtonArea(size: size, levelInfos: levelInfos)
         super.init(size: size)
-        addChild(levelButtonArea)
+        levelButtonArea = LevelButtonArea(size: size, levelInfos: levelInfos, update: update)
+        addChild(levelButtonArea!)
         addButtons()
 
     }
     
     private func addButtons() {
-        leftButton = SpriteButton(imageNamed: "ArrowLeft", onClick: levelButtonArea.swipeLeft)
         let buttonSize = size.height * 0.18
-        leftButton?.size.height = buttonSize
-        leftButton?.size.width = buttonSize
+
+        leftButton = EffectSpriteButton(imageNamed: "ArrowLeft", onClick: levelButtonArea!.swipeLeft, size: CGSize(width: buttonSize, height: buttonSize))
         leftButton?.position.y = buttonSize
         leftButton?.position.x = buttonSize
+        leftButton?.setEnabled(levelButtonArea!.currentLevelPage > 0)
         addChild(leftButton!)
         
-        rightButton = SpriteButton(imageNamed: "ArrowRight", onClick: levelButtonArea.swipeRight)
-        rightButton?.size.height = buttonSize
-        rightButton?.size.width = buttonSize
+        rightButton = EffectSpriteButton(imageNamed: "ArrowRight", onClick: levelButtonArea!.swipeRight, size: CGSize(width: buttonSize, height: buttonSize))
         rightButton?.position.y = buttonSize
         rightButton?.position.x = size.width - buttonSize
+        leftButton?.setEnabled(levelButtonArea!.currentLevelPage < levelButtonArea!.pageCount - 1)
         addChild(rightButton!)
+        update()
+    }
+    
+    func update() {
+        leftButton?.setEnabled(levelButtonArea!.currentLevelPage > 0)
+        rightButton?.setEnabled(levelButtonArea!.currentLevelPage < levelButtonArea!.pageCount - 1)
     }
     
     

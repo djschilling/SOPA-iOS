@@ -18,8 +18,10 @@ class LevelButtonArea: SKSpriteNode {
     let pageSize: CGSize
     let pageCount: Int
     var currentLevelPage: Int
+    let updateLevelChoiceArrows: () -> Void
     
-    init(size: CGSize, levelInfos: [LevelInfo]) {
+    init(size: CGSize, levelInfos: [LevelInfo], update: @escaping () -> Void) {
+        updateLevelChoiceArrows = update
         pageSize = size
         currentLevelPage = 0
         pageCount = 1 + (levelInfos.count - 1) / 12
@@ -88,11 +90,11 @@ class LevelButtonArea: SKSpriteNode {
             moveAction.timingMode = SKActionTimingMode.easeInEaseOut
             
             run(moveAction, completion: {self.update()})
+            updateLevelChoiceArrows()
         }
        
     }
     func update() {
-
     }
     
     func swipeRight() {
@@ -101,6 +103,7 @@ class LevelButtonArea: SKSpriteNode {
             let moveAction = SKAction.moveBy(x: -pageSize.width, y: 0, duration: 0.28)
             moveAction.timingMode = SKActionTimingMode.easeInEaseOut
             run(moveAction, completion: {self.update()})
+            updateLevelChoiceArrows()
         }
     }
     

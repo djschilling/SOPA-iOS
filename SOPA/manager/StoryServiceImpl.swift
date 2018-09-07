@@ -20,8 +20,8 @@ class StoryServiceImpl: StoryService {
         self.size = size
         self.levelService = levelService
         currentView = skView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
+       // skView.showsFPS = true
+       // skView.showsNodeCount = true
         skView.ignoresSiblingOrder = true
     }
 

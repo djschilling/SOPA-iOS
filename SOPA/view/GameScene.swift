@@ -15,10 +15,10 @@ class GameScene: SKScene {
     let gameService : GameService
     var levelSolved = false
     let BUTTON_SIZE: CGFloat
-    let currentMovesNode = SKLabelNode(fontNamed: "Impact")
+    let currentMovesNode = SKLabelNode(fontNamed: "progbot")
     
     init(size: CGSize, level: Level) {
-        BUTTON_SIZE = CGFloat(0.14) * size.height
+        BUTTON_SIZE = CGFloat(0.16) * size.height
         gameService = GameServiceImpl(level: level)
         super.init(size: size)
         gameFieldNode = GameFieldNode(gameScene: self)
@@ -26,6 +26,7 @@ class GameScene: SKScene {
         addButtons()
         addStaticLabels()
         addDynamicLabels()
+        self.backgroundColor = UIColor(red: 169.0 / 255.0, green: 162.0 / 255.0, blue: 121.0 / 255, alpha: 1.0)
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -36,49 +37,64 @@ class GameScene: SKScene {
     }
     
     func addStaticLabels() {
-        let minMovesLabel = SKLabelNode(fontNamed: "Impact")
-        minMovesLabel.text = "Min. Moves:"
+        let minMovesLabel = SKLabelNode(fontNamed: "progbot")
+        minMovesLabel.text = "Optimum: "
         minMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         minMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        minMovesLabel.position.y = size.height
+        minMovesLabel.position.x = size.height * 0.08
+        minMovesLabel.position.y = size.height * 0.96
+        minMovesLabel.fontSize = size.height * 0.055
         addChild(minMovesLabel)
         
-        let currentMovesLabel = SKLabelNode(fontNamed: "Impact")
-        currentMovesLabel.text = "Current moves:"
-        currentMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
+        let minMovesNumber = SKLabelNode(fontNamed: "progbot")
+        minMovesNumber.text = String(gameService.getLevel().minimumMovesToSolve!)
+        minMovesNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
+        minMovesNumber.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
+        minMovesNumber.position.x = size.height * 0.50
+        minMovesNumber.position.y = size.height * 0.96
+        minMovesNumber.fontSize = size.height * 0.055
+        addChild(minMovesNumber)
+        
+        
+        let currentMovesLabel = SKLabelNode(fontNamed: "progbot")
+        currentMovesLabel.text = "Moves:"
+        currentMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         currentMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        currentMovesLabel.position.y = size.height
-        currentMovesLabel.position.x = size.width
+        currentMovesLabel.position.x = size.height * 0.08
+        currentMovesLabel.position.y = size.height * 0.90
+        currentMovesLabel.fontSize = size.height * 0.055
         addChild(currentMovesLabel)
         
-        let levelLabel = SKLabelNode(fontNamed: "Impact")
+      
+        
+
+        
+        let levelLabel = SKLabelNode(fontNamed: "progbot")
         levelLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         levelLabel.text = "Level"
-        addChild(levelLabel)
+        levelLabel.position.x = size.height * 0.12
+        levelLabel.position.y = size.height * 0.02
+        levelLabel.fontSize = size.height * 0.055
+  //      addChild(levelLabel)
         
-        let levelNumber = SKLabelNode(fontNamed: "Impact")
+        let levelNumber = SKLabelNode(fontNamed: "progbot")
         levelNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        levelNumber.position.y = levelLabel.fontSize
-        levelNumber.fontSize *= 2
-        levelNumber.text = String(gameService.getLevel().id!)
+        levelNumber.position.x = size.height * 0.02
+        levelNumber.position.y = size.height * 0.02
+        levelNumber.fontSize = size.height * 0.055
+        levelNumber.text = String(gameService.getLevel().id!) + ". Level"
         addChild(levelNumber)
         
-        let minMovesNumber = SKLabelNode(fontNamed: "Impact")
-        minMovesNumber.text = String(gameService.getLevel().minimumMovesToSolve!)
-        minMovesNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        minMovesNumber.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        minMovesNumber.position.y = size.height - minMovesLabel.fontSize
-        minMovesNumber.fontSize *= 2
-        addChild(minMovesNumber)
+       
     }
     
     func addDynamicLabels() {
         currentMovesNode.text = String(gameService.getLevel().movesCounter)
         currentMovesNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
         currentMovesNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        currentMovesNode.position.y = size.height - currentMovesNode.fontSize
-        currentMovesNode.fontSize *= 2
-        currentMovesNode.position.x = size.width
+        currentMovesNode.position.x = size.height * 0.50
+        currentMovesNode.position.y = size.height * 0.90
+        currentMovesNode.fontSize = size.height * 0.055
         addChild(currentMovesNode)
     }
     

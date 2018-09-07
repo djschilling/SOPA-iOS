@@ -45,6 +45,7 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>progbot.ttf</string>
 		<string>Impact.ttf</string>
 	</array>
 </dict>

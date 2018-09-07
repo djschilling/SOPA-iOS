@@ -22,16 +22,17 @@ class LevelModeGameScene: GameScene {
         restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
         restartButton!.size.height = BUTTON_SIZE
         restartButton!.size.width = BUTTON_SIZE
-        restartButton!.position.y = BUTTON_SIZE / 2
-        restartButton!.position.x = size.width - BUTTON_SIZE / 2
+        restartButton!.position.y = size.height * 0.15
+        restartButton!.position.x = size.width * 0.5 - size.height * 0.1
         addChild(restartButton!)
         
         levelChoiceButton = SpriteButton(imageNamed: "LevelChoice", onClick: loadLevelChoiceScene)
         levelChoiceButton!.size.height = BUTTON_SIZE
         levelChoiceButton!.size.width = BUTTON_SIZE
-        levelChoiceButton!.position.y = BUTTON_SIZE / 2
-        levelChoiceButton!.position.x =  restartButton!.position.x - restartButton!.size.width
+        levelChoiceButton!.position.y = size.height * 0.15
+        levelChoiceButton!.position.x =  size.width * 0.5 + size.height * 0.1
         addChild(levelChoiceButton!)
+
     }
     
     func restartLevel() {

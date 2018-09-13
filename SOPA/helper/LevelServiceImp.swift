@@ -45,14 +45,14 @@ class LevelServiceImpl: LevelService {
                 }
             }
             if !found {
-                _ = levelInfoDataSource.createLevelInfo(levelInfo: LevelInfo(levelId: currentId, locked: (currentId != 1), fewestMoves: -1, stars: 0))
+                _ = levelInfoDataSource.createLevelInfo(levelInfo: LevelInfo(levelId: currentId, locked: (currentId != 1), fewestMoves: -1, stars: 0, time: Double.nan))
             }
         }
     }
     
     func calculateLevelResult(level: Level) -> LevelResult {
         let stars = starCalculator.getStars(neededMoves: level.movesCounter, minimumMoves: level.minimumMovesToSolve!)
-        return LevelResult(levelId: level.id!, moveCount: level.movesCounter, stars: stars)
+        return LevelResult(levelId: level.id!, moveCount: level.movesCounter, stars: stars, time: Double.nan)
     }
     
     func persistLevelResult(levelResult: LevelResult) -> LevelInfo {
@@ -62,6 +62,8 @@ class LevelServiceImpl: LevelService {
             levelInfo?.fewestMoves = levelResult.moveCount
             levelInfo?.stars = levelResult.stars
         }
+        levelInfo?.time = levelResult.time
+
         return levelInfoDataSource.updateLevelInfo(levelInfo: levelInfo!)
     }
     

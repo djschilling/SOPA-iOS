@@ -12,11 +12,13 @@ class LevelResult {
     let levelId: Int
     let moveCount: Int
     let stars: Int
+    var time: Double
     
-    init(levelId: Int, moveCount: Int, stars: Int) {
+    init(levelId: Int, moveCount: Int, stars: Int, time: Double) {
         self.levelId = levelId
         self.moveCount = moveCount
         self.stars = stars
+        self.time = time
     }
     
 }

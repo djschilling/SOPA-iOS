@@ -25,6 +25,7 @@ public class LevelInfoDataSource {
         newLevelInfo.setValue(levelInfo.fewestMoves, forKey: "fewest_moves")
         newLevelInfo.setValue(levelInfo.locked, forKey: "locked")
         newLevelInfo.setValue(levelInfo.stars, forKey: "stars")
+        newLevelInfo.setValue(levelInfo.time, forKey: "time")
         appDelegate.saveContext()
         return levelInfo;
     }
@@ -41,6 +42,7 @@ public class LevelInfoDataSource {
             oldLevel.stars = Int16(levelInfo.stars)
             oldLevel.fewest_moves = Int16(levelInfo.fewestMoves)
             oldLevel.locked = levelInfo.locked
+            oldLevel.time = levelInfo.time
             appDelegate.saveContext()
             return levelInfo
         } catch {

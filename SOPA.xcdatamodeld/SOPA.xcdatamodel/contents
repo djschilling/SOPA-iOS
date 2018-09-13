@@ -9,9 +9,10 @@
         <attribute name="id" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="locked" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="stars" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
         <element name="JustPlayResults" positionX="-9" positionY="54" width="128" height="75"/>
-        <element name="LevelInfo" positionX="-9" positionY="27" width="128" height="105"/>
+        <element name="LevelInfo" positionX="-9" positionY="27" width="128" height="120"/>
     </elements>
 </model>

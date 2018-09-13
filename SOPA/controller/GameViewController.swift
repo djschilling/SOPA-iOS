@@ -16,7 +16,16 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         ResourcesManager.prepareManager(appDelegate: UIApplication.shared.delegate as! AppDelegate, size: view.bounds.size, skView: view as! SKView)
         ResourcesManager.getInstance().levelService?.updateLevelInfos()
-        ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()       
+        ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
+        printLevelTimes()
+    }
+    
+    private func printLevelTimes() {
+        let levelInfos = ResourcesManager.getInstance().levelService?.getLevelInfos()
+        for levelInfo in levelInfos! {
+            print(levelInfo.description())
+        }
+
     }
     
     override var shouldAutorotate: Bool {

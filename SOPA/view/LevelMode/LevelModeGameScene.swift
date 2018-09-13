@@ -5,14 +5,26 @@
 //  Created by Raphael Schilling on 23.04.18.
 //  Copyright © 2018 David Schilling. All rights reserved.
 //
-
 import Foundation
 import SpriteKit
 class LevelModeGameScene: GameScene {
     var restartButton: SpriteButton?
     var levelChoiceButton: SpriteButton?
+    var start: NSDate?
     override init(size: CGSize, level: Level) {
         super.init(size: size, level: level)
+        startCounter()
+    }
+    
+    private func startCounter() {
+        start = NSDate()
+    }
+    
+    private func stopCounter() -> Double {
+        let end = NSDate()
+        let difference: Double = end.timeIntervalSince(start! as Date)
+        print(difference)
+        return difference
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -44,6 +56,7 @@ class LevelModeGameScene: GameScene {
     }
     
     override func onSolvedGame() {
+        let time = stopCounter()
         restartButton!.isUserInteractionEnabled = false
         restartButton!.isHidden = true
         levelChoiceButton!.isUserInteractionEnabled = false
@@ -51,6 +64,7 @@ class LevelModeGameScene: GameScene {
         let level = gameService.getLevel()
         let levelService = ResourcesManager.getInstance().levelService
         let levelResult = levelService!.calculateLevelResult(level: level)
+        levelResult.time = time
         levelService?.persistLevelResult(levelResult: levelResult)
         levelService?.unlockLevel(levelId: level.id! + 1)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {

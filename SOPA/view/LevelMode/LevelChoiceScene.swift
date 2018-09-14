@@ -22,7 +22,23 @@ class LevelChoiceScene: SKScene {
         levelButtonArea = LevelButtonArea(size: size, levelInfos: levelInfos, update: update)
         addChild(levelButtonArea!)
         addButtons()
+        addStatisticsShareButton()
 
+    }
+    
+    private func addStatisticsShareButton() {
+        let statisticsShareButton = SpriteButton(imageNamed: "StatisticsShare", onClick: shareStatistics)
+        statisticsShareButton.size = CGSize(width: size.height * 0.1, height: size.height * 0.1)
+        statisticsShareButton.position.x = size.width * 0.5
+        statisticsShareButton.position.y = statisticsShareButton.size.height * 0.5
+        addChild(statisticsShareButton)
+    }
+    
+    private func shareStatistics() {
+        let shareString = LogFileHandler.logger.readLog()
+        let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [shareString], applicationActivities: nil);
+        let currentViewController:UIViewController = UIApplication.shared.keyWindow!.rootViewController!
+        currentViewController.present(activityViewController, animated: true, completion: nil);
     }
     
     private func addButtons() {

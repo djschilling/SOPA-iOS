@@ -48,27 +48,35 @@ class LevelModeGameScene: GameScene {
     }
     
     func restartLevel() {
+        LogFileHandler.logger.write("LevelMode; restart; \(gameService.getLevel().id!); \(super.gameService.getLevel().movesCounter); -1; \(stopCounter()); \(NSDate())\n")
       ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: gameService.getLevel().id!)
     }
     
     func loadLevelChoiceScene() {
+        LogFileHandler.logger.write("LevelMode; end; \(gameService.getLevel().id!); \(super.gameService.getLevel().movesCounter); -1; \(stopCounter()); \(NSDate())\n")
         ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
     }
     
     override func onSolvedGame() {
+        hideButtons()
         let time = stopCounter()
-        restartButton!.isUserInteractionEnabled = false
-        restartButton!.isHidden = true
-        levelChoiceButton!.isUserInteractionEnabled = false
-        levelChoiceButton!.isHidden = true
+        hideButtons()
         let level = gameService.getLevel()
         let levelService = ResourcesManager.getInstance().levelService
         let levelResult = levelService!.calculateLevelResult(level: level)
         levelResult.time = time
         levelService?.persistLevelResult(levelResult: levelResult)
         levelService?.unlockLevel(levelId: level.id! + 1)
+        LogFileHandler.logger.write("LevelMode; solved; \(levelResult.levelId); \(levelResult.moveCount); \(levelResult.stars); \(time); \(NSDate())\n")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
             ResourcesManager.getInstance().storyService?.loadLevelModeScoreScene(levelResult: levelResult)
         }
+    }
+    
+    private func hideButtons() {
+        restartButton!.isUserInteractionEnabled = false
+        restartButton!.isHidden = true
+        levelChoiceButton!.isUserInteractionEnabled = false
+        levelChoiceButton!.isHidden = true
     }
 }

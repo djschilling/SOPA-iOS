@@ -18,7 +18,7 @@ class GameScene: SKScene {
     let currentMovesNode = SKLabelNode(fontNamed: "progbot")
     
     init(size: CGSize, level: Level) {
-        BUTTON_SIZE = CGFloat(0.16) * size.height
+        BUTTON_SIZE = CGFloat(0.13) * size.height
         gameService = GameServiceImpl(level: level)
         super.init(size: size)
         gameFieldNode = GameFieldNode(gameScene: self)
@@ -38,50 +38,41 @@ class GameScene: SKScene {
     
     func addStaticLabels() {
         let minMovesLabel = SKLabelNode(fontNamed: "progbot")
-        minMovesLabel.text = "Optimum: "
+        minMovesLabel.text = "Optimum: \(gameService.getLevel().minimumMovesToSolve!)"
         minMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         minMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        minMovesLabel.position.x = size.height * 0.08
-        minMovesLabel.position.y = size.height * 0.96
+        minMovesLabel.position.x = size.height * 0.02
+        minMovesLabel.position.y = size.height * 0.1
         minMovesLabel.fontSize = size.height * 0.055
         addChild(minMovesLabel)
         
         let minMovesNumber = SKLabelNode(fontNamed: "progbot")
-        minMovesNumber.text = String(gameService.getLevel().minimumMovesToSolve!)
+        minMovesNumber.text = String()
         minMovesNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
         minMovesNumber.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        minMovesNumber.position.x = size.height * 0.50
-        minMovesNumber.position.y = size.height * 0.96
+        minMovesNumber.position.x = size.height * 0.33
+        minMovesNumber.position.y = size.height * 0.15
         minMovesNumber.fontSize = size.height * 0.055
-        addChild(minMovesNumber)
+      //  addChild(minMovesNumber)
         
         
         let currentMovesLabel = SKLabelNode(fontNamed: "progbot")
         currentMovesLabel.text = "Moves:"
         currentMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         currentMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        currentMovesLabel.position.x = size.height * 0.08
-        currentMovesLabel.position.y = size.height * 0.90
+        currentMovesLabel.position.x = size.height * 0.04
+        currentMovesLabel.position.y = size.height * 0.17
         currentMovesLabel.fontSize = size.height * 0.055
         addChild(currentMovesLabel)
         
       
-        
 
-        
-        let levelLabel = SKLabelNode(fontNamed: "progbot")
-        levelLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        levelLabel.text = "Level"
-        levelLabel.position.x = size.height * 0.12
-        levelLabel.position.y = size.height * 0.02
-        levelLabel.fontSize = size.height * 0.055
-  //      addChild(levelLabel)
         
         let levelNumber = SKLabelNode(fontNamed: "progbot")
         levelNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        levelNumber.position.x = size.height * 0.02
-        levelNumber.position.y = size.height * 0.02
-        levelNumber.fontSize = size.height * 0.055
+        levelNumber.position.x = size.height * 0.11
+        levelNumber.position.y = size.height * 0.88
+        levelNumber.fontSize = size.height * 0.08
         levelNumber.text = String(gameService.getLevel().id!) + ". Level"
         addChild(levelNumber)
         
@@ -92,8 +83,8 @@ class GameScene: SKScene {
         currentMovesNode.text = String(gameService.getLevel().movesCounter)
         currentMovesNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
         currentMovesNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        currentMovesNode.position.x = size.height * 0.50
-        currentMovesNode.position.y = size.height * 0.90
+        currentMovesNode.position.x = size.height * 0.393
+        currentMovesNode.position.y = size.height * 0.17
         currentMovesNode.fontSize = size.height * 0.055
         addChild(currentMovesNode)
     }

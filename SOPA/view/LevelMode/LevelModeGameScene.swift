@@ -34,15 +34,15 @@ class LevelModeGameScene: GameScene {
         restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
         restartButton!.size.height = BUTTON_SIZE
         restartButton!.size.width = BUTTON_SIZE
-        restartButton!.position.y = size.height * 0.15
-        restartButton!.position.x = size.width * 0.5 - size.height * 0.1
+        restartButton!.position.y = size.height * 0.12
+        restartButton!.position.x = size.height * 0.48
         addChild(restartButton!)
         
         levelChoiceButton = SpriteButton(imageNamed: "LevelChoice", onClick: loadLevelChoiceScene)
-        levelChoiceButton!.size.height = BUTTON_SIZE
-        levelChoiceButton!.size.width = BUTTON_SIZE
-        levelChoiceButton!.position.y = size.height * 0.15
-        levelChoiceButton!.position.x =  size.width * 0.5 + size.height * 0.1
+        levelChoiceButton!.size.height = size.height * 0.08
+        levelChoiceButton!.size.width = size.height * 0.08
+        levelChoiceButton!.position.y = size.height * 0.91
+        levelChoiceButton!.position.x =  size.height * 0.057
         addChild(levelChoiceButton!)
 
     }

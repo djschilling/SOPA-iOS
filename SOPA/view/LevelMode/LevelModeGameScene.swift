@@ -34,8 +34,8 @@ class LevelModeGameScene: GameScene {
         restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
         restartButton!.size.height = BUTTON_SIZE
         restartButton!.size.width = BUTTON_SIZE
-        restartButton!.position.y = size.height * 0.12
-        restartButton!.position.x = size.height * 0.48
+        restartButton!.position.y = size.height * 0.111
+        restartButton!.position.x = size.height * 0.106
         addChild(restartButton!)
         
         levelChoiceButton = SpriteButton(imageNamed: "LevelChoice", onClick: loadLevelChoiceScene)
@@ -60,12 +60,11 @@ class LevelModeGameScene: GameScene {
     override func onSolvedGame() {
         hideButtons()
         let time = stopCounter()
-        hideButtons()
         let level = gameService.getLevel()
         let levelService = ResourcesManager.getInstance().levelService
         let levelResult = levelService!.calculateLevelResult(level: level)
         levelResult.time = time
-        levelService?.persistLevelResult(levelResult: levelResult)
+        _ = levelService?.persistLevelResult(levelResult: levelResult)
         levelService?.unlockLevel(levelId: level.id! + 1)
         LogFileHandler.logger.write("LevelMode; solved; \(levelResult.levelId); \(levelResult.moveCount); \(levelResult.stars); \(time); \(NSDate())\n")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {

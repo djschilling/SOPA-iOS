@@ -15,7 +15,9 @@ class GameScene: SKScene {
     let gameService : GameService
     var levelSolved = false
     let BUTTON_SIZE: CGFloat
-    let currentMovesNode = SKLabelNode(fontNamed: "progbot")
+    let fontName = "Optima-Bold"
+    let fontColor = UIColor(red: 240.0 / 255.0, green: 239.0 / 255.0, blue: 238.0 / 255.0, alpha: 1.0)
+    let currentMovesNode = SKLabelNode(fontNamed: "Optima-Bold")
     
     init(size: CGSize, level: Level) {
         BUTTON_SIZE = CGFloat(0.13) * size.height
@@ -37,43 +39,47 @@ class GameScene: SKScene {
     }
     
     func addStaticLabels() {
-        let minMovesLabel = SKLabelNode(fontNamed: "progbot")
+        let minMovesLabel = SKLabelNode(fontNamed: fontName)
         minMovesLabel.text = "Optimum: \(gameService.getLevel().minimumMovesToSolve!)"
         minMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         minMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        minMovesLabel.position.x = size.height * 0.02
-        minMovesLabel.position.y = size.height * 0.1
+        minMovesLabel.position.x = size.height * 0.226
+        minMovesLabel.position.y = size.height * 0.113
         minMovesLabel.fontSize = size.height * 0.055
+        minMovesLabel.fontColor = fontColor
         addChild(minMovesLabel)
         
-        let minMovesNumber = SKLabelNode(fontNamed: "progbot")
+        let minMovesNumber = SKLabelNode(fontNamed: fontName)
         minMovesNumber.text = String()
         minMovesNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
         minMovesNumber.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
         minMovesNumber.position.x = size.height * 0.33
         minMovesNumber.position.y = size.height * 0.15
         minMovesNumber.fontSize = size.height * 0.055
+        minMovesLabel.fontColor = fontColor
       //  addChild(minMovesNumber)
         
         
-        let currentMovesLabel = SKLabelNode(fontNamed: "progbot")
+        let currentMovesLabel = SKLabelNode(fontNamed: fontName)
         currentMovesLabel.text = "Moves:"
         currentMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         currentMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        currentMovesLabel.position.x = size.height * 0.04
-        currentMovesLabel.position.y = size.height * 0.17
+        currentMovesLabel.position.x = size.height * 0.229
+        currentMovesLabel.position.y = size.height * 0.181
         currentMovesLabel.fontSize = size.height * 0.055
+        currentMovesLabel.fontColor = fontColor
         addChild(currentMovesLabel)
         
       
 
         
-        let levelNumber = SKLabelNode(fontNamed: "progbot")
+        let levelNumber = SKLabelNode(fontNamed: fontName)
         levelNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         levelNumber.position.x = size.height * 0.11
         levelNumber.position.y = size.height * 0.88
         levelNumber.fontSize = size.height * 0.08
         levelNumber.text = String(gameService.getLevel().id!) + ". Level"
+        levelNumber.fontColor = fontColor
         addChild(levelNumber)
         
        
@@ -83,9 +89,10 @@ class GameScene: SKScene {
         currentMovesNode.text = String(gameService.getLevel().movesCounter)
         currentMovesNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
         currentMovesNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        currentMovesNode.position.x = size.height * 0.393
-        currentMovesNode.position.y = size.height * 0.17
+        currentMovesNode.position.x = size.height * 0.51
+        currentMovesNode.position.y = size.height * 0.181
         currentMovesNode.fontSize = size.height * 0.055
+        currentMovesNode.fontColor = fontColor
         addChild(currentMovesNode)
     }
     

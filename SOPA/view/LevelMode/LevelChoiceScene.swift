@@ -23,6 +23,8 @@ class LevelChoiceScene: SKScene {
         addChild(levelButtonArea!)
         addButtons()
         addStatisticsShareButton()
+        backgroundColor = UIColor(red: 169.0 / 255.0, green: 162.0 / 255.0, blue: 121.0 / 255.0, alpha: 1.0)
+
 
     }
     

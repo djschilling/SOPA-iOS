@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 class LevelSelectButton: SKSpriteNode {
-    let orange = UIColor(red: 202.0 / 255.0, green: 84.0 / 255.0, blue: 15.0 / 255.0, alpha: 1.0)
+    let green = UIColor(red: 169.0 / 255.0, green: 162.0 / 255.0, blue: 121.0 / 255.0, alpha: 1.0)
     let grey = UIColor(red: 0.5 , green: 0.5, blue: 0.5, alpha: 1.0)
     let levelInfo: LevelInfo
     init(levelInfo: LevelInfo, levelButtonPositioner: LevelButtonPositioner) {
@@ -20,7 +20,7 @@ class LevelSelectButton: SKSpriteNode {
             super.init(texture: texture, color: UIColor.clear, size: levelButtonPositioner.getLevelSize())
             position = levelButtonPositioner.getLevelPosition(id: levelInfo.levelId)
             addStars(stars: levelInfo.stars)
-            addLable(id: levelInfo.levelId, color: orange)
+            addLable(id: levelInfo.levelId, color: green)
 
         } else {
             let texture = SKTexture(imageNamed: "LevelSW")
@@ -52,7 +52,7 @@ class LevelSelectButton: SKSpriteNode {
     }
     
     func addLable(id: Int, color: UIColor) {
-        let idLable = SKLabelNode(fontNamed: "Impact")
+        let idLable = SKLabelNode(fontNamed: "Optima-Bold")
         idLable.text = String(id)
         idLable.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         idLable.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center

@@ -11,7 +11,6 @@ import SpriteKit
 
 class StoryServiceImpl: StoryService {
 
-    //var currentScene: SKScene?
     var currentView: SKView
     let size: CGSize
     let levelService: LevelService
@@ -20,8 +19,6 @@ class StoryServiceImpl: StoryService {
         self.size = size
         self.levelService = levelService
         currentView = skView
-       // skView.showsFPS = true
-       // skView.showsNodeCount = true
         skView.ignoresSiblingOrder = true
     }
 
@@ -29,19 +26,31 @@ class StoryServiceImpl: StoryService {
         let levelChoiceScene = LevelChoiceScene(size: size, levelService: levelService)
         levelChoiceScene.scaleMode = .resizeFill
         currentView.presentScene(levelChoiceScene)
-
     }
-
-    func loadLevelModeGameScene(levelId: Int) {
+    
+    func loadLevelCoiceSceneFromLevelModeScene() {
+        let levelChoiceScene = LevelChoiceScene(size: size, levelService: levelService)
+        let transition = SKTransition.push(with: .up, duration: 0.5)
+        currentView.presentScene(levelChoiceScene, transition: transition)
+    }
+    
+    func loadLevelModeGameSceneFromChoiceScene(levelId: Int) {
+        let levelModeGameScene = LevelModeGameScene(size: size, level: levelService.getLevelById(id: levelId)!)
+        let transition = SKTransition.push(with: .down, duration: 0.5)
+        currentView.presentScene(levelModeGameScene, transition: transition)
+    }
+    
+    func reloadLevelModeGameScene(levelId: Int) {
+        let levelModeGameScene = LevelModeGameScene(size:
+            size, level: levelService.getLevelById(id: levelId)!)
+        let transition = SKTransition.crossFade(withDuration: 0.5)
+        currentView.presentScene(levelModeGameScene, transition: transition)
+    }
+    
+    func loadNextLevelModeGameScene(levelId: Int) {
         let levelModeGameScene = LevelModeGameScene(size: size, level: levelService.getLevelById(id: levelId)!)
         let transition = SKTransition.push(with: .left, duration: 0.5)
         currentView.presentScene(levelModeGameScene, transition: transition)
     }
-
-    func loadLevelModeScoreScene(levelResult: LevelResult) {
-        let levelModeScoreScene = LevelModeScoreScene(size: size, levelResult: levelResult)
-        currentView.presentScene(levelModeScoreScene)
-    }
-
-
+    
 }

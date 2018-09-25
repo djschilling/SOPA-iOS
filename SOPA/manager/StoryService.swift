@@ -11,6 +11,10 @@ import SpriteKit
 
 protocol StoryService {
     func loadLevelCoiceScene()
-    func loadLevelModeGameScene(levelId: Int)
-    func loadLevelModeScoreScene(levelResult: LevelResult)
+    func loadLevelCoiceSceneFromLevelModeScene()
+
+    
+    func loadLevelModeGameSceneFromChoiceScene(levelId: Int)
+    func reloadLevelModeGameScene(levelId: Int)
+    func loadNextLevelModeGameScene(levelId: Int)
 }

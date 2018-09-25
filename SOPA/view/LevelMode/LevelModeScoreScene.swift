@@ -106,7 +106,7 @@ class LevelModeScoreScene: SKScene {
     }
     
     func restartLevel() {
-        ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: levelResult.levelId)
+        ResourcesManager.getInstance().storyService?.reloadLevelModeGameScene(levelId: levelResult.levelId)
     }
     
     func levelChoiceMenu() {
@@ -117,7 +117,7 @@ class LevelModeScoreScene: SKScene {
         if ResourcesManager.getInstance().levelService?.getLevelCount() == levelResult.levelId {
             ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
         } else {
-            ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: levelResult.levelId + 1)
+            ResourcesManager.getInstance().storyService?.loadNextLevelModeGameScene(levelId: levelResult.levelId + 1)
         }
         
     }

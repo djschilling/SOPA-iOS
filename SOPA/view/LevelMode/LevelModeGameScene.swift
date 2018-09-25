@@ -49,12 +49,12 @@ class LevelModeGameScene: GameScene {
     
     func restartLevel() {
         LogFileHandler.logger.write("LevelMode; restart; \(gameService.getLevel().id!); \(super.gameService.getLevel().movesCounter); -1; \(stopCounter()); \(NSDate())\n")
-      ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: gameService.getLevel().id!)
+      ResourcesManager.getInstance().storyService?.reloadLevelModeGameScene(levelId: gameService.getLevel().id!)
     }
     
     func loadLevelChoiceScene() {
         LogFileHandler.logger.write("LevelMode; end; \(gameService.getLevel().id!); \(super.gameService.getLevel().movesCounter); -1; \(stopCounter()); \(NSDate())\n")
-        ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
+        ResourcesManager.getInstance().storyService?.loadLevelCoiceSceneFromLevelModeScene()
     }
     
     override func onSolvedGame() {
@@ -66,11 +66,9 @@ class LevelModeGameScene: GameScene {
         _ = levelService?.persistLevelResult(levelResult: levelResult)
         levelService?.unlockLevel(levelId: level.id! + 1)
         LogFileHandler.logger.write("LevelMode; solved; \(levelResult.levelId); \(levelResult.moveCount); \(levelResult.stars); \(time); \(NSDate())\n")
-        
-        /*DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
-            ResourcesManager.getInstance().storyService?.loadLevelModeScoreScene(levelResult: levelResult)
-        }*/
-        animateLevelSolved(levelResult: levelResult)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7, execute: {
+            self.animateLevelSolved(levelResult: levelResult)
+            })
     }
     
     private func animateLevelSolved(levelResult: LevelResult) {
@@ -79,7 +77,7 @@ class LevelModeGameScene: GameScene {
         moveActionLabels.timingMode = SKActionTimingMode.easeInEaseOut
         
         gameFieldNode?.run(fadeOutGameField)
-        movesLabels.run(moveActionLabels)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {self.movesLabels.run(moveActionLabels)})
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             self.addStars(levelResult: levelResult)
@@ -93,7 +91,7 @@ class LevelModeGameScene: GameScene {
     private func addNextLevelButton() {
         let nextLevelButton = SpriteButton(imageNamed: "NextLevel") {
             
-            ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: self.gameService.getLevel().id! + 1)
+            ResourcesManager.getInstance().storyService?.loadNextLevelModeGameScene(levelId: self.gameService.getLevel().id! + 1)
         }
         nextLevelButton.size = CGSize(width: BUTTON_SIZE, height: BUTTON_SIZE)
         

@@ -25,6 +25,15 @@ struct Tile : Hashable {
         self.tileType = tileType
         self.shortcut = shortcut
     }
+    
+    init() {
+        tileType = TileType.NONE
+        shortcut = "n"
+        bottom = false
+        top = false
+        left = false
+        right = false
+    }
 
     var hashValue: Int {
         return top.hashValue ^ bottom.hashValue ^ left.hashValue ^ right.hashValue ^ tileType.hashValue ^ shortcut.hashValue

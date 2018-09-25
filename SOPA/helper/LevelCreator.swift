@@ -1,0 +1,183 @@
+
+
+
+/**
+ * @author  David Schilling - davejs92@gmail.com
+ * @author  Raphael Schilling
+ */
+/*import Foundation
+
+class LevelCreator {
+    
+    private let levelDestroyer: LevelDestroyer
+    private let levelSolver: LevelSolver
+    private let directionsX = [0, 1, 0, -1]
+    private let directionsY = [1, 0, -1, 0]
+    
+    init() {
+        levelDestroyer = LevelDestroyer()
+        levelSolver = LevelSolver(GameFieldService())
+    }
+    
+    func random(in range: Range<Int>) -> Int {
+        return numericCast(arc4random_uniform(numericCast(range.count))) + range.lowerBound
+    }
+    
+    private func generateSolvedField(width: Int, height: Int, minTubes: Int, maxTubes: Int) -> Level {
+        
+        var number = 0
+        let level = Level()
+        let startX: Int
+        let startY: Int
+        var direction: Int
+        
+        let undefinedTile = Tile()
+        var tiles = Array(repeating: Array(repeating:  undefinedTile, count: height), count: width)
+        
+        for i in 1..<width - 1 {
+            for j in 1..<height - 1 {
+                tiles[i][j] = Tile(top: false, bottom: false, left: false, right: false, tileType: TileType.UNDEFINED, shortcut: "o")
+            }
+            
+            
+            for i in 0..<width {
+                tiles[i][0] = Tile()
+            }
+            
+            for i in 0..<width {
+                tiles[i][height - 1] = Tile()
+            }
+            
+            for i in 0..<height {
+                tiles[0][i] = Tile()
+            }
+            
+            for i in 0..<height {
+                tiles[width - 1][i] = Tile()
+            }
+            
+            var startTile: Tile
+            
+            switch random(in: 0..<4) {
+            case 0:
+                startTile = Tile(top: false, bottom: true, left: false, right: false, tileType: TileType.START, shortcut: "s")
+                startX = random(in: 1..<width - 1)
+                startY = 0
+                direction = 0
+                tiles[startX][0] = startTile
+                
+                
+            case 1:
+                startTile = Tile(top: true, bottom: false, left: false, right: false, tileType: TileType.START, shortcut: "s")
+                startX = random(in: 1..<width - 1)
+                startY = height - 1
+                direction = 2
+                tiles[startX][height - 1] = startTile
+                
+                
+            case 2:
+                startTile = Tile(top: false, bottom: false, left: false, right: true, tileType: TileType.START, shortcut: "s")
+                startX = 0
+                startY = random(in: 1..<height - 1)
+                direction = 1
+                tiles[startX][startY] = startTile
+                
+                
+            case 3:
+                startTile = Tile(top: false, bottom: false, left: true, right: false, tileType: TileType.START, shortcut: "s")
+                startX = width - 1
+                startY = random(in: 1..<height - 1)
+                direction = 3
+                tiles[startX][startY] = startTile
+                
+            default:
+                fatalError()
+            }
+            
+            var x = startX
+            var y = startY
+            
+            while (x != 0 && x != width - 1 && y != 0 && y != height - 1 || x == startX && y == startY) {
+                number += 1
+                
+                if (random(in: 0..<10) < 7 && !(startX == x && startY == y)) {
+                    direction = random(in: 0..<4)
+                }
+                
+                var xNew = x + directionsX[direction]
+                var yNew = y + directionsY[direction]
+                var directions = [false, false, false, false]
+                
+                while (tiles[xNew][yNew].tileType != TileType.UNDEFINED && tiles[xNew][yNew].shortcut !== "n") {
+                    if (directions[0] && directions[1] && directions[2] && directions[3]) {
+                        return generateSolvedField(width: width, height: height, minTubes: minTubes, maxTubes: maxTubes)
+                    }
+                    
+                    directions[direction] = true
+                    direction = random(in: 0..<4)
+                    xNew = x + directionsX[direction]
+                    yNew = y + directionsY[direction]
+                }
+                
+                switch direction {
+                case 0:
+                    tiles[x][y].bottom = true
+                    tiles[xNew][yNew].top = true
+                    
+                    
+                case 1:
+                    tiles[x][y].right = true
+                    tiles[xNew][yNew].left = true
+                    
+                    
+                case 2:
+                    tiles[x][y].top = true
+                    tiles[xNew][yNew].bottom = true
+                    
+                case 3:
+                    tiles[x][y].left = true
+                    tiles[xNew][yNew].right = true
+                    
+                default:
+                    fatalError()
+                
+                x = xNew
+                y = yNew
+                tiles[x][y].tileType = TileType.PUZZLE
+            }
+            
+            for i in 1..<width - 1 {
+                for j in 1..<height - 1 {
+                    tiles[i][j].tileType = TileType.PUZZLE
+                    tiles[i][j].shortcut = TILE_CHARACTER_MAP.get(tiles[i][j])
+                }
+            }
+            
+            tiles[x][y].setTileType(TileType.FINISH)
+            tiles[x][y].setShortcut("f")
+            level.setStartX(startX)
+            level.setStartY(startY)
+            level.setField(tiles)
+            level.setTilesCount(number - 1)
+            
+            return if (number - 1 >= minTubes && maxTubes >= number - 1) {
+                level
+            } else {
+                generateSolvedField(width, height, minTubes, maxTubes)
+            }
+        }
+        
+        
+        fun generateLevel(size: Int, moves: Int, minTubes: Int, maxTubes: Int): Level {
+            
+            var level: Level
+            
+            do {
+                level = levelDestroyer.destroyField(generateSolvedField(size, size, minTubes, maxTubes), moves, moves)
+            } while (levelSolver.solve(level, moves).getMinimumMovesToSolve() !== moves)
+            
+            return level
+        }
+        
+        
+}*/

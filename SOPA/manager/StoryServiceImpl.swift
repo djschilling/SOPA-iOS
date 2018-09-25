@@ -34,7 +34,8 @@ class StoryServiceImpl: StoryService {
 
     func loadLevelModeGameScene(levelId: Int) {
         let levelModeGameScene = LevelModeGameScene(size: size, level: levelService.getLevelById(id: levelId)!)
-        currentView.presentScene(levelModeGameScene)
+        let transition = SKTransition.push(with: .left, duration: 0.5)
+        currentView.presentScene(levelModeGameScene, transition: transition)
     }
 
     func loadLevelModeScoreScene(levelResult: LevelResult) {

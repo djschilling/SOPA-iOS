@@ -92,6 +92,7 @@ class LevelModeGameScene: GameScene {
     
     private func addNextLevelButton() {
         let nextLevelButton = SpriteButton(imageNamed: "NextLevel") {
+            
             ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: self.gameService.getLevel().id! + 1)
         }
         nextLevelButton.size = CGSize(width: BUTTON_SIZE, height: BUTTON_SIZE)

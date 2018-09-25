@@ -18,6 +18,7 @@ class GameScene: SKScene {
     let fontName = "Optima-Bold"
     let fontColor = UIColor(red: 240.0 / 255.0, green: 239.0 / 255.0, blue: 238.0 / 255.0, alpha: 1.0)
     let currentMovesNode = SKLabelNode(fontNamed: "Optima-Bold")
+    let movesLabels = SKNode()
     
     init(size: CGSize, level: Level) {
         BUTTON_SIZE = CGFloat(0.13) * size.height
@@ -39,6 +40,8 @@ class GameScene: SKScene {
     }
     
     func addStaticLabels() {
+        addChild(movesLabels)
+        
         let minMovesLabel = SKLabelNode(fontNamed: fontName)
         minMovesLabel.text = "Optimum: \(gameService.getLevel().minimumMovesToSolve!)"
         minMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
@@ -47,17 +50,9 @@ class GameScene: SKScene {
         minMovesLabel.position.y = size.height * 0.113
         minMovesLabel.fontSize = size.height * 0.055
         minMovesLabel.fontColor = fontColor
-        addChild(minMovesLabel)
+        movesLabels.addChild(minMovesLabel)
         
-        let minMovesNumber = SKLabelNode(fontNamed: fontName)
-        minMovesNumber.text = String()
-        minMovesNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
-        minMovesNumber.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        minMovesNumber.position.x = size.height * 0.33
-        minMovesNumber.position.y = size.height * 0.15
-        minMovesNumber.fontSize = size.height * 0.055
-        minMovesLabel.fontColor = fontColor
-      //  addChild(minMovesNumber)
+
         
         
         let currentMovesLabel = SKLabelNode(fontNamed: fontName)
@@ -68,7 +63,7 @@ class GameScene: SKScene {
         currentMovesLabel.position.y = size.height * 0.181
         currentMovesLabel.fontSize = size.height * 0.055
         currentMovesLabel.fontColor = fontColor
-        addChild(currentMovesLabel)
+        movesLabels.addChild(currentMovesLabel)
         
       
 
@@ -93,7 +88,7 @@ class GameScene: SKScene {
         currentMovesNode.position.y = size.height * 0.181
         currentMovesNode.fontSize = size.height * 0.055
         currentMovesNode.fontColor = fontColor
-        addChild(currentMovesNode)
+        movesLabels.addChild(currentMovesNode)
     }
     
     func onSolvedGame() {

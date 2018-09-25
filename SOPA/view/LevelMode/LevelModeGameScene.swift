@@ -58,7 +58,7 @@ class LevelModeGameScene: GameScene {
     }
     
     override func onSolvedGame() {
-        hideButtons()
+        //hideButtons()
         let time = stopCounter()
         let level = gameService.getLevel()
         let levelService = ResourcesManager.getInstance().levelService
@@ -67,11 +67,56 @@ class LevelModeGameScene: GameScene {
         _ = levelService?.persistLevelResult(levelResult: levelResult)
         levelService?.unlockLevel(levelId: level.id! + 1)
         LogFileHandler.logger.write("LevelMode; solved; \(levelResult.levelId); \(levelResult.moveCount); \(levelResult.stars); \(time); \(NSDate())\n")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
+        
+        /*DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
             ResourcesManager.getInstance().storyService?.loadLevelModeScoreScene(levelResult: levelResult)
+        }*/
+        animateLevelSolved(levelResult: levelResult)
+    }
+    
+    private func animateLevelSolved(levelResult: LevelResult) {
+        let fadeOutGameField: SKAction = SKAction.fadeAlpha(to: 0.0, duration: 0.3)
+        let moveActionLabels = SKAction.move(by: CGVector(dx: size.height * -0.1, dy: size.height * 0.49), duration: 0.5)
+        moveActionLabels.timingMode = SKActionTimingMode.easeInEaseOut
+        gameFieldNode?.run(fadeOutGameField)
+        movesLabels.run(moveActionLabels)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.addStars(levelResult: levelResult)
         }
     }
     
+    private func addStars(levelResult: LevelResult) {
+        let STAR_HEIGHT_HEIGH = CGFloat(0.37)
+        let STAR_HEIGHT_LOW = CGFloat(0.33)
+        
+        let starSizeHidden = CGSize(width: 0, height: 0)
+        let starSize = CGSize(width: size.width * 0.36, height: size.width * 0.36)
+        
+        let star1 = SKSpriteNode(imageNamed: "star_score" )
+        star1.size = starSizeHidden
+        star1.position = CGPoint(x: starSize.width / 1.8, y: STAR_HEIGHT_HEIGH * size.height)
+        addChild(star1)
+        
+        let star2 = SKSpriteNode(imageNamed: levelResult.stars >= 2 ? "star_score": "starSW_score")
+        star2.size = starSizeHidden
+        star2.position = CGPoint(x: size.width / 2, y: STAR_HEIGHT_LOW * size.height)
+        addChild(star2)
+        
+        let star3 = SKSpriteNode(imageNamed: levelResult.stars == 3 ? "star_score": "starSW_score")
+        star3.size = starSizeHidden
+        star3.position = CGPoint(x: size.width - starSize.width / 1.8, y: STAR_HEIGHT_HEIGH * size.height)
+        addChild(star3)
+        
+        let appearStar = SKAction.resize(toWidth: starSize.width, height: starSize.height, duration: 0.1)
+        star1.run(appearStar)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            star2.run(appearStar)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) {
+            star3.run(appearStar)
+        }
+    }
+
     private func hideButtons() {
         restartButton!.isUserInteractionEnabled = false
         restartButton!.isHidden = true

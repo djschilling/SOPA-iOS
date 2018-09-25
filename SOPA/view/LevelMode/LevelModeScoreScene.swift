@@ -89,17 +89,17 @@ class LevelModeScoreScene: SKScene {
     func addStars() {
         let starSize = CGSize(width: size.width * 0.36, height: size.width * 0.36)
         
-        let star1 = SKSpriteNode(imageNamed: "star" )
+        let star1 = SKSpriteNode(imageNamed: "star_score" )
         star1.size = starSize
         star1.position = CGPoint(x: starSize.width / 2, y: STAR_HEIGHT_HEIGH * size.height)
         addChild(star1)
         
-        let star2 = SKSpriteNode(imageNamed: levelResult.stars >= 2 ? "star": "starSW")
+        let star2 = SKSpriteNode(imageNamed: levelResult.stars >= 2 ? "star_score": "starSW_score")
         star2.size = starSize
         star2.position = CGPoint(x: size.width / 2, y: STAR_HEIGHT_LOW * size.height)
         addChild(star2)
 
-        let star3 = SKSpriteNode(imageNamed: levelResult.stars == 3 ? "star": "starSW")
+        let star3 = SKSpriteNode(imageNamed: levelResult.stars == 3 ? "star_score": "starSW_score")
         star3.size = starSize
         star3.position = CGPoint(x: size.width - starSize.width / 2, y: STAR_HEIGHT_HEIGH * size.height)
         addChild(star3)

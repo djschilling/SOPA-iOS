@@ -58,7 +58,6 @@ class LevelModeGameScene: GameScene {
     }
     
     override func onSolvedGame() {
-        //hideButtons()
         let time = stopCounter()
         let level = gameService.getLevel()
         let levelService = ResourcesManager.getInstance().levelService
@@ -78,11 +77,32 @@ class LevelModeGameScene: GameScene {
         let fadeOutGameField: SKAction = SKAction.fadeAlpha(to: 0.0, duration: 0.3)
         let moveActionLabels = SKAction.move(by: CGVector(dx: size.height * -0.1, dy: size.height * 0.49), duration: 0.5)
         moveActionLabels.timingMode = SKActionTimingMode.easeInEaseOut
+        
         gameFieldNode?.run(fadeOutGameField)
         movesLabels.run(moveActionLabels)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             self.addStars(levelResult: levelResult)
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.addNextLevelButton()
+        }
+    }
+    
+    private func addNextLevelButton() {
+        let nextLevelButton = SpriteButton(imageNamed: "NextLevel") {
+            ResourcesManager.getInstance().storyService?.loadLevelModeGameScene(levelId: self.gameService.getLevel().id! + 1)
+        }
+        nextLevelButton.size = CGSize(width: BUTTON_SIZE, height: BUTTON_SIZE)
+        
+        nextLevelButton.alpha = 0.0
+        nextLevelButton.position.y = size.height * 0.111
+        nextLevelButton.position.x = size.height * 0.45
+
+        addChild(nextLevelButton)
+        nextLevelButton.run(SKAction.fadeAlpha(to: 1.0, duration: 0.2))
+        
     }
     
     private func addStars(levelResult: LevelResult) {

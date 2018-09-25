@@ -74,6 +74,10 @@
 		646E6AEA213E80F7001D195B /* LevelButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646E6AE8213E80F7001D195B /* LevelButtonArea.swift */; };
 		64837B25214D0242004B9B05 /* LevelCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64837B24214D0242004B9B05 /* LevelCreator.swift */; };
 		64837B26214D0242004B9B05 /* LevelCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64837B24214D0242004B9B05 /* LevelCreator.swift */; };
+		64847A0B215A382B0012B732 /* LevelModeScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D5B8CE20ADE2680007D982 /* LevelModeScoreScene.swift */; };
+		64847A0C215A38330012B732 /* LevelChoiceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D5B8D020B46BD70007D982 /* LevelChoiceScene.swift */; };
+		64847A0D215A38530012B732 /* TileSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64182B112082604300CF639A /* TileSpriteNode.swift */; };
+		64847A0E215A38B70012B732 /* GameFieldNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64182B132084BC7C00CF639A /* GameFieldNode.swift */; };
 		648558C321412BBD00B61C31 /* EffectSpriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648558C221412BBD00B61C31 /* EffectSpriteButton.swift */; };
 		648558C421412BBD00B61C31 /* EffectSpriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648558C221412BBD00B61C31 /* EffectSpriteButton.swift */; };
 		649209971FB3216500ED019D /* StarCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649209961FB3216500ED019D /* StarCalculator.swift */; };
@@ -413,10 +417,12 @@
 				TargetAttributes = {
 					63F6611E1F9B346E0043ABCF = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					63F661381F9B346E0043ABCF = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 63F6611E1F9B346E0043ABCF;
 					};
@@ -521,6 +527,7 @@
 			files = (
 				646902C8207F6B7600283F71 /* LevelResult.swift in Sources */,
 				64182B17208771A600CF639A /* SpriteButton.swift in Sources */,
+				64847A0C215A38330012B732 /* LevelChoiceScene.swift in Sources */,
 				646902C3207F6B7600283F71 /* GameEndService.swift in Sources */,
 				646902C4207F6B7600283F71 /* GameFieldService.swift in Sources */,
 				646902C5207F6B7600283F71 /* GameService.swift in Sources */,
@@ -551,10 +558,13 @@
 				646902D7207F6B8900283F71 /* GameSceneObserver.swift in Sources */,
 				646902CF207F6B7D00283F71 /* LevelService.swift in Sources */,
 				646902D4207F6B8200283F71 /* ResourceMapper.swift in Sources */,
+				64847A0D215A38530012B732 /* TileSpriteNode.swift in Sources */,
+				64847A0E215A38B70012B732 /* GameFieldNode.swift in Sources */,
 				646902D9207F6BA800283F71 /* AppDelegate.swift in Sources */,
 				646902CB207F6B7600283F71 /* TileType.swift in Sources */,
 				63F661681F9B88440043ABCF /* LevelTranslatorTest.swift in Sources */,
 				646902C6207F6B7600283F71 /* GameServiceImpl.swift in Sources */,
+				64847A0B215A382B0012B732 /* LevelModeScoreScene.swift in Sources */,
 				646902CE207F6B7D00283F71 /* LevelFileService.swift in Sources */,
 				646902DA207F6BD500283F71 /* GameScene.swift in Sources */,
 				642E2B40213B0B1E002669E5 /* LevelSelectButton.swift in Sources */,
@@ -713,7 +723,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -728,7 +738,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -744,7 +754,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPATests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SOPA.app/SOPA";
 			};
@@ -761,7 +771,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.davidschilling.SOPATests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SOPA.app/SOPA";
 			};

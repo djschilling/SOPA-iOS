@@ -716,7 +716,7 @@
 		63F6614E1F9B346E0043ABCF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P8U53M9P6Y;
 				INFOPLIST_FILE = SOPA/Info.plist;
@@ -731,7 +731,7 @@
 		63F6614F1F9B346E0043ABCF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P8U53M9P6Y;
 				INFOPLIST_FILE = SOPA/Info.plist;

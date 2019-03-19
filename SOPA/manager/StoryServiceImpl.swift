@@ -20,6 +20,7 @@ class StoryServiceImpl: StoryService {
         self.levelService = levelService
         currentView = skView
         skView.ignoresSiblingOrder = true
+        skView.isMultipleTouchEnabled = false;
     }
 
     func loadLevelCoiceScene() {

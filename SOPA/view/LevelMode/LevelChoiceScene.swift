@@ -22,8 +22,8 @@ class LevelChoiceScene: SKScene {
         levelButtonArea = LevelButtonArea(size: size, levelInfos: levelInfos, update: update)
         addChild(levelButtonArea!)
         addButtons()
-        addStatisticsShareButton()
-        backgroundColor = UIColor(red: 169.0 / 255.0, green: 162.0 / 255.0, blue: 121.0 / 255.0, alpha: 1.0)
+        //addStatisticsShareButton()
+        self.backgroundColor = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255, alpha: 1.0)
 
 
     }
@@ -50,13 +50,13 @@ class LevelChoiceScene: SKScene {
         leftButton?.position.y = buttonSize
         leftButton?.position.x = buttonSize
         leftButton?.setEnabled(levelButtonArea!.currentLevelPage > 0)
-        addChild(leftButton!)
+       // addChild(leftButton!)
         
         rightButton = EffectSpriteButton(imageNamed: "ArrowRight", onClick: levelButtonArea!.swipeRight, size: CGSize(width: buttonSize, height: buttonSize))
         rightButton?.position.y = buttonSize
         rightButton?.position.x = size.width - buttonSize
         leftButton?.setEnabled(levelButtonArea!.currentLevelPage < levelButtonArea!.pageCount - 1)
-        addChild(rightButton!)
+      //  addChild(rightButton!)
         update()
     }
     

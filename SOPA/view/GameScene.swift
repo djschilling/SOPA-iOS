@@ -29,7 +29,9 @@ class GameScene: SKScene {
         addButtons()
         addStaticLabels()
         addDynamicLabels()
-        self.backgroundColor = UIColor(red: 169.0 / 255.0, green: 162.0 / 255.0, blue: 121.0 / 255, alpha: 1.0)
+        //self.backgroundColor = UIColor(red: 169.0 / 255.0, green: 162.0 / 255.0, blue: 121.0 / 255, alpha: 1.0)greenbrown
+        self.backgroundColor = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255, alpha: 1.0)
+
     }
     
     required init(coder aDecoder: NSCoder) {

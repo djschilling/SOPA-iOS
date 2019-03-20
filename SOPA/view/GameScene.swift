@@ -10,6 +10,8 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
+    let fontSize: CGFloat
+    
     var gameFieldNode: GameFieldNode?
     
     let gameService : GameService
@@ -21,6 +23,7 @@ class GameScene: SKScene {
     let movesLabels = SKNode()
     
     init(size: CGSize, level: Level) {
+        fontSize = CGFloat(size.height * 0.055)
         BUTTON_SIZE = CGFloat(0.13) * size.height
         gameService = GameServiceImpl(level: level)
         super.init(size: size)
@@ -48,10 +51,12 @@ class GameScene: SKScene {
         minMovesLabel.text = "Optimum: \(gameService.getLevel().minimumMovesToSolve!)"
         minMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         minMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        minMovesLabel.position.x = size.height * 0.226
-        minMovesLabel.position.y = size.height * 0.113
-        minMovesLabel.fontSize = size.height * 0.055
+        minMovesLabel.fontSize = fontSize
+        minMovesLabel.position.x = minMovesLabel.fontSize * -2.6
+        minMovesLabel.position.y = size.height * -0.068
         minMovesLabel.fontColor = fontColor
+        movesLabels.position.y = size.height * 0.181
+        movesLabels.position.x = size.width * 0.66
         movesLabels.addChild(minMovesLabel)
         
 
@@ -61,8 +66,8 @@ class GameScene: SKScene {
         currentMovesLabel.text = "Moves:"
         currentMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         currentMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        currentMovesLabel.position.x = size.height * 0.229
-        currentMovesLabel.position.y = size.height * 0.181
+        currentMovesLabel.position.x = minMovesLabel.position.x
+        currentMovesLabel.position.y = 0
         currentMovesLabel.fontSize = size.height * 0.055
         currentMovesLabel.fontColor = fontColor
         movesLabels.addChild(currentMovesLabel)
@@ -86,9 +91,9 @@ class GameScene: SKScene {
         currentMovesNode.text = String(gameService.getLevel().movesCounter)
         currentMovesNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
         currentMovesNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        currentMovesNode.position.x = size.height * 0.51
-        currentMovesNode.position.y = size.height * 0.181
         currentMovesNode.fontSize = size.height * 0.055
+        currentMovesNode.position.x = currentMovesNode.fontSize * 2.7
+        currentMovesNode.position.y = 0
         currentMovesNode.fontColor = fontColor
         movesLabels.addChild(currentMovesNode)
     }

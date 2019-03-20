@@ -5,6 +5,7 @@
 //  Created by Raphael Schilling on 23.04.18.
 //  Copyright © 2018 David Schilling. All rights reserved.
 //
+
 import Foundation
 import SpriteKit
 class LevelModeGameScene: GameScene {
@@ -35,7 +36,7 @@ class LevelModeGameScene: GameScene {
         restartButton!.size.height = BUTTON_SIZE
         restartButton!.size.width = BUTTON_SIZE
         restartButton!.position.y = size.height * 0.111
-        restartButton!.position.x = size.height * 0.106
+        restartButton!.position.x = size.width * 0.2
         addChild(restartButton!)
         
         levelChoiceButton = SpriteButton(imageNamed: "LevelChoice", onClick: loadLevelChoiceScene)
@@ -73,7 +74,7 @@ class LevelModeGameScene: GameScene {
     
     private func animateLevelSolved(levelResult: LevelResult) {
         let fadeOutGameField: SKAction = SKAction.fadeAlpha(to: 0.0, duration: 0.3)
-        let moveActionLabels = SKAction.move(by: CGVector(dx: size.height * -0.1, dy: size.height * 0.49), duration: 0.5)
+        let moveActionLabels = SKAction.move(to: CGPoint(x: size.width * 0.5, y: size.height * 0.70), duration: 0.5)
         moveActionLabels.timingMode = SKActionTimingMode.easeInEaseOut
         
         gameFieldNode?.run(fadeOutGameField)
@@ -97,7 +98,7 @@ class LevelModeGameScene: GameScene {
         
         nextLevelButton.alpha = 0.0
         nextLevelButton.position.y = size.height * 0.111
-        nextLevelButton.position.x = size.height * 0.45
+        nextLevelButton.position.x = size.width * 0.8
 
         addChild(nextLevelButton)
         nextLevelButton.run(SKAction.fadeAlpha(to: 1.0, duration: 0.2))

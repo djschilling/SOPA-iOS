@@ -35,15 +35,13 @@ class LevelModeGameScene: GameScene {
         restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
         restartButton!.size.height = proportionSet.buttonSize()
         restartButton!.size.width = proportionSet.buttonSize()
-        restartButton!.position.y = size.height * 0.111
-        restartButton!.position.x = size.width * 0.2
+        restartButton!.position = proportionSet.restartButtonPos()
         addChild(restartButton!)
         
         levelChoiceButton = SpriteButton(imageNamed: "LevelChoice", onClick: loadLevelChoiceScene)
-        levelChoiceButton!.size.height = size.height * 0.08
-        levelChoiceButton!.size.width = size.height * 0.08
-        levelChoiceButton!.position.y = size.height * 0.91
-        levelChoiceButton!.position.x =  size.height * 0.057
+        levelChoiceButton!.size.height = proportionSet.levelChoiceSize()
+        levelChoiceButton!.size.width = proportionSet.levelChoiceSize()
+        levelChoiceButton!.position = proportionSet.levelChoicePos()
         addChild(levelChoiceButton!)
 
     }
@@ -74,7 +72,7 @@ class LevelModeGameScene: GameScene {
     
     private func animateLevelSolved(levelResult: LevelResult) {
         let fadeOutGameField: SKAction = SKAction.fadeAlpha(to: 0.0, duration: 0.3)
-        let moveActionLabels = SKAction.move(to: CGPoint(x: size.width * 0.5, y: size.height * 0.70), duration: 0.5)
+        let moveActionLabels = SKAction.move(to: proportionSet.moveLabelsPos2(), duration: 0.5)
         moveActionLabels.timingMode = SKActionTimingMode.easeInEaseOut
         
         gameFieldNode?.run(fadeOutGameField)
@@ -97,8 +95,8 @@ class LevelModeGameScene: GameScene {
         nextLevelButton.size = CGSize(width: proportionSet.buttonSize(), height: proportionSet.buttonSize())
         
         nextLevelButton.alpha = 0.0
-        nextLevelButton.position.y = size.height * 0.111
-        nextLevelButton.position.x = size.width * 0.8
+        nextLevelButton.position.y = proportionSet.restartButtonPos().y
+        nextLevelButton.position.x = size.width - proportionSet.restartButtonPos().x
 
         addChild(nextLevelButton)
         nextLevelButton.run(SKAction.fadeAlpha(to: 1.0, duration: 0.2))
@@ -106,28 +104,26 @@ class LevelModeGameScene: GameScene {
     }
     
     private func addStars(levelResult: LevelResult) {
-        let STAR_HEIGHT_HEIGH = CGFloat(0.37)
-        let STAR_HEIGHT_LOW = CGFloat(0.33)
+
         
         let starSizeHidden = CGSize(width: 0, height: 0)
-        let starSize = CGSize(width: size.width * 0.36, height: size.width * 0.36)
         
         let star1 = SKSpriteNode(imageNamed: "star_score" )
         star1.size = starSizeHidden
-        star1.position = CGPoint(x: starSize.width / 1.8, y: STAR_HEIGHT_HEIGH * size.height)
+        star1.position = CGPoint(x: proportionSet.starSize().width * proportionSet.starLRX(), y:  proportionSet.starLRY())
         addChild(star1)
         
         let star2 = SKSpriteNode(imageNamed: levelResult.stars >= 2 ? "star_score": "starSW_score")
         star2.size = starSizeHidden
-        star2.position = CGPoint(x: size.width / 2, y: STAR_HEIGHT_LOW * size.height)
+        star2.position = CGPoint(x: size.width / 2, y: proportionSet.starMY())
         addChild(star2)
         
         let star3 = SKSpriteNode(imageNamed: levelResult.stars == 3 ? "star_score": "starSW_score")
         star3.size = starSizeHidden
-        star3.position = CGPoint(x: size.width - starSize.width / 1.8, y: STAR_HEIGHT_HEIGH * size.height)
+        star3.position = CGPoint(x: size.width - proportionSet.starSize().width * proportionSet.starLRX(), y: proportionSet.starLRY())
         addChild(star3)
         
-        let appearStar = SKAction.resize(toWidth: starSize.width, height: starSize.height, duration: 0.1)
+        let appearStar = SKAction.resize(toWidth: proportionSet.starSize().width, height: proportionSet.starSize().height, duration: 0.1)
         star1.run(appearStar)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             star2.run(appearStar)

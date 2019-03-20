@@ -10,21 +10,18 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    let fontSize: CGFloat
-    
     var gameFieldNode: GameFieldNode?
     
     let gameService : GameService
+    let proportionSet: ProportionSet
     var levelSolved = false
-    let BUTTON_SIZE: CGFloat
     let fontName = "Optima-Bold"
     let fontColor = UIColor(red: 240.0 / 255.0, green: 239.0 / 255.0, blue: 238.0 / 255.0, alpha: 1.0)
     let currentMovesNode = SKLabelNode(fontNamed: "Optima-Bold")
     let movesLabels = SKNode()
     
-    init(size: CGSize, level: Level) {
-        fontSize = CGFloat(size.height * 0.055)
-        BUTTON_SIZE = CGFloat(0.13) * size.height
+    init(size: CGSize, proportionSet: ProportionSet, level: Level) {
+        self.proportionSet = proportionSet
         gameService = GameServiceImpl(level: level)
         super.init(size: size)
         gameFieldNode = GameFieldNode(gameScene: self)
@@ -51,12 +48,10 @@ class GameScene: SKScene {
         minMovesLabel.text = "Optimum: \(gameService.getLevel().minimumMovesToSolve!)"
         minMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         minMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        minMovesLabel.fontSize = fontSize
-        minMovesLabel.position.x = minMovesLabel.fontSize * -2.6
-        minMovesLabel.position.y = size.height * -0.068
+        minMovesLabel.fontSize = proportionSet.movesFontSize()
+        minMovesLabel.position = proportionSet.minMovesPos()
         minMovesLabel.fontColor = fontColor
-        movesLabels.position.y = size.height * 0.181
-        movesLabels.position.x = size.width * 0.66
+        movesLabels.position = proportionSet.movesLabelsPos()
         movesLabels.addChild(minMovesLabel)
         
 
@@ -66,9 +61,8 @@ class GameScene: SKScene {
         currentMovesLabel.text = "Moves:"
         currentMovesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         currentMovesLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        currentMovesLabel.position.x = minMovesLabel.position.x
-        currentMovesLabel.position.y = 0
-        currentMovesLabel.fontSize = size.height * 0.055
+        currentMovesLabel.position = proportionSet.currentMovesLabelPos()
+        currentMovesLabel.fontSize = proportionSet.movesFontSize()
         currentMovesLabel.fontColor = fontColor
         movesLabels.addChild(currentMovesLabel)
         
@@ -77,9 +71,8 @@ class GameScene: SKScene {
         
         let levelNumber = SKLabelNode(fontNamed: fontName)
         levelNumber.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        levelNumber.position.x = size.height * 0.11
-        levelNumber.position.y = size.height * 0.88
-        levelNumber.fontSize = size.height * 0.08
+        levelNumber.position = proportionSet.levelNumberPos()
+        levelNumber.fontSize = proportionSet.levelNumberFontSize()
         levelNumber.text = String(gameService.getLevel().id!) + ". Level"
         levelNumber.fontColor = fontColor
         addChild(levelNumber)
@@ -91,9 +84,8 @@ class GameScene: SKScene {
         currentMovesNode.text = String(gameService.getLevel().movesCounter)
         currentMovesNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
         currentMovesNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        currentMovesNode.fontSize = size.height * 0.055
-        currentMovesNode.position.x = currentMovesNode.fontSize * 2.7
-        currentMovesNode.position.y = 0
+        currentMovesNode.fontSize = proportionSet.movesFontSize()
+        currentMovesNode.position = proportionSet.currentMovesNodePos()
         currentMovesNode.fontColor = fontColor
         movesLabels.addChild(currentMovesNode)
     }

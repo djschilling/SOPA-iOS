@@ -14,6 +14,7 @@ class StoryServiceImpl: StoryService {
     var currentView: SKView
     let size: CGSize
     let levelService: LevelService
+    let proportionSet: ProportionSet
 
     init(size: CGSize, levelService: LevelService, skView: SKView) {
         self.size = size
@@ -21,6 +22,7 @@ class StoryServiceImpl: StoryService {
         currentView = skView
         skView.ignoresSiblingOrder = true
         skView.isMultipleTouchEnabled = false;
+        proportionSet = IPhone6Proportionset(size: size)
     }
 
     func loadLevelCoiceScene() {
@@ -36,20 +38,20 @@ class StoryServiceImpl: StoryService {
     }
     
     func loadLevelModeGameSceneFromChoiceScene(levelId: Int) {
-        let levelModeGameScene = LevelModeGameScene(size: size, level: levelService.getLevelById(id: levelId)!)
+        let levelModeGameScene = LevelModeGameScene(size: size, proportionSet: proportionSet, level: levelService.getLevelById(id: levelId)!)
         let transition = SKTransition.push(with: .down, duration: 0.5)
         currentView.presentScene(levelModeGameScene, transition: transition)
     }
     
     func reloadLevelModeGameScene(levelId: Int) {
         let levelModeGameScene = LevelModeGameScene(size:
-            size, level: levelService.getLevelById(id: levelId)!)
+            size, proportionSet: proportionSet, level: levelService.getLevelById(id: levelId)!)
         let transition = SKTransition.crossFade(withDuration: 0.5)
         currentView.presentScene(levelModeGameScene, transition: transition)
     }
     
     func loadNextLevelModeGameScene(levelId: Int) {
-        let levelModeGameScene = LevelModeGameScene(size: size, level: levelService.getLevelById(id: levelId)!)
+        let levelModeGameScene = LevelModeGameScene(size: size, proportionSet: proportionSet, level: levelService.getLevelById(id: levelId)!)
         let transition = SKTransition.push(with: .left, duration: 0.5)
         currentView.presentScene(levelModeGameScene, transition: transition)
     }

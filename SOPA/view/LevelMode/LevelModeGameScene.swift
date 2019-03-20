@@ -12,8 +12,8 @@ class LevelModeGameScene: GameScene {
     var restartButton: SpriteButton?
     var levelChoiceButton: SpriteButton?
     var start: NSDate?
-    override init(size: CGSize, level: Level) {
-        super.init(size: size, level: level)
+    override init(size: CGSize, proportionSet: ProportionSet, level: Level) {
+        super.init(size: size, proportionSet: proportionSet, level: level)
         startCounter()
     }
     
@@ -33,8 +33,8 @@ class LevelModeGameScene: GameScene {
     }
     override func addButtons() {
         restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
-        restartButton!.size.height = BUTTON_SIZE
-        restartButton!.size.width = BUTTON_SIZE
+        restartButton!.size.height = proportionSet.buttonSize()
+        restartButton!.size.width = proportionSet.buttonSize()
         restartButton!.position.y = size.height * 0.111
         restartButton!.position.x = size.width * 0.2
         addChild(restartButton!)
@@ -94,7 +94,7 @@ class LevelModeGameScene: GameScene {
             
             ResourcesManager.getInstance().storyService?.loadNextLevelModeGameScene(levelId: self.gameService.getLevel().id! + 1)
         }
-        nextLevelButton.size = CGSize(width: BUTTON_SIZE, height: BUTTON_SIZE)
+        nextLevelButton.size = CGSize(width: proportionSet.buttonSize(), height: proportionSet.buttonSize())
         
         nextLevelButton.alpha = 0.0
         nextLevelButton.position.y = size.height * 0.111

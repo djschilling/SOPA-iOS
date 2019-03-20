@@ -29,6 +29,10 @@
 		642E2B40213B0B1E002669E5 /* LevelSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642E2B3E213B0B1E002669E5 /* LevelSelectButton.swift */; };
 		642E2B42213D257C002669E5 /* LevelButtonPositioner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642E2B41213D257C002669E5 /* LevelButtonPositioner.swift */; };
 		642E2B43213D257C002669E5 /* LevelButtonPositioner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642E2B41213D257C002669E5 /* LevelButtonPositioner.swift */; };
+		642EE5BC22423AAF00680612 /* ProportionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642EE5BB22423AAF00680612 /* ProportionSet.swift */; };
+		642EE5BD22423AAF00680612 /* ProportionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642EE5BB22423AAF00680612 /* ProportionSet.swift */; };
+		642EE5BF22423CCE00680612 /* IPhone6PropotionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642EE5BE22423CCE00680612 /* IPhone6PropotionSet.swift */; };
+		642EE5C022423CCE00680612 /* IPhone6PropotionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642EE5BE22423CCE00680612 /* IPhone6PropotionSet.swift */; };
 		6446C2E11FAC802900806A10 /* GameEndService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446C2D61FAC802600806A10 /* GameEndService.swift */; };
 		6446C2E31FAC802900806A10 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446C2D71FAC802700806A10 /* GameService.swift */; };
 		6446C2E51FAC802900806A10 /* PathState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446C2D81FAC802700806A10 /* PathState.swift */; };
@@ -133,6 +137,8 @@
 		642E2B3B213AB33A002669E5 /* ResourcesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesManager.swift; sourceTree = "<group>"; };
 		642E2B3E213B0B1E002669E5 /* LevelSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectButton.swift; sourceTree = "<group>"; };
 		642E2B41213D257C002669E5 /* LevelButtonPositioner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelButtonPositioner.swift; sourceTree = "<group>"; };
+		642EE5BB22423AAF00680612 /* ProportionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProportionSet.swift; sourceTree = "<group>"; };
+		642EE5BE22423CCE00680612 /* IPhone6PropotionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPhone6PropotionSet.swift; sourceTree = "<group>"; };
 		6446C2D61FAC802600806A10 /* GameEndService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEndService.swift; sourceTree = "<group>"; };
 		6446C2D71FAC802700806A10 /* GameService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
 		6446C2D81FAC802700806A10 /* PathState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathState.swift; sourceTree = "<group>"; };
@@ -354,6 +360,8 @@
 				64182B112082604300CF639A /* TileSpriteNode.swift */,
 				64182B15208771A600CF639A /* SpriteButton.swift */,
 				646E6AE7213E80D1001D195B /* LevelMode */,
+				642EE5BB22423AAF00680612 /* ProportionSet.swift */,
+				642EE5BE22423CCE00680612 /* IPhone6PropotionSet.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -478,6 +486,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				642EE5BC22423AAF00680612 /* ProportionSet.swift in Sources */,
 				649209971FB3216500ED019D /* StarCalculator.swift in Sources */,
 				64BCCC54207F97A9008B145D /* LevelServiceImp.swift in Sources */,
 				646902D6207F6B8800283F71 /* Observer.swift in Sources */,
@@ -489,6 +498,7 @@
 				642E2B42213D257C002669E5 /* LevelButtonPositioner.swift in Sources */,
 				646902BB207E3AD100283F71 /* LevelInfo.swift in Sources */,
 				6446C2F11FAC802900806A10 /* LevelResult.swift in Sources */,
+				642EE5BF22423CCE00680612 /* IPhone6PropotionSet.swift in Sources */,
 				64D5B8D120B46BD70007D982 /* LevelChoiceScene.swift in Sources */,
 				6446C2E31FAC802900806A10 /* GameService.swift in Sources */,
 				64AD42AD213FC45400B5A3FC /* StoryServiceImpl.swift in Sources */,
@@ -541,6 +551,7 @@
 				646902D0207F6B7D00283F71 /* LevelTranslator.swift in Sources */,
 				64AD42AE213FC45400B5A3FC /* StoryServiceImpl.swift in Sources */,
 				646E6AEA213E80F7001D195B /* LevelButtonArea.swift in Sources */,
+				642EE5C022423CCE00680612 /* IPhone6PropotionSet.swift in Sources */,
 				64CA8A6C1FA7C605009BDBC2 /* FileHandlerTest.swift in Sources */,
 				64BCCC55207F97A9008B145D /* LevelServiceImp.swift in Sources */,
 				646902CA207F6B7600283F71 /* Tile.swift in Sources */,
@@ -569,6 +580,7 @@
 				646902DA207F6BD500283F71 /* GameScene.swift in Sources */,
 				642E2B40213B0B1E002669E5 /* LevelSelectButton.swift in Sources */,
 				646902C7207F6B7600283F71 /* Level.swift in Sources */,
+				642EE5BD22423AAF00680612 /* ProportionSet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,12 +10,21 @@ import Foundation
 import SpriteKit
 
 class StoryServiceImpl: StoryService {
-
+    func loadJustPlaySceneFromMenuScene() {
+        let levelCreator = LevelCreator()
+        let level = levelCreator.generateLevel(size: 6, moves: 2, minTubes: 7, maxTubes: 10)
+        level.id = 0
+        let justPlayScene = LevelModeGameScene(size: size, proportionSet: proportionSet, level: level)
+        let transition = SKTransition.push(with: .down, duration: 0.5)
+        currentView.presentScene(justPlayScene, transition: transition)
+    }
+    
+    
     var currentView: SKView
     let size: CGSize
     let levelService: LevelService
     let proportionSet: ProportionSet
-
+    
     init(size: CGSize, levelService: LevelService, skView: SKView) {
         self.size = size
         self.levelService = levelService
@@ -24,9 +33,9 @@ class StoryServiceImpl: StoryService {
         skView.isMultipleTouchEnabled = false;
         //proportionSet = IPhone6Proportionset(size: size)
         proportionSet = IPadProportionSet(size: size)
-
+        
     }
-
+    
     func loadLevelCoiceScene() {
         let levelChoiceScene = LevelChoiceScene(size: size, levelService: levelService)
         levelChoiceScene.scaleMode = .resizeFill
@@ -57,5 +66,6 @@ class StoryServiceImpl: StoryService {
         let transition = SKTransition.push(with: .left, duration: 0.5)
         currentView.presentScene(levelModeGameScene, transition: transition)
     }
+    
     
 }

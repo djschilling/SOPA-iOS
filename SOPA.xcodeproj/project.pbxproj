@@ -105,6 +105,10 @@
 		64D5B8CF20ADE2680007D982 /* LevelModeScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D5B8CE20ADE2680007D982 /* LevelModeScoreScene.swift */; };
 		64D5B8D120B46BD70007D982 /* LevelChoiceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D5B8D020B46BD70007D982 /* LevelChoiceScene.swift */; };
 		64D66B1B21426B3000595BD3 /* progbot.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64D66B1A21426ADC00595BD3 /* progbot.ttf */; };
+		64EFCB3D240E732F00714E7C /* LevelDestroyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFCB3C240E732F00714E7C /* LevelDestroyer.swift */; };
+		64EFCB3E240E732F00714E7C /* LevelDestroyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFCB3C240E732F00714E7C /* LevelDestroyer.swift */; };
+		64EFCB40240E763A00714E7C /* LevelSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFCB3F240E763A00714E7C /* LevelSolver.swift */; };
+		64EFCB41240E763A00714E7C /* LevelSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EFCB3F240E763A00714E7C /* LevelSolver.swift */; };
 		D4CB84D81F9BA2BF001AB1E3 /* ResourceMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CB84D71F9BA2BF001AB1E3 /* ResourceMapper.swift */; };
 /* End PBXBuildFile section */
 
@@ -175,6 +179,8 @@
 		64D5B8CE20ADE2680007D982 /* LevelModeScoreScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelModeScoreScene.swift; sourceTree = "<group>"; };
 		64D5B8D020B46BD70007D982 /* LevelChoiceScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelChoiceScene.swift; sourceTree = "<group>"; };
 		64D66B1A21426ADC00595BD3 /* progbot.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = progbot.ttf; sourceTree = "<group>"; };
+		64EFCB3C240E732F00714E7C /* LevelDestroyer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDestroyer.swift; sourceTree = "<group>"; };
+		64EFCB3F240E763A00714E7C /* LevelSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSolver.swift; sourceTree = "<group>"; };
 		D4CB84D71F9BA2BF001AB1E3 /* ResourceMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -283,6 +289,8 @@
 				64BCCC53207F97A9008B145D /* LevelServiceImp.swift */,
 				64AB834D214A554200DFCFD1 /* LogFileHandler.swift */,
 				64837B24214D0242004B9B05 /* LevelCreator.swift */,
+				64EFCB3C240E732F00714E7C /* LevelDestroyer.swift */,
+				64EFCB3F240E763A00714E7C /* LevelSolver.swift */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -522,10 +530,12 @@
 				642E2B3C213AB33A002669E5 /* ResourcesManager.swift in Sources */,
 				64182B142084BC7C00CF639A /* GameFieldNode.swift in Sources */,
 				6446C2FF1FAC80DC00806A10 /* FileHandler.swift in Sources */,
+				64EFCB40240E763A00714E7C /* LevelSolver.swift in Sources */,
 				6493FB652073D6510044B4E0 /* SOPA.xcdatamodeld in Sources */,
 				64D5B8CF20ADE2680007D982 /* LevelModeScoreScene.swift in Sources */,
 				63F661231F9B346E0043ABCF /* AppDelegate.swift in Sources */,
 				6446C3031FAC80DC00806A10 /* LevelTranslator.swift in Sources */,
+				64EFCB3D240E732F00714E7C /* LevelDestroyer.swift in Sources */,
 				64182B122082604300CF639A /* TileSpriteNode.swift in Sources */,
 				6446C2FB1FAC80DC00806A10 /* TileCharacterMapping.swift in Sources */,
 				6446C2EB1FAC802900806A10 /* TileType.swift in Sources */,
@@ -542,12 +552,14 @@
 			files = (
 				646902C8207F6B7600283F71 /* LevelResult.swift in Sources */,
 				64182B17208771A600CF639A /* SpriteButton.swift in Sources */,
+				64EFCB41240E763A00714E7C /* LevelSolver.swift in Sources */,
 				64847A0C215A38330012B732 /* LevelChoiceScene.swift in Sources */,
 				646902C3207F6B7600283F71 /* GameEndService.swift in Sources */,
 				646902C4207F6B7600283F71 /* GameFieldService.swift in Sources */,
 				646902C5207F6B7600283F71 /* GameService.swift in Sources */,
 				646902CC207F6B7600283F71 /* StarCalculator.swift in Sources */,
 				646902D3207F6B8200283F71 /* GameViewController.swift in Sources */,
+				64EFCB3E240E732F00714E7C /* LevelDestroyer.swift in Sources */,
 				64182B1A208DCE0A00CF639A /* LevelModeGameScene.swift in Sources */,
 				642E2B43213D257C002669E5 /* LevelButtonPositioner.swift in Sources */,
 				63F661611F9B48250043ABCF /* GameFieldServiceTest.swift in Sources */,

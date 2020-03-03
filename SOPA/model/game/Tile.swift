@@ -35,9 +35,6 @@ struct Tile : Hashable {
         right = false
     }
 
-    var hashValue: Int {
-        return top.hashValue ^ bottom.hashValue ^ left.hashValue ^ right.hashValue ^ tileType.hashValue ^ shortcut.hashValue
-    }
 
     static func ==(lhs: Tile, rhs: Tile) -> Bool {
         return lhs.top == rhs.top && lhs.bottom == rhs.bottom && lhs.left == rhs.left && lhs.right == rhs.right && lhs.tileType == rhs.tileType && lhs.shortcut == rhs.shortcut

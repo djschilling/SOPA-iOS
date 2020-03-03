@@ -33,6 +33,8 @@
 		642EE5BD22423AAF00680612 /* ProportionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642EE5BB22423AAF00680612 /* ProportionSet.swift */; };
 		642EE5BF22423CCE00680612 /* IPhone6PropotionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642EE5BE22423CCE00680612 /* IPhone6PropotionSet.swift */; };
 		642EE5C022423CCE00680612 /* IPhone6PropotionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642EE5BE22423CCE00680612 /* IPhone6PropotionSet.swift */; };
+		642EE5C2224254CF00680612 /* IPadProportionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642EE5C1224254CF00680612 /* IPadProportionSet.swift */; };
+		642EE5C3224254CF00680612 /* IPadProportionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642EE5C1224254CF00680612 /* IPadProportionSet.swift */; };
 		6446C2E11FAC802900806A10 /* GameEndService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446C2D61FAC802600806A10 /* GameEndService.swift */; };
 		6446C2E31FAC802900806A10 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446C2D71FAC802700806A10 /* GameService.swift */; };
 		6446C2E51FAC802900806A10 /* PathState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446C2D81FAC802700806A10 /* PathState.swift */; };
@@ -139,6 +141,7 @@
 		642E2B41213D257C002669E5 /* LevelButtonPositioner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelButtonPositioner.swift; sourceTree = "<group>"; };
 		642EE5BB22423AAF00680612 /* ProportionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProportionSet.swift; sourceTree = "<group>"; };
 		642EE5BE22423CCE00680612 /* IPhone6PropotionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPhone6PropotionSet.swift; sourceTree = "<group>"; };
+		642EE5C1224254CF00680612 /* IPadProportionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPadProportionSet.swift; sourceTree = "<group>"; };
 		6446C2D61FAC802600806A10 /* GameEndService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEndService.swift; sourceTree = "<group>"; };
 		6446C2D71FAC802700806A10 /* GameService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
 		6446C2D81FAC802700806A10 /* PathState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathState.swift; sourceTree = "<group>"; };
@@ -362,6 +365,7 @@
 				646E6AE7213E80D1001D195B /* LevelMode */,
 				642EE5BB22423AAF00680612 /* ProportionSet.swift */,
 				642EE5BE22423CCE00680612 /* IPhone6PropotionSet.swift */,
+				642EE5C1224254CF00680612 /* IPadProportionSet.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -508,6 +512,7 @@
 				646902BD207E60E800283F71 /* LevelInfoDataSource.swift in Sources */,
 				64182B19208DCE0A00CF639A /* LevelModeGameScene.swift in Sources */,
 				646902D5207F6B8800283F71 /* GameSceneObserver.swift in Sources */,
+				642EE5C2224254CF00680612 /* IPadProportionSet.swift in Sources */,
 				64AD42AA213FBFB900B5A3FC /* StoryService.swift in Sources */,
 				64837B25214D0242004B9B05 /* LevelCreator.swift in Sources */,
 				648558C321412BBD00B61C31 /* EffectSpriteButton.swift in Sources */,
@@ -548,6 +553,7 @@
 				63F661611F9B48250043ABCF /* GameFieldServiceTest.swift in Sources */,
 				646902C9207F6B7600283F71 /* PathState.swift in Sources */,
 				63F6615E1F9B41B30043ABCF /* LevelTest.swift in Sources */,
+				642EE5C3224254CF00680612 /* IPadProportionSet.swift in Sources */,
 				646902D0207F6B7D00283F71 /* LevelTranslator.swift in Sources */,
 				64AD42AE213FC45400B5A3FC /* StoryServiceImpl.swift in Sources */,
 				646E6AEA213E80F7001D195B /* LevelButtonArea.swift in Sources */,

@@ -22,7 +22,9 @@ class StoryServiceImpl: StoryService {
         currentView = skView
         skView.ignoresSiblingOrder = true
         skView.isMultipleTouchEnabled = false;
-        proportionSet = IPhone6Proportionset(size: size)
+        //proportionSet = IPhone6Proportionset(size: size)
+        proportionSet = IPadProportionSet(size: size)
+
     }
 
     func loadLevelCoiceScene() {

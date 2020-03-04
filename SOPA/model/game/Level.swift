@@ -46,4 +46,19 @@ class Level {
             }
         }
     }
+    public var description: String {
+        var s = id!.description
+        s += "\n"
+        s += self.minimumMovesToSolve!.description
+        s += "\n"
+        s += self.tilesCount!.description
+        s += "\n#\n"
+        for row in 0..<tiles.count {
+            for column in 0..<tiles[row].count {
+                s += tiles[column][row].shortcut.description
+            }
+            s += "\n"
+        }
+        return s
+    }
 }

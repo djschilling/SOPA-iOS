@@ -10,11 +10,18 @@ import Foundation
 import SpriteKit
 
 class StoryServiceImpl: StoryService {
+    func reloadJustPlayGameScene(level: Level) {
+        let justPlayGameScene = JustPlayGameScene(size:
+            size, proportionSet: proportionSet, level: level)
+             let transition = SKTransition.crossFade(withDuration: 0.5)
+             currentView.presentScene(justPlayGameScene, transition: transition)
+    }
+    
     func loadJustPlaySceneFromMenuScene() {
         let levelCreator = LevelCreator()
         let level = levelCreator.generateLevel(size: 6, moves: 2, minTubes: 7, maxTubes: 10)
         level.id = 0
-        let justPlayScene = LevelModeGameScene(size: size, proportionSet: proportionSet, level: level)
+        let justPlayScene = JustPlayGameScene(size: size, proportionSet: proportionSet, level: level)
         let transition = SKTransition.push(with: .down, duration: 0.5)
         currentView.presentScene(justPlayScene, transition: transition)
     }

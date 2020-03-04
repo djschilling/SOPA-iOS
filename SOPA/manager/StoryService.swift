@@ -14,9 +14,11 @@ protocol StoryService {
     func loadLevelCoiceSceneFromLevelModeScene()
     
     func loadJustPlaySceneFromMenuScene()
-
+    func reloadJustPlayGameScene(level: Level)
     
     func loadLevelModeGameSceneFromChoiceScene(levelId: Int)
     func reloadLevelModeGameScene(levelId: Int)
     func loadNextLevelModeGameScene(levelId: Int)
+    
+    
 }

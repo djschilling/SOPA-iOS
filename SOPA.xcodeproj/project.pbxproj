@@ -23,6 +23,8 @@
 		64182B1A208DCE0A00CF639A /* LevelModeGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64182B18208DCE0A00CF639A /* LevelModeGameScene.swift */; };
 		64182B1D208DDC4E00CF639A /* Impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64182B1C208DDC4D00CF639A /* Impact.ttf */; };
 		64182B1E208DDC4E00CF639A /* Impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64182B1C208DDC4D00CF639A /* Impact.ttf */; };
+		64206E6C240EBB71001151B4 /* JustPlayGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64206E6B240EBB71001151B4 /* JustPlayGameScene.swift */; };
+		64206E6D240EBB71001151B4 /* JustPlayGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64206E6B240EBB71001151B4 /* JustPlayGameScene.swift */; };
 		642E2B3C213AB33A002669E5 /* ResourcesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642E2B3B213AB33A002669E5 /* ResourcesManager.swift */; };
 		642E2B3D213AB33A002669E5 /* ResourcesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642E2B3B213AB33A002669E5 /* ResourcesManager.swift */; };
 		642E2B3F213B0B1E002669E5 /* LevelSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642E2B3E213B0B1E002669E5 /* LevelSelectButton.swift */; };
@@ -140,6 +142,7 @@
 		64182B15208771A600CF639A /* SpriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteButton.swift; sourceTree = "<group>"; };
 		64182B18208DCE0A00CF639A /* LevelModeGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelModeGameScene.swift; sourceTree = "<group>"; };
 		64182B1C208DDC4D00CF639A /* Impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact.ttf; sourceTree = "<group>"; };
+		64206E6B240EBB71001151B4 /* JustPlayGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustPlayGameScene.swift; sourceTree = "<group>"; };
 		642E2B3B213AB33A002669E5 /* ResourcesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesManager.swift; sourceTree = "<group>"; };
 		642E2B3E213B0B1E002669E5 /* LevelSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectButton.swift; sourceTree = "<group>"; };
 		642E2B41213D257C002669E5 /* LevelButtonPositioner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelButtonPositioner.swift; sourceTree = "<group>"; };
@@ -235,6 +238,7 @@
 		63F661211F9B346E0043ABCF /* SOPA */ = {
 			isa = PBXGroup;
 			children = (
+				64206E6E240EBB7F001151B4 /* JustPlay */,
 				642E2B3A213AB319002669E5 /* manager */,
 				64A9CAC1207E23B60072058D /* database */,
 				63E2228C1FA8974A0002A398 /* observer */,
@@ -329,6 +333,14 @@
 				64D66B1A21426ADC00595BD3 /* progbot.ttf */,
 			);
 			path = font;
+			sourceTree = "<group>";
+		};
+		64206E6E240EBB7F001151B4 /* JustPlay */ = {
+			isa = PBXGroup;
+			children = (
+				64206E6B240EBB71001151B4 /* JustPlayGameScene.swift */,
+			);
+			path = JustPlay;
 			sourceTree = "<group>";
 		};
 		642E2B3A213AB319002669E5 /* manager */ = {
@@ -542,6 +554,7 @@
 				6446C2E91FAC802900806A10 /* Level.swift in Sources */,
 				6446C2EF1FAC802900806A10 /* GameServiceImpl.swift in Sources */,
 				642E2B3F213B0B1E002669E5 /* LevelSelectButton.swift in Sources */,
+				64206E6C240EBB71001151B4 /* JustPlayGameScene.swift in Sources */,
 				6446C3011FAC80DC00806A10 /* LevelFileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -594,6 +607,7 @@
 				63F661681F9B88440043ABCF /* LevelTranslatorTest.swift in Sources */,
 				646902C6207F6B7600283F71 /* GameServiceImpl.swift in Sources */,
 				64847A0B215A382B0012B732 /* LevelModeScoreScene.swift in Sources */,
+				64206E6D240EBB71001151B4 /* JustPlayGameScene.swift in Sources */,
 				646902CE207F6B7D00283F71 /* LevelFileService.swift in Sources */,
 				646902DA207F6BD500283F71 /* GameScene.swift in Sources */,
 				642E2B40213B0B1E002669E5 /* LevelSelectButton.swift in Sources */,

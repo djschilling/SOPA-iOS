@@ -26,4 +26,6 @@ protocol LevelService {
     func unlockLevel(levelId: Int);
     
     func deleteAllLevelInfos();
+    
+    func saveLevel(level: Level);
 }

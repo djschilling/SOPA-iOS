@@ -76,8 +76,6 @@ class JustPlayGameScene: GameScene {
         let levelService = ResourcesManager.getInstance().levelService
         let levelResult = levelService!.calculateLevelResult(level: level)
         levelResult.time = time
-        _ = levelService?.persistLevelResult(levelResult: levelResult)
-        levelService?.unlockLevel(levelId: level.id! + 1)
         //LogFileHandler.logger.write("LevelMode; solved; \(levelResult.levelId); \(levelResult.moveCount); \(levelResult.stars); \(time); \(NSDate())\n")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7, execute: {
             self.animateLevelSolved(levelResult: levelResult)
@@ -104,7 +102,7 @@ class JustPlayGameScene: GameScene {
     private func addNextLevelButton() {
         let nextLevelButton = SpriteButton(imageNamed: "NextLevel") {
             
-            ResourcesManager.getInstance().storyService?.loadNextLevelModeGameScene(levelId: self.gameService.getLevel().id! + 1)
+            ResourcesManager.getInstance().storyService?.loadNextJustPlayGameScene()
         }
         nextLevelButton.size = CGSize(width: proportionSet.buttonSize(), height: proportionSet.buttonSize())
         

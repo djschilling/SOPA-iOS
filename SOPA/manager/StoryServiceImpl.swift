@@ -10,6 +10,21 @@ import Foundation
 import SpriteKit
 
 class StoryServiceImpl: StoryService {
+    let levelSize: Int = 4 + 2
+    let moves: Int = 3
+    let minTubes: Int = 6
+    let maxTubes: Int = 6
+    
+    func loadNextJustPlayGameScene() {
+        let levelCreator = LevelCreator()
+
+        let level = levelCreator.generateLevel(size: levelSize, moves: moves, minTubes: minTubes, maxTubes: maxTubes)
+        level.id = 0
+        let justPlayScene = JustPlayGameScene(size: size, proportionSet: proportionSet, level: level)
+        let transition = SKTransition.push(with: .left, duration: 0.5)
+        currentView.presentScene(justPlayScene, transition: transition)
+    }
+    
     func reloadJustPlayGameScene(level: Level) {
         let justPlayGameScene = JustPlayGameScene(size:
             size, proportionSet: proportionSet, level: level)
@@ -19,7 +34,7 @@ class StoryServiceImpl: StoryService {
     
     func loadJustPlaySceneFromMenuScene() {
         let levelCreator = LevelCreator()
-        let level = levelCreator.generateLevel(size: 6, moves: 2, minTubes: 7, maxTubes: 10)
+        let level = levelCreator.generateLevel(size: levelSize, moves: moves, minTubes: minTubes, maxTubes: maxTubes)
         level.id = 0
         let justPlayScene = JustPlayGameScene(size: size, proportionSet: proportionSet, level: level)
         let transition = SKTransition.push(with: .down, duration: 0.5)

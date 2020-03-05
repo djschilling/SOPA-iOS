@@ -11,9 +11,9 @@ import SpriteKit
 
 class StoryServiceImpl: StoryService {
     let levelSize: Int = 4 + 2
-    let moves: Int = 3
-    let minTubes: Int = 6
-    let maxTubes: Int = 6
+    let moves: Int = 4
+    let minTubes: Int = 11
+    let maxTubes: Int = 11
     
     func loadNextJustPlayGameScene() {
         let levelCreator = LevelCreator()

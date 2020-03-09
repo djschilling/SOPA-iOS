@@ -9,5 +9,5 @@
 import Foundation
 
 class Configurations {
-    static let DEVELOPER_MODE = false
+    static let DEVELOPER_MODE = true
 }

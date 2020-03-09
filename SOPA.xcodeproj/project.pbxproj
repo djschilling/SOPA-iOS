@@ -91,6 +91,8 @@
 		649209971FB3216500ED019D /* StarCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649209961FB3216500ED019D /* StarCalculator.swift */; };
 		6493FB652073D6510044B4E0 /* SOPA.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6493FB632073D6510044B4E0 /* SOPA.xcdatamodeld */; };
 		6493FB662073D6510044B4E0 /* SOPA.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6493FB632073D6510044B4E0 /* SOPA.xcdatamodeld */; };
+		64996A1F2416B46300F5115E /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64996A1E2416B46300F5115E /* Configurations.swift */; };
+		64996A202416B46300F5115E /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64996A1E2416B46300F5115E /* Configurations.swift */; };
 		64AB834E214A554200DFCFD1 /* LogFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AB834D214A554200DFCFD1 /* LogFileHandler.swift */; };
 		64AB834F214A554200DFCFD1 /* LogFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AB834D214A554200DFCFD1 /* LogFileHandler.swift */; };
 		64AD42AA213FBFB900B5A3FC /* StoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AD42A9213FBFB900B5A3FC /* StoryService.swift */; };
@@ -172,6 +174,7 @@
 		649209961FB3216500ED019D /* StarCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarCalculator.swift; sourceTree = "<group>"; };
 		6493FB182070D5E10044B4E0 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		6493FB642073D6510044B4E0 /* SOPA.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SOPA.xcdatamodel; sourceTree = "<group>"; };
+		64996A1E2416B46300F5115E /* Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurations.swift; sourceTree = "<group>"; };
 		64AB834D214A554200DFCFD1 /* LogFileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFileHandler.swift; sourceTree = "<group>"; };
 		64AD42A9213FBFB900B5A3FC /* StoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryService.swift; sourceTree = "<group>"; };
 		64AD42AC213FC45400B5A3FC /* StoryServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryServiceImpl.swift; sourceTree = "<group>"; };
@@ -349,6 +352,7 @@
 				642E2B3B213AB33A002669E5 /* ResourcesManager.swift */,
 				64AD42A9213FBFB900B5A3FC /* StoryService.swift */,
 				64AD42AC213FC45400B5A3FC /* StoryServiceImpl.swift */,
+				64996A1E2416B46300F5115E /* Configurations.swift */,
 			);
 			path = manager;
 			sourceTree = "<group>";
@@ -525,6 +529,7 @@
 				642EE5BF22423CCE00680612 /* IPhone6PropotionSet.swift in Sources */,
 				64D5B8D120B46BD70007D982 /* LevelChoiceScene.swift in Sources */,
 				6446C2E31FAC802900806A10 /* GameService.swift in Sources */,
+				64996A1F2416B46300F5115E /* Configurations.swift in Sources */,
 				64AD42AD213FC45400B5A3FC /* StoryServiceImpl.swift in Sources */,
 				646E6AE9213E80F7001D195B /* LevelButtonArea.swift in Sources */,
 				D4CB84D81F9BA2BF001AB1E3 /* ResourceMapper.swift in Sources */,
@@ -565,6 +570,7 @@
 			files = (
 				646902C8207F6B7600283F71 /* LevelResult.swift in Sources */,
 				64182B17208771A600CF639A /* SpriteButton.swift in Sources */,
+				64996A202416B46300F5115E /* Configurations.swift in Sources */,
 				64EFCB41240E763A00714E7C /* LevelSolver.swift in Sources */,
 				64847A0C215A38330012B732 /* LevelChoiceScene.swift in Sources */,
 				646902C3207F6B7600283F71 /* GameEndService.swift in Sources */,

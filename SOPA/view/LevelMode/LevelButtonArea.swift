@@ -77,7 +77,7 @@ class LevelButtonArea: SKSpriteNode {
         }
         
         if node is LevelSelectButton {
-            if !(node as! LevelSelectButton).levelInfo.locked {
+            if !(node as! LevelSelectButton).levelInfo.locked || Configurations.DEVELOPER_MODE {
                 ResourcesManager.getInstance().storyService?.loadLevelModeGameSceneFromChoiceScene(levelId: (node as! LevelSelectButton).levelInfo.levelId)
             }
         }

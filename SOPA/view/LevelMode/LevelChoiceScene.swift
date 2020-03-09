@@ -49,12 +49,14 @@ class LevelChoiceScene: SKScene {
     
     private func addButtons() {
         let buttonSize = size.height * 0.18
-        let randomButton = EffectSpriteButton(imageNamed: "ArrowLeft", onClick: startRandom
-            , size: CGSize(width: buttonSize, height: buttonSize))
-        randomButton.position.y = buttonSize
-        randomButton.position.x = size.width / 2
-        randomButton.setEnabled(true)
-        addChild(randomButton)
+        if(Configurations.DEVELOPER_MODE) {
+            let randomButton = EffectSpriteButton(imageNamed: "ArrowLeft", onClick: startRandom
+                , size: CGSize(width: buttonSize, height: buttonSize))
+            randomButton.position.y = buttonSize
+            randomButton.position.x = size.width / 2
+            randomButton.setEnabled(true)
+            addChild(randomButton)
+        }
         
         leftButton = EffectSpriteButton(imageNamed: "ArrowLeft", onClick: levelButtonArea!.swipeLeft, size: CGSize(width: buttonSize, height: buttonSize))
         leftButton?.position.y = buttonSize

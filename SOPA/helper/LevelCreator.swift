@@ -19,9 +19,7 @@ class LevelCreator {
         levelSolver = LevelSolver(gameFieldService: GameFieldService())
     }
     
-    func random(in range: Range<Int>) -> Int {
-        return numericCast(arc4random_uniform(numericCast(range.count))) + range.lowerBound
-    }
+
     
     
     func generateSolvedField(width: Int, height: Int, minTubes: Int, maxTubes: Int) -> Level {
@@ -60,10 +58,10 @@ class LevelCreator {
             
             var startTile: Tile
             
-            switch random(in: 0..<4) {
+            switch Int.random(in: 0..<4) {
             case 0:
                 startTile = Tile(top: false, bottom: true, left: false, right: false, tileType: TileType.START, shortcut: "s")
-                startX = random(in: 1..<width - 1)
+                startX = Int.random(in: 1..<width - 1)
                 startY = 0
                 direction = 0
                 tiles[startX][0] = startTile
@@ -71,7 +69,7 @@ class LevelCreator {
                 
             case 1:
                 startTile = Tile(top: true, bottom: false, left: false, right: false, tileType: TileType.START, shortcut: "s")
-                startX = random(in: 1..<width - 1)
+                startX = Int.random(in: 1..<width - 1)
                 startY = height - 1
                 direction = 2
                 tiles[startX][height - 1] = startTile
@@ -80,7 +78,7 @@ class LevelCreator {
             case 2:
                 startTile = Tile(top: false, bottom: false, left: false, right: true, tileType: TileType.START, shortcut: "s")
                 startX = 0
-                startY = random(in: 1..<height - 1)
+                startY = Int.random(in: 1..<height - 1)
                 direction = 1
                 tiles[startX][startY] = startTile
                 
@@ -88,7 +86,7 @@ class LevelCreator {
             case 3:
                 startTile = Tile(top: false, bottom: false, left: true, right: false, tileType: TileType.START, shortcut: "s")
                 startX = width - 1
-                startY = random(in: 1..<height - 1)
+                startY = Int.random(in: 1..<height - 1)
                 direction = 3
                 tiles[startX][startY] = startTile
                 
@@ -102,8 +100,8 @@ class LevelCreator {
             while (x != 0 && x != width - 1 && y != 0 && y != height - 1 || x == startX && y == startY) {
                 number += 1
                 
-                if (random(in: 0..<10) < 7 && !(startX == x && startY == y)) {
-                    direction = random(in: 0..<4)
+                if (Int.random(in: 0..<10) < 7 && !(startX == x && startY == y)) {
+                    direction = Int.random(in: 0..<4)
                 }
                 
                 var xNew = x + directionsX[direction]
@@ -116,7 +114,7 @@ class LevelCreator {
                     }
                     
                     directions[direction] = true
-                    direction = random(in: 0..<4)
+                    direction = Int.random(in: 0..<4)
                     xNew = x + directionsX[direction]
                     yNew = y + directionsY[direction]
                 }

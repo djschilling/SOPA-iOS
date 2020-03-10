@@ -16,6 +16,7 @@ class GameServiceImpl: GameService {
     
     init(level: Level) {
         self.level = level
+        self.level.movesCounter = 0
         self.solvedCurrentPuzzle = gameFieldService.solvedPuzzle(level: level)
     }
 

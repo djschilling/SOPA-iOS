@@ -177,7 +177,7 @@ class LevelCreator {
         
         repeat {
             level = levelDestroyer.destroyField(level: generateSolvedField(width: size, height: size, minTubes: minTubes, maxTubes: maxTubes), minShiftCount: moves, maxShiftCount: moves)
-        } while (levelSolver.solve(level: level, maxDepth: moves)?.minimumMovesToSolve != moves)
+        } while (!levelSolver.isOptimumRight(level: level, maxMoves: moves))
         
         return level
     }

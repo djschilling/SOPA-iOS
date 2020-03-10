@@ -19,6 +19,58 @@ class LevelSolver {
     init(gameFieldService: GameFieldService) {
         self.gameFieldService = gameFieldService
     }
+    
+    func isOptimumRight(level: Level, maxMoves: Int)-> Bool {
+        if maxMoves == 0 {
+            return true
+        }
+        if (gameFieldService.solvedPuzzle(level: level)) {
+            return false
+        }
+        if maxMoves == 1 {
+            return true
+        }
+        
+        for column in 0..<level.tiles.count - 2 {
+            _ = gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: column, steps: 1)
+
+            if !isOptimumRight(level: level, maxMoves: maxMoves - 1) {
+                _ = gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: column, steps: -2)
+                return false
+            }
+
+            _ = gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: column, steps: -2)
+
+             if !isOptimumRight(level: level, maxMoves: maxMoves - 1) {
+                 _ = gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: column, steps: 1)
+                return false
+            }
+
+            // restore state
+            _ = gameFieldService.shiftLine(level: level, horizontal: false, rowOrColumn: column, steps: 1)
+        }
+
+        for row in 0..<level.tiles[0].count - 2 {
+            _ = gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: row, steps: 1)
+
+            if !isOptimumRight(level: level, maxMoves: maxMoves - 1) {
+                _ = gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: row, steps: -2)
+                return false
+            }
+
+            _ = gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: row, steps: -2)
+
+            if !isOptimumRight(level: level, maxMoves: maxMoves - 1) {
+                _ = gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: row, steps: -2)
+                return false
+            }
+
+            // restore state
+            _ = gameFieldService.shiftLine(level: level, horizontal: true, rowOrColumn: row, steps: 1)
+        }
+        return true
+
+    }
 
     func solve(level: Level, maxDepth: Int)-> Level? {
 

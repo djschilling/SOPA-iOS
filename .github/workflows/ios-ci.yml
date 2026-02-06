@@ -43,40 +43,24 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # Pick the newest available iOS runtime on the runner.
-          RUNTIME=$(
-            xcrun simctl list runtimes available \
-            | awk -F'[()]' '/iOS [0-9]+/{print $2}' \
-            | tail -n 1
+          DEST_LINE=$(
+            xcodebuild \
+              -project SOPA.xcodeproj \
+              -scheme SOPA \
+              -showdestinations \
+            | grep -m1 "platform:iOS Simulator" || true
           )
 
-          if [[ -z "${RUNTIME:-}" ]]; then
-            echo "No iOS runtime found on this runner."
-            xcrun simctl list runtimes available
-            exit 1
-          fi
-
-          # Prefer iPhone 16 to match local development, fallback to any available iPhone.
-          DEVICE_UDID=$(
-            xcrun simctl list devices available "${RUNTIME}" \
-            | awk -F'[()]' '/iPhone 16 /{print $2; exit}'
-          )
+          DEVICE_UDID=$(echo "${DEST_LINE}" | sed -n 's/.*id:\([^,}]*\).*/\1/p' | tr -d ' ')
 
           if [[ -z "${DEVICE_UDID:-}" ]]; then
-            DEVICE_UDID=$(
-              xcrun simctl list devices available "${RUNTIME}" \
-              | awk -F'[()]' '/iPhone [0-9]+/{print $2; exit}'
-            )
-          fi
-
-          if [[ -z "${DEVICE_UDID:-}" ]]; then
-            echo "No iPhone simulator found for runtime ${RUNTIME}."
-            xcrun simctl list devices available "${RUNTIME}"
+            echo "No usable iOS Simulator destination found for scheme SOPA."
+            xcodebuild -project SOPA.xcodeproj -scheme SOPA -showdestinations
             exit 1
           fi
 
           echo "destination=id=${DEVICE_UDID}" >> "$GITHUB_OUTPUT"
-          echo "Using destination id=${DEVICE_UDID} on runtime ${RUNTIME}"
+          echo "Using destination id=${DEVICE_UDID}"
 
       - name: Build
         run: |

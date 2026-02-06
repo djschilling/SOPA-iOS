@@ -17,6 +17,12 @@ class SpriteButton: SKSpriteNode {
         isUserInteractionEnabled = true
     }
     
+    init(texture: SKTexture, onClick: @escaping () -> Void) {
+        self.onClick = onClick
+        super.init(texture: texture, color: UIColor.clear, size: texture.size())
+        isUserInteractionEnabled = true
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

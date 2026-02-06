@@ -48,6 +48,24 @@ class LevelServiceImpl: LevelService {
                 _ = levelInfoDataSource.createLevelInfo(levelInfo: LevelInfo(levelId: currentId, locked: (currentId != 1), fewestMoves: -1, stars: 0, time: Double.nan))
             }
         }
+        normalizeUnlockState(availableIds: availableIds)
+    }
+    
+    private func normalizeUnlockState(availableIds: [Int]) {
+        guard let maxLevelId = availableIds.max() else {
+            return
+        }
+        let levelInfos = levelInfoDataSource.getAllLevelInfos()
+        let highestSolvedLevel = levelInfos.filter { $0.fewestMoves >= 0 }.map { $0.levelId }.max() ?? 0
+        let unlockedLimit = min(max(1, highestSolvedLevel + 1), maxLevelId)
+        
+        for levelInfo in levelInfos {
+            let shouldBeLocked = levelInfo.levelId > unlockedLimit
+            if levelInfo.locked != shouldBeLocked {
+                levelInfo.locked = shouldBeLocked
+                _ = levelInfoDataSource.updateLevelInfo(levelInfo: levelInfo)
+            }
+        }
     }
     
     func calculateLevelResult(level: Level) -> LevelResult {
@@ -84,5 +102,13 @@ class LevelServiceImpl: LevelService {
         let minutes = calendar.component(.minute, from: date)
         let seconds = calendar.component(.second, from: date)
         levelFileService.fileHandler.writeIntoDocumentDirectory(fileName: "\(hour):\(minutes):\(seconds).lv", conten: level.description)
+    }
+    
+    func submitJustPlayScore(score: JustPlayScore) {
+        levelInfoDataSource.saveJustPlayScore(score: score)
+    }
+    
+    func getBestJustPlayScore() -> JustPlayScore? {
+        return levelInfoDataSource.getBestJustPlayScore()
     }
 }

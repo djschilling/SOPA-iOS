@@ -9,7 +9,7 @@
 import Foundation
 
 class Configurations {
-    static let DEVELOPER_MODE = true
+    static let DEVELOPER_MODE = false
     static let levelSize: Int = 4 + 2
     static let moves: Int = 5
     static let minTubes: Int = 9

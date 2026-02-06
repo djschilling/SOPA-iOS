@@ -28,4 +28,8 @@ protocol LevelService {
     func deleteAllLevelInfos();
     
     func saveLevel(level: Level);
+    
+    func submitJustPlayScore(score: JustPlayScore);
+    
+    func getBestJustPlayScore() -> JustPlayScore?;
 }

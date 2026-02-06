@@ -10,30 +10,77 @@ import Foundation
 import SpriteKit
 
 class StoryServiceImpl: StoryService {
+    private var justPlayService: JustPlayService?
+    
+    func loadStartMenuScene() {
+        let startMenuScene = StartMenuScene(size: size)
+        startMenuScene.scaleMode = .resizeFill
+        currentView.presentScene(startMenuScene)
+    }
 
+    func loadJustPlaySceneFromJustPlayScene(timeBasedGameService: TimeBasedGameService, justPlayLevel: JustPlayLevel) {
+        guard let currentJustPlayService = justPlayService else {
+            loadJustPlaySceneFromMenuScene()
+            return
+        }
+        let justPlayGameScene = JustPlayGameScene(size: size, proportionSet: proportionSet, justPlayLevel: justPlayLevel, justPlayService: currentJustPlayService, timeBasedGameService: timeBasedGameService)
+        let transition = SKTransition.crossFade(withDuration: 0.5)
+        currentView.presentScene(justPlayGameScene, transition: transition)
+    }
+    
+    func loadJustPlayScoreSceneFromJustPlayScene(justPlayLevelResult: JustPlayLevelResult) {
+        guard let currentJustPlayService = justPlayService else {
+            loadStartMenuScene()
+            return
+        }
+        let justPlayResult = currentJustPlayService.calculateResult(justPlayLevelResult: justPlayLevelResult)
+        let justPlayScoreScene = JustPlayScoreScene(size: size, proportionSet: proportionSet, justPlayResult: justPlayResult)
+        let transition = SKTransition.push(with: .left, duration: 0.5)
+        currentView.presentScene(justPlayScoreScene, transition: transition)
+    }
+    
+    func loadJustPlayLostSceneFromJustPlayScene(justPlayLevelResult: JustPlayLevelResult) {
+        guard let currentJustPlayService = justPlayService else {
+            loadStartMenuScene()
+            return
+        }
+        let justPlayResult = currentJustPlayService.calculateResult(justPlayLevelResult: justPlayLevelResult)
+        let justPlayLostScene = JustPlayLostScene(size: size, proportionSet: proportionSet, justPlayResult: justPlayResult)
+        let transition = SKTransition.push(with: .left, duration: 0.5)
+        currentView.presentScene(justPlayLostScene, transition: transition)
+    }
     
     func loadNextJustPlayGameScene() {
-        let levelCreator = LevelCreator()
-
-        let level = levelCreator.generateLevel(size: Configurations.levelSize, moves: Configurations.moves, minTubes: Configurations.minTubes, maxTubes: Configurations.maxTubes)
-        level.id = 0
-        let justPlayScene = JustPlayGameScene(size: size, proportionSet: proportionSet, level: level)
+        guard let currentJustPlayService = justPlayService else {
+            loadJustPlaySceneFromMenuScene()
+            return
+        }
+        let justPlayLevel = currentJustPlayService.getNextLevel()
+        let timeBasedGameService = TimeBasedGameServiceImpl(remainingTime: justPlayLevel.leftTime)
+        timeBasedGameService.start()
+        let justPlayScene = JustPlayGameScene(size: size, proportionSet: proportionSet, justPlayLevel: justPlayLevel, justPlayService: currentJustPlayService, timeBasedGameService: timeBasedGameService)
         let transition = SKTransition.push(with: .left, duration: 0.5)
         currentView.presentScene(justPlayScene, transition: transition)
     }
     
     func reloadJustPlayGameScene(level: Level) {
-        let justPlayGameScene = JustPlayGameScene(size:
-            size, proportionSet: proportionSet, level: level)
-             let transition = SKTransition.crossFade(withDuration: 0.5)
-             currentView.presentScene(justPlayGameScene, transition: transition)
+        if justPlayService == nil {
+            justPlayService = JustPlayServiceImpl()
+        }
+        let timeBasedGameService = TimeBasedGameServiceImpl(remainingTime: 10)
+        timeBasedGameService.start()
+        let justPlayGameScene = JustPlayGameScene(size: size, proportionSet: proportionSet, justPlayLevel: JustPlayLevel(leftTime: 10, level: level), justPlayService: justPlayService!, timeBasedGameService: timeBasedGameService)
+        let transition = SKTransition.crossFade(withDuration: 0.5)
+        currentView.presentScene(justPlayGameScene, transition: transition)
     }
     
     func loadJustPlaySceneFromMenuScene() {
-        let levelCreator = LevelCreator()
-        let level = levelCreator.generateLevel(size: Configurations.levelSize, moves: Configurations.moves, minTubes: Configurations.minTubes, maxTubes: Configurations.maxTubes)
-        level.id = 0
-        let justPlayScene = JustPlayGameScene(size: size, proportionSet: proportionSet, level: level)
+        let currentJustPlayService = JustPlayServiceImpl()
+        justPlayService = currentJustPlayService
+        let justPlayLevel = currentJustPlayService.getNextLevel()
+        let timeBasedGameService = TimeBasedGameServiceImpl(remainingTime: justPlayLevel.leftTime)
+        timeBasedGameService.start()
+        let justPlayScene = JustPlayGameScene(size: size, proportionSet: proportionSet, justPlayLevel: justPlayLevel, justPlayService: currentJustPlayService, timeBasedGameService: timeBasedGameService)
         let transition = SKTransition.push(with: .down, duration: 0.5)
         currentView.presentScene(justPlayScene, transition: transition)
     }
@@ -71,6 +118,12 @@ class StoryServiceImpl: StoryService {
         let levelModeGameScene = LevelModeGameScene(size: size, proportionSet: proportionSet, level: levelService.getLevelById(id: levelId)!)
         let transition = SKTransition.push(with: .down, duration: 0.5)
         currentView.presentScene(levelModeGameScene, transition: transition)
+    }
+    
+    func loadLevelModeScoreSceneFromLevelModeScene(levelResult: LevelResult) {
+        let levelModeScoreScene = LevelModeScoreScene(size: size, levelResult: levelResult)
+        let transition = SKTransition.push(with: .left, duration: 0.35)
+        currentView.presentScene(levelModeScoreScene, transition: transition)
     }
     
     func reloadLevelModeGameScene(levelId: Int) {

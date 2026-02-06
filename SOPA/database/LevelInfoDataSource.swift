@@ -52,6 +52,7 @@ public class LevelInfoDataSource {
     
     func getAllLevelInfos() -> [LevelInfo]{
         let levelInfoFetch = NSFetchRequest<LevelInfoMO>(entityName: "LevelInfo")
+        levelInfoFetch.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
         do{
             let levelInfosMO = try context.fetch(levelInfoFetch)
             var levelInfos: [LevelInfo] = []
@@ -107,6 +108,49 @@ public class LevelInfoDataSource {
             for levelInfoMO in levelInfosMO {
                 context.delete(levelInfoMO)
             }
+        } catch {
+            fatalError()
+        }
+    }
+    
+    func saveJustPlayScore(score: JustPlayScore) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "JustPlayResults")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "scorePoints", ascending: false)]
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let result = try context.fetch(fetchRequest)
+            if result.isEmpty {
+                let entity = NSEntityDescription.entity(forEntityName: "JustPlayResults", in: context)
+                let newEntry = NSManagedObject(entity: entity!, insertInto: context)
+                newEntry.setValue(Int64(score.points), forKey: "scorePoints")
+                newEntry.setValue(Int64(score.solvedLevels), forKey: "solvedLevels")
+            } else if let currentBest = result.first {
+                let points = Int(currentBest.value(forKey: "scorePoints") as? Int64 ?? 0)
+                if score.points > points {
+                    currentBest.setValue(Int64(score.points), forKey: "scorePoints")
+                    currentBest.setValue(Int64(score.solvedLevels), forKey: "solvedLevels")
+                }
+            }
+            appDelegate.saveContext()
+        } catch {
+            fatalError()
+        }
+    }
+    
+    func getBestJustPlayScore() -> JustPlayScore? {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "JustPlayResults")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "scorePoints", ascending: false)]
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let result = try context.fetch(fetchRequest)
+            guard let currentBest = result.first else {
+                return nil
+            }
+            let points = Int(currentBest.value(forKey: "scorePoints") as? Int64 ?? 0)
+            let solvedLevels = Int(currentBest.value(forKey: "solvedLevels") as? Int64 ?? 0)
+            return JustPlayScore(points: points, solvedLevels: solvedLevels)
         } catch {
             fatalError()
         }

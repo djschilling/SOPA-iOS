@@ -10,116 +10,106 @@ import Foundation
 import SpriteKit
 
 class LevelModeScoreScene: SKScene {
-    let BUTTON_DIMENTIONS = CGFloat(0.28)
-    let BUTTON_HEIGHT = CGFloat(0.05)
-    let STAR_HEIGHT_HEIGH = CGFloat(0.37)
-    let STAR_HEIGHT_LOW = CGFloat(0.33)
-    let TITLE_HEIGHT = CGFloat(0.95)
-    
-    let levelResult: LevelResult
+    private let levelResult: LevelResult
+    private let background = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255.0, alpha: 1.0)
+    private let textColor = UIColor(red: 240.0 / 255.0, green: 239.0 / 255.0, blue: 238.0 / 255.0, alpha: 1.0)
+
     init(size: CGSize, levelResult: LevelResult) {
         self.levelResult = levelResult
         super.init(size: size)
-    
+
+        self.backgroundColor = background
         addButtons()
         addStaticObjects()
     }
-    
-    func addButtons() {
+
+    private func addButtons() {
         let restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
         let levelChoiceButton = SpriteButton(imageNamed: "LevelChoice", onClick: levelChoiceMenu)
         let nextLevelButton = SpriteButton(imageNamed: "NextLevel", onClick: startNextLevel)
-        
-        let buttonSize =  CGSize(width: size.width * BUTTON_DIMENTIONS, height: size.width * BUTTON_DIMENTIONS)
+
+        let side = min(size.width, size.height) * 0.20
+        let buttonSize = CGSize(width: side, height: side)
         restartButton.size = buttonSize
         levelChoiceButton.size = buttonSize
         nextLevelButton.size = buttonSize
-        
-        let buttonY = size.width * BUTTON_DIMENTIONS / 2 + size.height * BUTTON_HEIGHT
+
+        let buttonY = size.height * 0.18
         restartButton.position = CGPoint(x: size.width / 2, y: buttonY)
-        levelChoiceButton.position = CGPoint(x: size.width / 6, y: 100)
-        nextLevelButton.position = CGPoint(x: 5 * size.width / 6, y: 100)
-        
+        levelChoiceButton.position = CGPoint(x: size.width * 0.20, y: buttonY)
+        nextLevelButton.position = CGPoint(x: size.width * 0.80, y: buttonY)
+
         addChild(restartButton)
         addChild(levelChoiceButton)
         addChild(nextLevelButton)
     }
-    
-    func addStaticObjects() {
-        let titleLableA = SKLabelNode(fontNamed: "Impact")
-        titleLableA.text = String(levelResult.levelId) + ". Level"
-        titleLableA.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-        titleLableA.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        titleLableA.position.y = size.height * TITLE_HEIGHT
-        titleLableA.position.x = size.width / 2
-        titleLableA.fontSize = size.height * 0.1
-        addChild(titleLableA)
-        
-        let titleLableB = SKLabelNode(fontNamed: "Impact")
-        titleLableB.text = "complete"
-        titleLableB.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-        titleLableB.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
-        titleLableB.position.y = size.height * TITLE_HEIGHT - 0.1 * size.height
-        titleLableB.position.x = size.width / 2
-        titleLableB.fontSize = size.height * 0.1
-        addChild(titleLableB)
-        
-        let yourMovesLable = SKLabelNode(fontNamed: "Impact")
-        yourMovesLable.text = "Your moves:\t\t\t\t" + String(levelResult.moveCount)
-        yourMovesLable.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-        yourMovesLable.verticalAlignmentMode = SKLabelVerticalAlignmentMode.bottom
-        yourMovesLable.position.y = size.height * (0.6)
-        yourMovesLable.position.x = size.width / 2
-        yourMovesLable.fontSize = size.height * 0.05
-        addChild(yourMovesLable)
-        
+
+    private func addStaticObjects() {
+        let title = SKLabelNode(fontNamed: "Optima-Bold")
+        title.text = "Level \(levelResult.levelId) Complete"
+        title.horizontalAlignmentMode = .center
+        title.verticalAlignmentMode = .center
+        title.position = CGPoint(x: size.width * 0.5, y: size.height * 0.86)
+        title.fontSize = min(size.width, size.height) * 0.075
+        title.fontColor = textColor
+        addChild(title)
+
+        let yourMovesLabel = SKLabelNode(fontNamed: "Optima-Bold")
+        yourMovesLabel.text = "Your moves: \(levelResult.moveCount)"
+        yourMovesLabel.horizontalAlignmentMode = .center
+        yourMovesLabel.verticalAlignmentMode = .center
+        yourMovesLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.52)
+        yourMovesLabel.fontSize = min(size.width, size.height) * 0.05
+        yourMovesLabel.fontColor = textColor
+        addChild(yourMovesLabel)
+
         let level = ResourcesManager.getInstance().levelService!.getLevelById(id: levelResult.levelId)!
-        let movesPossibleLable = SKLabelNode(fontNamed: "Impact")
-        movesPossibleLable.text = "Moves for 3 stars:\t" + String(level.minimumMovesToSolve!)
-        movesPossibleLable.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-        movesPossibleLable.verticalAlignmentMode = SKLabelVerticalAlignmentMode.bottom
-        movesPossibleLable.position.y = size.height * (0.52)
-        movesPossibleLable.position.x = size.width / 2
-        movesPossibleLable.fontSize = size.height * 0.05
-        addChild(movesPossibleLable)
-        
+        let optimumLabel = SKLabelNode(fontNamed: "Optima-Bold")
+        optimumLabel.text = "3-star target: \(level.minimumMovesToSolve!)"
+        optimumLabel.horizontalAlignmentMode = .center
+        optimumLabel.verticalAlignmentMode = .center
+        optimumLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.46)
+        optimumLabel.fontSize = min(size.width, size.height) * 0.045
+        optimumLabel.fontColor = textColor
+        addChild(optimumLabel)
+
         addStars()
     }
-    
-    func addStars() {
-        let starSize = CGSize(width: size.width * 0.36, height: size.width * 0.36)
-        
-        let star1 = SKSpriteNode(imageNamed: "star_score" )
+
+    private func addStars() {
+        let starSide = min(size.width, size.height) * 0.22
+        let starSize = CGSize(width: starSide, height: starSide)
+
+        let star1 = SKSpriteNode(imageNamed: "star_score")
         star1.size = starSize
-        star1.position = CGPoint(x: starSize.width / 2, y: STAR_HEIGHT_HEIGH * size.height)
+        star1.position = CGPoint(x: size.width * 0.23, y: size.height * 0.66)
         addChild(star1)
-        
+
         let star2 = SKSpriteNode(imageNamed: levelResult.stars >= 2 ? "star_score": "starSW_score")
         star2.size = starSize
-        star2.position = CGPoint(x: size.width / 2, y: STAR_HEIGHT_LOW * size.height)
+        star2.position = CGPoint(x: size.width * 0.5, y: size.height * 0.62)
         addChild(star2)
 
         let star3 = SKSpriteNode(imageNamed: levelResult.stars == 3 ? "star_score": "starSW_score")
         star3.size = starSize
-        star3.position = CGPoint(x: size.width - starSize.width / 2, y: STAR_HEIGHT_HEIGH * size.height)
+        star3.position = CGPoint(x: size.width * 0.77, y: size.height * 0.66)
         addChild(star3)
     }
-    
-    func restartLevel() {
+
+    private func restartLevel() {
         ResourcesManager.getInstance().storyService?.reloadLevelModeGameScene(levelId: levelResult.levelId)
     }
-    
-    func levelChoiceMenu() {
+
+    private func levelChoiceMenu() {
         ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
     }
-    
-    func startNextLevel() {
+
+    private func startNextLevel() {
         if ResourcesManager.getInstance().levelService?.getLevelCount() == levelResult.levelId {
             ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
         } else {
             ResourcesManager.getInstance().storyService?.loadNextLevelModeGameScene(levelId: levelResult.levelId + 1)
         }
-        
     }
 
     required init(coder aDecoder: NSCoder) {

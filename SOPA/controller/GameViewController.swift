@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
         
         ResourcesManager.prepareManager(appDelegate: UIApplication.shared.delegate as! AppDelegate, size: view.bounds.size, skView: view as! SKView)
         ResourcesManager.getInstance().levelService?.updateLevelInfos()
-        ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
+        ResourcesManager.getInstance().storyService?.loadStartMenuScene()
         print(LogFileHandler.logger.readLog())
         printLevelTimes()
     }
@@ -51,4 +51,3 @@ class GameViewController: UIViewController {
         return true
     }
 }
-

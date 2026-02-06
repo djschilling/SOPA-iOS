@@ -22,3 +22,8 @@ class LevelResult {
     }
     
 }
+
+struct JustPlayScore {
+    let points: Int
+    let solvedLevels: Int
+}

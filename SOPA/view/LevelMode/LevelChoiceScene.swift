@@ -35,10 +35,6 @@ func makeNextButtonTexture(side: CGFloat) -> SKTexture {
     makeSymbolButtonTexture(symbolName: "chevron.right.circle.fill", side: side)
 }
 
-func makeShareButtonTexture(side: CGFloat) -> SKTexture {
-    makeSymbolButtonTexture(symbolName: "square.and.arrow.up.circle.fill", side: side)
-}
-
 class LevelChoiceScene: SKScene {
     private let levelInfos: [LevelInfo]
     private var levelButtonArea: LevelButtonArea?
@@ -50,25 +46,9 @@ class LevelChoiceScene: SKScene {
         levelButtonArea = LevelButtonArea(size: size, levelInfos: levelInfos, update: update)
         addChild(levelButtonArea!)
         addButtons()
-        //addStatisticsShareButton()
         self.backgroundColor = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255, alpha: 1.0)
 
 
-    }
-    
-    private func addStatisticsShareButton() {
-        let side = size.height * 0.1
-        let statisticsShareButton = SpriteButton(texture: makeShareButtonTexture(side: side), onClick: shareStatistics)
-        statisticsShareButton.position.x = size.width * 0.5
-        statisticsShareButton.position.y = side * 0.5
-        addChild(statisticsShareButton)
-    }
-    
-    private func shareStatistics() {
-        let shareString = LogFileHandler.logger.readLog()
-        let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [shareString], applicationActivities: nil);
-        let currentViewController:UIViewController = UIApplication.shared.keyWindow!.rootViewController!
-        currentViewController.present(activityViewController, animated: true, completion: nil);
     }
     
     private func addButtons() {
@@ -501,12 +481,11 @@ class TutorialGameScene: GameScene {
     }
 
     override func addButtons() {
-        let restartSide = proportionSet.buttonSize()
-        restartButton = SpriteButton(texture: makeRestartButtonTexture(side: restartSide), onClick: restartTutorial)
+        let side = proportionSet.levelChoiceSize()
+        restartButton = SpriteButton(texture: makeRestartButtonTexture(side: side), onClick: restartTutorial)
         restartButton!.position = CGPoint(x: size.width - size.height * 0.057, y: size.height * 0.91)
         addChild(restartButton!)
 
-        let side = proportionSet.levelChoiceSize()
         menuButton = SpriteButton(texture: makeBackButtonTexture(side: side), onClick: backToStartMenu)
         menuButton!.position = proportionSet.levelChoicePos()
         addChild(menuButton!)

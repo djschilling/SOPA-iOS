@@ -45,12 +45,10 @@ class LevelModeGameScene: GameScene {
     }
     
     func restartLevel() {
-        //LogFileHandler.logger.write("LevelMode; restart; \(gameService.getLevel().id!); \(super.gameService.getLevel().movesCounter); -1; \(stopCounter()); \(NSDate())\n")
       ResourcesManager.getInstance().storyService?.reloadLevelModeGameScene(levelId: gameService.getLevel().id!)
     }
     
     func loadLevelChoiceScene() {
-        //LogFileHandler.logger.write("LevelMode; end; \(gameService.getLevel().id!); \(super.gameService.getLevel().movesCounter); -1; \(stopCounter()); \(NSDate())\n")
         ResourcesManager.getInstance().storyService?.loadLevelCoiceSceneFromLevelModeScene()
     }
     
@@ -62,7 +60,6 @@ class LevelModeGameScene: GameScene {
         levelResult.time = time
         _ = levelService?.persistLevelResult(levelResult: levelResult)
         levelService?.unlockLevel(levelId: level.id! + 1)
-        //LogFileHandler.logger.write("LevelMode; solved; \(levelResult.levelId); \(levelResult.moveCount); \(levelResult.stars); \(time); \(NSDate())\n")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: {
             ResourcesManager.getInstance().storyService?.loadLevelModeScoreSceneFromLevelModeScene(levelResult: levelResult)
         })

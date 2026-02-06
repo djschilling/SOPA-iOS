@@ -60,15 +60,15 @@ Die iOS-Version soll sich in der **Spiellogik** wie die Android-Version verhalte
 
 **Android-seitig vorhanden, iOS-seitig unvollständig/fehlend:**
 - [x] Hauptmenü
-- [ ] Settings (mind. Audio-Mute)
-- [ ] Credits
-- [ ] Tutorial/Onboarding
+- [ ] Settings (entfernt, da aktuell kein Audio im iOS-Build aktiv ist)
+- [x] Credits
+- [x] Tutorial/Onboarding
 - [x] Levelmode-Completion
 - [ ] Optional Loading-Übergang
 
 **Umsetzung:**
 - [x] Story-/Navigation auf iOS erweitern
-- [ ] Flows als eigene Szenen oder äquivalente iOS-Navigation umsetzen
+- [x] Flows als eigene Szenen oder äquivalente iOS-Navigation umsetzen
 
 **Abnahmekriterium:**
 - [ ] Alle wesentlichen Modi/Zustände sind für Nutzer erreichbar und vollständig rücknavigierbar.

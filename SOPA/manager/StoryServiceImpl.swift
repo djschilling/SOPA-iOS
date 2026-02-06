@@ -11,11 +11,29 @@ import SpriteKit
 
 class StoryServiceImpl: StoryService {
     private var justPlayService: JustPlayService?
-    
+
     func loadStartMenuScene() {
         let startMenuScene = StartMenuScene(size: size)
         startMenuScene.scaleMode = .resizeFill
         currentView.presentScene(startMenuScene)
+    }
+
+    func loadCreditsSceneFromMenuScene() {
+        let creditsScene = CreditsScene(size: size)
+        let transition = SKTransition.push(with: .left, duration: 0.35)
+        currentView.presentScene(creditsScene, transition: transition)
+    }
+
+    func loadTutorialSceneFromMenuScene() {
+        let tutorialScene = TutorialScene(size: size)
+        let transition = SKTransition.push(with: .left, duration: 0.35)
+        currentView.presentScene(tutorialScene, transition: transition)
+    }
+
+    func loadTutorialGameSceneFromTutorialScene() {
+        let tutorialLevel = levelService.getLevelById(id: 1) ?? makeFallbackTutorialLevel()
+        let tutorialGameScene = TutorialGameScene(size: size, proportionSet: proportionSet, level: tutorialLevel)
+        currentView.presentScene(tutorialGameScene)
     }
 
     func loadJustPlaySceneFromJustPlayScene(timeBasedGameService: TimeBasedGameService, justPlayLevel: JustPlayLevel) {
@@ -24,8 +42,7 @@ class StoryServiceImpl: StoryService {
             return
         }
         let justPlayGameScene = JustPlayGameScene(size: size, proportionSet: proportionSet, justPlayLevel: justPlayLevel, justPlayService: currentJustPlayService, timeBasedGameService: timeBasedGameService)
-        let transition = SKTransition.crossFade(withDuration: 0.5)
-        currentView.presentScene(justPlayGameScene, transition: transition)
+        currentView.presentScene(justPlayGameScene)
     }
     
     func loadJustPlayScoreSceneFromJustPlayScene(justPlayLevelResult: JustPlayLevelResult) {
@@ -59,8 +76,7 @@ class StoryServiceImpl: StoryService {
         let timeBasedGameService = TimeBasedGameServiceImpl(remainingTime: justPlayLevel.leftTime)
         timeBasedGameService.start()
         let justPlayScene = JustPlayGameScene(size: size, proportionSet: proportionSet, justPlayLevel: justPlayLevel, justPlayService: currentJustPlayService, timeBasedGameService: timeBasedGameService)
-        let transition = SKTransition.push(with: .left, duration: 0.5)
-        currentView.presentScene(justPlayScene, transition: transition)
+        currentView.presentScene(justPlayScene)
     }
     
     func reloadJustPlayGameScene(level: Level) {
@@ -70,8 +86,7 @@ class StoryServiceImpl: StoryService {
         let timeBasedGameService = TimeBasedGameServiceImpl(remainingTime: 10)
         timeBasedGameService.start()
         let justPlayGameScene = JustPlayGameScene(size: size, proportionSet: proportionSet, justPlayLevel: JustPlayLevel(leftTime: 10, level: level), justPlayService: justPlayService!, timeBasedGameService: timeBasedGameService)
-        let transition = SKTransition.crossFade(withDuration: 0.5)
-        currentView.presentScene(justPlayGameScene, transition: transition)
+        currentView.presentScene(justPlayGameScene)
     }
     
     func loadJustPlaySceneFromMenuScene() {
@@ -81,8 +96,7 @@ class StoryServiceImpl: StoryService {
         let timeBasedGameService = TimeBasedGameServiceImpl(remainingTime: justPlayLevel.leftTime)
         timeBasedGameService.start()
         let justPlayScene = JustPlayGameScene(size: size, proportionSet: proportionSet, justPlayLevel: justPlayLevel, justPlayService: currentJustPlayService, timeBasedGameService: timeBasedGameService)
-        let transition = SKTransition.push(with: .down, duration: 0.5)
-        currentView.presentScene(justPlayScene, transition: transition)
+        currentView.presentScene(justPlayScene)
     }
     
     
@@ -116,8 +130,7 @@ class StoryServiceImpl: StoryService {
     
     func loadLevelModeGameSceneFromChoiceScene(levelId: Int) {
         let levelModeGameScene = LevelModeGameScene(size: size, proportionSet: proportionSet, level: levelService.getLevelById(id: levelId)!)
-        let transition = SKTransition.push(with: .down, duration: 0.5)
-        currentView.presentScene(levelModeGameScene, transition: transition)
+        currentView.presentScene(levelModeGameScene)
     }
     
     func loadLevelModeScoreSceneFromLevelModeScene(levelResult: LevelResult) {
@@ -129,15 +142,27 @@ class StoryServiceImpl: StoryService {
     func reloadLevelModeGameScene(levelId: Int) {
         let levelModeGameScene = LevelModeGameScene(size:
             size, proportionSet: proportionSet, level: levelService.getLevelById(id: levelId)!)
-        let transition = SKTransition.crossFade(withDuration: 0.5)
-        currentView.presentScene(levelModeGameScene, transition: transition)
+        currentView.presentScene(levelModeGameScene)
     }
     
     func loadNextLevelModeGameScene(levelId: Int) {
         let levelModeGameScene = LevelModeGameScene(size: size, proportionSet: proportionSet, level: levelService.getLevelById(id: levelId)!)
-        let transition = SKTransition.push(with: .left, duration: 0.5)
-        currentView.presentScene(levelModeGameScene, transition: transition)
+        currentView.presentScene(levelModeGameScene)
     }
-    
-    
+
+    private func makeFallbackTutorialLevel() -> Level {
+        let levelLines = [
+            "1",
+            "1",
+            "4",
+            "#",
+            "nnnnnn",
+            "noooon",
+            "soacon",
+            "fagoon",
+            "noooon",
+            "nnnnnn"
+        ]
+        return LevelTranslator().fromString(levelLines: levelLines)
+    }
 }

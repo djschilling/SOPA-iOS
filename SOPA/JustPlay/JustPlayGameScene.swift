@@ -1,5 +1,6 @@
 import Foundation
 import SpriteKit
+import UIKit
 
 protocol JustPlaySceneObserver: AnyObject {
     func updateJustPlayScene(remainingTime: Int)
@@ -362,12 +363,14 @@ class JustPlayGameScene: GameScene, JustPlaySceneObserver {
 class JustPlayScoreScene: SKScene {
     private let justPlayResult: JustPlayResult
     private let textColor = UIColor(red: 240.0 / 255.0, green: 239.0 / 255.0, blue: 238.0 / 255.0, alpha: 1.0)
+    private let background = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255.0, alpha: 1.0)
 
     init(size: CGSize, proportionSet: ProportionSet, justPlayResult: JustPlayResult) {
         self.justPlayResult = justPlayResult
         _ = proportionSet
         super.init(size: size)
-        self.backgroundColor = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255, alpha: 1.0)
+        self.backgroundColor = background
+        addBackgroundDecor()
         addLabels()
         addButtons()
     }
@@ -379,35 +382,21 @@ class JustPlayScoreScene: SKScene {
     private func addLabels() {
         let title = SKLabelNode(fontNamed: "Optima-Bold")
         title.text = "Level \(justPlayResult.levelCount) Complete"
-        title.fontSize = min(size.width, size.height) * 0.07
+        title.fontSize = min(size.width, size.height) * 0.082
         title.fontColor = textColor
-        title.position = CGPoint(x: size.width * 0.5, y: size.height * 0.82)
+        title.position = CGPoint(x: size.width * 0.5, y: size.height * 0.84)
         addChild(title)
 
-        let score = SKLabelNode(fontNamed: "Optima-Bold")
-        score.text = "Score: \(justPlayResult.lastScore) -> \(justPlayResult.score)"
-        score.fontSize = min(size.width, size.height) * 0.052
-        score.fontColor = textColor
-        score.position = CGPoint(x: size.width * 0.5, y: size.height * 0.60)
-        addChild(score)
+        let panel = makeInfoPanel(centerY: size.height * 0.57, width: size.width * 0.84, height: size.height * 0.34)
+        addChild(panel)
 
-        let time = SKLabelNode(fontNamed: "Optima-Bold")
-        time.text = "Time Left: \(justPlayResult.leftTime)"
-        time.fontSize = min(size.width, size.height) * 0.043
-        time.fontColor = textColor
-        time.position = CGPoint(x: size.width * 0.5, y: size.height * 0.50)
-        addChild(time)
-
-        let extraTime = SKLabelNode(fontNamed: "Optima-Bold")
-        extraTime.text = "Extra Time: +\(justPlayResult.extraTime)"
-        extraTime.fontSize = min(size.width, size.height) * 0.043
-        extraTime.fontColor = textColor
-        extraTime.position = CGPoint(x: size.width * 0.5, y: size.height * 0.43)
-        addChild(extraTime)
+        addInfoLine(icon: "star.circle.fill", text: "Score", value: "\(justPlayResult.score)", y: size.height * 0.64)
+        addInfoLine(icon: "clock.circle.fill", text: "Time Left", value: "\(justPlayResult.leftTime)", y: size.height * 0.56)
+        addInfoLine(icon: "plus.circle.fill", text: "Extra Time", value: "+\(justPlayResult.extraTime)", y: size.height * 0.48)
 
         let helper = SKLabelNode(fontNamed: "Optima-Bold")
         helper.text = "Continue to the next level?"
-        helper.fontSize = min(size.width, size.height) * 0.036
+        helper.fontSize = min(size.width, size.height) * 0.042
         helper.fontColor = textColor
         helper.position = CGPoint(x: size.width * 0.5, y: size.height * 0.31)
         helper.alpha = 0.9
@@ -430,6 +419,69 @@ class JustPlayScoreScene: SKScene {
         levelChoice.size = CGSize(width: side, height: side)
         levelChoice.position = CGPoint(x: size.width * 0.28, y: size.height * 0.17)
         addChild(levelChoice)
+    }
+
+    private func addBackgroundDecor() {
+        let topGlow = SKShapeNode(circleOfRadius: size.width * 0.28)
+        topGlow.fillColor = UIColor(white: 1.0, alpha: 0.05)
+        topGlow.strokeColor = .clear
+        topGlow.position = CGPoint(x: size.width * 0.15, y: size.height * 0.88)
+        topGlow.zPosition = -2
+        addChild(topGlow)
+
+        let bottomGlow = SKShapeNode(circleOfRadius: size.width * 0.32)
+        bottomGlow.fillColor = UIColor(white: 1.0, alpha: 0.04)
+        bottomGlow.strokeColor = .clear
+        bottomGlow.position = CGPoint(x: size.width * 0.88, y: size.height * 0.14)
+        bottomGlow.zPosition = -2
+        addChild(bottomGlow)
+    }
+
+    private func makeInfoPanel(centerY: CGFloat, width: CGFloat, height: CGFloat) -> SKShapeNode {
+        let rect = CGRect(x: -width / 2.0, y: -height / 2.0, width: width, height: height)
+        let panel = SKShapeNode(rect: rect, cornerRadius: min(width, height) * 0.08)
+        panel.position = CGPoint(x: size.width * 0.5, y: centerY)
+        panel.fillColor = UIColor(white: 1.0, alpha: 0.08)
+        panel.strokeColor = UIColor(white: 1.0, alpha: 0.18)
+        panel.lineWidth = 2.0
+        panel.zPosition = -1
+        return panel
+    }
+
+    private func addInfoLine(icon: String, text: String, value: String, y: CGFloat) {
+        let iconNode = SKSpriteNode(texture: makeStatIconTexture(symbolName: icon))
+        iconNode.size = CGSize(width: size.height * 0.045, height: size.height * 0.045)
+        iconNode.position = CGPoint(x: size.width * 0.18, y: y)
+        addChild(iconNode)
+
+        let line = SKLabelNode(fontNamed: "Optima-Bold")
+        line.text = "\(text): \(value)"
+        line.horizontalAlignmentMode = .left
+        line.verticalAlignmentMode = .center
+        line.fontSize = min(size.width, size.height) * 0.056
+        line.fontColor = textColor
+        line.position = CGPoint(x: size.width * 0.22, y: y)
+        addChild(line)
+    }
+
+    private func makeStatIconTexture(symbolName: String) -> SKTexture {
+        let side = size.height * 0.06
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: side, height: side))
+        let image = renderer.image { _ in
+            let config = UIImage.SymbolConfiguration(pointSize: side * 0.72, weight: .semibold)
+            let tint = textColor
+            if let symbol = UIImage(systemName: symbolName, withConfiguration: config)?
+                .withTintColor(tint, renderingMode: .alwaysOriginal) {
+                let symbolRect = CGRect(
+                    x: (side - symbol.size.width) / 2.0,
+                    y: (side - symbol.size.height) / 2.0,
+                    width: symbol.size.width,
+                    height: symbol.size.height
+                )
+                symbol.draw(in: symbolRect)
+            }
+        }
+        return SKTexture(image: image)
     }
 }
 

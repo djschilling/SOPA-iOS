@@ -43,18 +43,34 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          RUNTIME=$(xcrun simctl list runtimes available | grep -E 'iOS 18\\.' | head -n 1 | awk -F'[()]' '{print $2}')
+          # Pick the newest available iOS runtime on the runner.
+          RUNTIME=$(
+            xcrun simctl list runtimes available \
+            | awk -F'[()]' '/iOS [0-9]+/{print $2}' \
+            | tail -n 1
+          )
 
           if [[ -z "${RUNTIME:-}" ]]; then
-            echo "No iOS 18.x runtime found on this runner."
+            echo "No iOS runtime found on this runner."
             xcrun simctl list runtimes available
             exit 1
           fi
 
-          DEVICE_UDID=$(xcrun simctl list devices available "${RUNTIME}" | grep 'iPhone 16 (' | head -n 1 | awk -F '[()]' '{print $2}')
+          # Prefer iPhone 16 to match local development, fallback to any available iPhone.
+          DEVICE_UDID=$(
+            xcrun simctl list devices available "${RUNTIME}" \
+            | awk -F'[()]' '/iPhone 16 /{print $2; exit}'
+          )
 
           if [[ -z "${DEVICE_UDID:-}" ]]; then
-            echo "No iPhone 16 simulator found for runtime ${RUNTIME}."
+            DEVICE_UDID=$(
+              xcrun simctl list devices available "${RUNTIME}" \
+              | awk -F'[()]' '/iPhone [0-9]+/{print $2; exit}'
+            )
+          fi
+
+          if [[ -z "${DEVICE_UDID:-}" ]]; then
+            echo "No iPhone simulator found for runtime ${RUNTIME}."
             xcrun simctl list devices available "${RUNTIME}"
             exit 1
           fi

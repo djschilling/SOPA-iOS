@@ -253,15 +253,13 @@ class JustPlayGameScene: GameScene, JustPlaySceneObserver {
     }
 
     override func addButtons() {
-        restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
-        restartButton!.size.height = proportionSet.buttonSize()
-        restartButton!.size.width = proportionSet.buttonSize()
+        let restartSide = proportionSet.buttonSize()
+        restartButton = SpriteButton(texture: makeRestartButtonTexture(side: restartSide), onClick: restartLevel)
         restartButton!.position = proportionSet.restartButtonPos()
         addChild(restartButton!)
 
-        levelChoiceButton = SpriteButton(imageNamed: "LevelChoice", onClick: loadStartMenuScene)
-        levelChoiceButton!.size.height = proportionSet.levelChoiceSize()
-        levelChoiceButton!.size.width = proportionSet.levelChoiceSize()
+        let side = proportionSet.levelChoiceSize()
+        levelChoiceButton = SpriteButton(texture: makeBackButtonTexture(side: side), onClick: loadStartMenuScene)
         levelChoiceButton!.position = proportionSet.levelChoicePos()
         addChild(levelChoiceButton!)
     }
@@ -406,14 +404,13 @@ class JustPlayScoreScene: SKScene {
     private func addButtons() {
         let side = min(size.width, size.height) * 0.20
 
-        let nextLevel = SpriteButton(imageNamed: "NextLevel") {
+        let nextLevel = SpriteButton(texture: makeNextButtonTexture(side: side)) {
             ResourcesManager.getInstance().storyService?.loadNextJustPlayGameScene()
         }
-        nextLevel.size = CGSize(width: side, height: side)
         nextLevel.position = CGPoint(x: size.width * 0.72, y: size.height * 0.17)
         addChild(nextLevel)
 
-        let levelChoice = SpriteButton(imageNamed: "LevelChoice") {
+        let levelChoice = SpriteButton(texture: makeBackButtonTexture(side: side)) {
             ResourcesManager.getInstance().storyService?.loadStartMenuScene()
         }
         levelChoice.size = CGSize(width: side, height: side)
@@ -619,14 +616,16 @@ class JustPlayLostScene: SKScene {
     }
 
     private func addButtons() {
-        let restart = SpriteButton(imageNamed: "restart") {
+        let side = proportionSet.buttonSize()
+
+        let restart = SpriteButton(texture: makeRestartButtonTexture(side: side)) {
             ResourcesManager.getInstance().storyService?.loadJustPlaySceneFromMenuScene()
         }
-        restart.size = CGSize(width: proportionSet.buttonSize(), height: proportionSet.buttonSize())
+        restart.size = CGSize(width: side, height: side)
         restart.position = CGPoint(x: size.width * 0.72, y: size.height * 0.18)
         addChild(restart)
 
-        let levelChoice = SpriteButton(imageNamed: "LevelChoice") {
+        let levelChoice = SpriteButton(texture: makeBackButtonTexture(side: proportionSet.buttonSize())) {
             ResourcesManager.getInstance().storyService?.loadStartMenuScene()
         }
         levelChoice.size = CGSize(width: proportionSet.buttonSize(), height: proportionSet.buttonSize())

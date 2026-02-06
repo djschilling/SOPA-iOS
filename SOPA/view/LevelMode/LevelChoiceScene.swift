@@ -10,12 +10,38 @@ import Foundation
 import SpriteKit
 import UIKit
 
+func makeSymbolButtonTexture(symbolName: String, side: CGFloat) -> SKTexture {
+    let textureSize = CGSize(width: side, height: side)
+    let renderer = UIGraphicsImageRenderer(size: textureSize)
+    let image = renderer.image { _ in
+        let config = UIImage.SymbolConfiguration(pointSize: side * 0.92, weight: .semibold)
+        if let symbol = UIImage(systemName: symbolName, withConfiguration: config)?
+            .withTintColor(UIColor(white: 0.94, alpha: 1.0), renderingMode: .alwaysOriginal) {
+            symbol.draw(in: CGRect(origin: .zero, size: textureSize))
+        }
+    }
+    return SKTexture(image: image)
+}
+
+func makeBackButtonTexture(side: CGFloat) -> SKTexture {
+    makeSymbolButtonTexture(symbolName: "chevron.left.circle.fill", side: side)
+}
+
+func makeRestartButtonTexture(side: CGFloat) -> SKTexture {
+    makeSymbolButtonTexture(symbolName: "arrow.counterclockwise.circle.fill", side: side)
+}
+
+func makeNextButtonTexture(side: CGFloat) -> SKTexture {
+    makeSymbolButtonTexture(symbolName: "chevron.right.circle.fill", side: side)
+}
+
+func makeShareButtonTexture(side: CGFloat) -> SKTexture {
+    makeSymbolButtonTexture(symbolName: "square.and.arrow.up.circle.fill", side: side)
+}
 
 class LevelChoiceScene: SKScene {
     private let levelInfos: [LevelInfo]
     private var levelButtonArea: LevelButtonArea?
-    private var leftButton: EffectSpriteButton?
-    private var rightButton: EffectSpriteButton?
     private var menuButton: SpriteButton?
 
     init(size: CGSize, levelService: LevelService) {
@@ -31,10 +57,10 @@ class LevelChoiceScene: SKScene {
     }
     
     private func addStatisticsShareButton() {
-        let statisticsShareButton = SpriteButton(imageNamed: "StatisticsShare", onClick: shareStatistics)
-        statisticsShareButton.size = CGSize(width: size.height * 0.1, height: size.height * 0.1)
+        let side = size.height * 0.1
+        let statisticsShareButton = SpriteButton(texture: makeShareButtonTexture(side: side), onClick: shareStatistics)
         statisticsShareButton.position.x = size.width * 0.5
-        statisticsShareButton.position.y = statisticsShareButton.size.height * 0.5
+        statisticsShareButton.position.y = side * 0.5
         addChild(statisticsShareButton)
     }
     
@@ -46,25 +72,10 @@ class LevelChoiceScene: SKScene {
     }
     
     private func addButtons() {
-        let buttonSize = size.height * 0.18
-        
-        menuButton = SpriteButton(imageNamed: "BackP", onClick: backToStartMenu)
-        menuButton?.size = CGSize(width: size.height * 0.08, height: size.height * 0.08)
+        let side = size.height * 0.08
+        menuButton = SpriteButton(texture: makeBackButtonTexture(side: side), onClick: backToStartMenu)
         menuButton?.position = CGPoint(x: size.height * 0.057, y: size.height * 0.91)
         addChild(menuButton!)
-        
-        leftButton = EffectSpriteButton(imageNamed: "ArrowLeft", onClick: levelButtonArea!.swipeLeft, size: CGSize(width: buttonSize, height: buttonSize))
-        leftButton?.position.y = buttonSize
-        leftButton?.position.x = buttonSize
-        leftButton?.setEnabled(levelButtonArea!.currentLevelPage > 0)
-        addChild(leftButton!)
-        
-        rightButton = EffectSpriteButton(imageNamed: "ArrowRight", onClick: levelButtonArea!.swipeRight, size: CGSize(width: buttonSize, height: buttonSize))
-        rightButton?.position.y = buttonSize
-        rightButton?.position.x = size.width - buttonSize
-        rightButton?.setEnabled(levelButtonArea!.currentLevelPage < levelButtonArea!.pageCount - 1)
-        addChild(rightButton!)
-        update()
     }
     
     private func backToStartMenu() {
@@ -72,8 +83,7 @@ class LevelChoiceScene: SKScene {
     }
     
     func update() {
-        leftButton?.setEnabled(levelButtonArea!.currentLevelPage > 0)
-        rightButton?.setEnabled(levelButtonArea!.currentLevelPage < levelButtonArea!.pageCount - 1)
+        // Intentionally empty: level paging is swipe-only.
     }
     
     
@@ -239,10 +249,10 @@ class CreditsScene: SKScene {
     }
 
     private func addBackButton() {
-        let backButton = SpriteButton(imageNamed: "BackP") {
+        let side = size.height * 0.08
+        let backButton = SpriteButton(texture: makeBackButtonTexture(side: side)) {
             ResourcesManager.getInstance().storyService?.loadStartMenuScene()
         }
-        backButton.size = CGSize(width: size.height * 0.08, height: size.height * 0.08)
         backButton.position = CGPoint(x: size.height * 0.057, y: size.height * 0.91)
         addChild(backButton)
     }
@@ -312,10 +322,10 @@ class TutorialScene: SKScene {
     }
 
     private func addBackButton() {
-        let backButton = SpriteButton(imageNamed: "BackP") {
+        let side = size.height * 0.08
+        let backButton = SpriteButton(texture: makeBackButtonTexture(side: side)) {
             ResourcesManager.getInstance().storyService?.loadStartMenuScene()
         }
-        backButton.size = CGSize(width: size.height * 0.08, height: size.height * 0.08)
         backButton.position = CGPoint(x: size.height * 0.057, y: size.height * 0.91)
         addChild(backButton)
     }
@@ -491,15 +501,13 @@ class TutorialGameScene: GameScene {
     }
 
     override func addButtons() {
-        restartButton = SpriteButton(imageNamed: "restart", onClick: restartTutorial)
-        restartButton!.size.height = proportionSet.buttonSize()
-        restartButton!.size.width = proportionSet.buttonSize()
+        let restartSide = proportionSet.buttonSize()
+        restartButton = SpriteButton(texture: makeRestartButtonTexture(side: restartSide), onClick: restartTutorial)
         restartButton!.position = CGPoint(x: size.width - size.height * 0.057, y: size.height * 0.91)
         addChild(restartButton!)
 
-        menuButton = SpriteButton(imageNamed: "BackP", onClick: backToStartMenu)
-        menuButton!.size.height = proportionSet.levelChoiceSize()
-        menuButton!.size.width = proportionSet.levelChoiceSize()
+        let side = proportionSet.levelChoiceSize()
+        menuButton = SpriteButton(texture: makeBackButtonTexture(side: side), onClick: backToStartMenu)
         menuButton!.position = proportionSet.levelChoicePos()
         addChild(menuButton!)
     }

@@ -24,11 +24,11 @@ class LevelModeScoreScene: SKScene {
     }
 
     private func addButtons() {
-        let restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
-        let levelChoiceButton = SpriteButton(imageNamed: "LevelChoice", onClick: levelChoiceMenu)
-        let nextLevelButton = SpriteButton(imageNamed: "NextLevel", onClick: startNextLevel)
-
         let side = min(size.width, size.height) * 0.20
+        let restartButton = SpriteButton(texture: makeRestartButtonTexture(side: side), onClick: restartLevel)
+        let levelChoiceButton = SpriteButton(texture: makeBackButtonTexture(side: min(size.width, size.height) * 0.20), onClick: levelChoiceMenu)
+        let nextLevelButton = SpriteButton(texture: makeNextButtonTexture(side: side), onClick: startNextLevel)
+
         let buttonSize = CGSize(width: side, height: side)
         restartButton.size = buttonSize
         levelChoiceButton.size = buttonSize

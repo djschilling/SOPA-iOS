@@ -32,15 +32,13 @@ class LevelModeGameScene: GameScene {
         fatalError("init(coder:) has not been implemented")
     }
     override func addButtons() {
-        restartButton = SpriteButton(imageNamed: "restart", onClick: restartLevel)
-        restartButton!.size.height = proportionSet.buttonSize()
-        restartButton!.size.width = proportionSet.buttonSize()
+        let restartSide = proportionSet.buttonSize()
+        restartButton = SpriteButton(texture: makeRestartButtonTexture(side: restartSide), onClick: restartLevel)
         restartButton!.position = proportionSet.restartButtonPos()
         addChild(restartButton!)
         
-        levelChoiceButton = SpriteButton(imageNamed: "LevelChoice", onClick: loadLevelChoiceScene)
-        levelChoiceButton!.size.height = proportionSet.levelChoiceSize()
-        levelChoiceButton!.size.width = proportionSet.levelChoiceSize()
+        let side = proportionSet.levelChoiceSize()
+        levelChoiceButton = SpriteButton(texture: makeBackButtonTexture(side: side), onClick: loadLevelChoiceScene)
         levelChoiceButton!.position = proportionSet.levelChoicePos()
         addChild(levelChoiceButton!)
 

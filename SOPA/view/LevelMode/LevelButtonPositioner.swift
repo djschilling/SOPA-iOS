@@ -17,7 +17,7 @@ class LevelButtonPositioner {
     init(size: CGSize) {
         self.size = size
         self.buttonSize = CGSize(width: size.width * 0.3, height: size.width * 0.3)
-        self.drawingHeight = size.height * 0.80
+        self.drawingHeight = size.height
     }
     
     func getLevelPosition(id: Int) -> CGPoint {

@@ -52,12 +52,10 @@ class LevelServiceImpl: LevelService {
     }
     
     private func normalizeUnlockState(availableIds: [Int]) {
-        guard let maxLevelId = availableIds.max() else {
+        let levelInfos = levelInfoDataSource.getAllLevelInfos()
+        guard let unlockedLimit = LevelServiceImpl.computeUnlockedLimit(availableIds: availableIds, levelInfos: levelInfos) else {
             return
         }
-        let levelInfos = levelInfoDataSource.getAllLevelInfos()
-        let highestSolvedLevel = levelInfos.filter { $0.fewestMoves >= 0 }.map { $0.levelId }.max() ?? 0
-        let unlockedLimit = min(max(1, highestSolvedLevel + 1), maxLevelId)
         
         for levelInfo in levelInfos {
             let shouldBeLocked = levelInfo.levelId > unlockedLimit
@@ -66,6 +64,14 @@ class LevelServiceImpl: LevelService {
                 _ = levelInfoDataSource.updateLevelInfo(levelInfo: levelInfo)
             }
         }
+    }
+
+    static func computeUnlockedLimit(availableIds: [Int], levelInfos: [LevelInfo]) -> Int? {
+        guard let maxLevelId = availableIds.max() else {
+            return nil
+        }
+        let highestSolvedLevel = levelInfos.filter { $0.fewestMoves >= 0 }.map { $0.levelId }.max() ?? 0
+        return min(max(1, highestSolvedLevel + 1), maxLevelId)
     }
     
     func calculateLevelResult(level: Level) -> LevelResult {

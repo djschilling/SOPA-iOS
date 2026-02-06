@@ -58,20 +58,29 @@ jobs:
 
             RUNTIME_ID=$(
               xcrun simctl list runtimes available \
-              | sed -n 's/.*(\(com\.apple\.CoreSimulator\.SimRuntime\.iOS-[^)]*\)).*/\1/p' \
+              | sed -nE 's/.*- (com\.apple\.CoreSimulator\.SimRuntime\.iOS-[[:alnum:]-]+).*/\1/p' \
               | tail -n 1
             )
 
+            if [[ -z "${RUNTIME_ID:-}" ]]; then
+              # Fallback for alternate simctl output formats.
+              RUNTIME_ID=$(
+                xcrun simctl list runtimes available \
+                | sed -nE 's/.*\((com\.apple\.CoreSimulator\.SimRuntime\.iOS-[^)]*)\).*/\1/p' \
+                | tail -n 1
+              )
+            fi
+
             DEVICE_TYPE_ID=$(
               xcrun simctl list devicetypes \
-              | sed -n 's/.*iPhone 16.*(\(com\.apple\.CoreSimulator\.SimDeviceType\.[^)]*\)).*/\1/p' \
-              | head -n 1
+              | sed -nE 's/.*iPhone 16.*\((com\.apple\.CoreSimulator\.SimDeviceType\.[^)]*)\).*/\1/p' \
+              | tail -n 1
             )
 
             if [[ -z "${DEVICE_TYPE_ID:-}" ]]; then
               DEVICE_TYPE_ID=$(
                 xcrun simctl list devicetypes \
-                | sed -n 's/.*iPhone.*(\(com\.apple\.CoreSimulator\.SimDeviceType\.[^)]*\)).*/\1/p' \
+                | sed -nE 's/.*iPhone.*\((com\.apple\.CoreSimulator\.SimDeviceType\.[^)]*)\).*/\1/p' \
                 | head -n 1
               )
             fi

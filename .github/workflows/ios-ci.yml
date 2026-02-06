@@ -1,0 +1,132 @@
+name: iOS CI
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ios-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build and Test (SOPA)
+    runs-on: macos-15
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Show Xcode version
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Resolve Swift packages
+        run: |
+          xcodebuild \
+            -project SOPA.xcodeproj \
+            -scheme SOPA \
+            -resolvePackageDependencies
+
+      - name: Find iOS simulator destination
+        id: sim
+        shell: bash
+        run: |
+          set -euo pipefail
+          DEST_LINE=$(
+            xcodebuild \
+              -project SOPA.xcodeproj \
+              -scheme SOPA \
+              -showdestinations \
+            | grep -m1 "platform:iOS Simulator" || true
+          )
+
+          DEVICE_UDID=$(echo "${DEST_LINE}" | sed -n 's/.*id:\([0-9A-F-]\{36\}\).*/\1/p')
+
+          if [[ -z "${DEVICE_UDID:-}" ]]; then
+            echo "No concrete simulator destination found, creating one via simctl."
+
+            RUNTIME_ID=$(
+              xcrun simctl list runtimes available \
+              | sed -nE 's/.*- (com\.apple\.CoreSimulator\.SimRuntime\.iOS-[[:alnum:]-]+).*/\1/p' \
+              | tail -n 1
+            )
+
+            if [[ -z "${RUNTIME_ID:-}" ]]; then
+              # Fallback for alternate simctl output formats.
+              RUNTIME_ID=$(
+                xcrun simctl list runtimes available \
+                | sed -nE 's/.*\((com\.apple\.CoreSimulator\.SimRuntime\.iOS-[^)]*)\).*/\1/p' \
+                | tail -n 1
+              )
+            fi
+
+            DEVICE_TYPE_ID=$(
+              xcrun simctl list devicetypes \
+              | sed -nE 's/.*iPhone 16.*\((com\.apple\.CoreSimulator\.SimDeviceType\.[^)]*)\).*/\1/p' \
+              | tail -n 1
+            )
+
+            if [[ -z "${DEVICE_TYPE_ID:-}" ]]; then
+              DEVICE_TYPE_ID=$(
+                xcrun simctl list devicetypes \
+                | sed -nE 's/.*iPhone.*\((com\.apple\.CoreSimulator\.SimDeviceType\.[^)]*)\).*/\1/p' \
+                | head -n 1
+              )
+            fi
+
+            if [[ -z "${RUNTIME_ID:-}" || -z "${DEVICE_TYPE_ID:-}" ]]; then
+              echo "Unable to resolve runtime/device type for simulator creation."
+              xcrun simctl list runtimes available
+              xcrun simctl list devicetypes
+              exit 1
+            fi
+
+            DEVICE_UDID=$(xcrun simctl create "SOPA-CI-iPhone" "${DEVICE_TYPE_ID}" "${RUNTIME_ID}")
+
+            if [[ -z "${DEVICE_UDID:-}" ]]; then
+              echo "Failed to create simulator device."
+              exit 1
+            fi
+          fi
+
+          xcrun simctl boot "${DEVICE_UDID}" || true
+          xcrun simctl bootstatus "${DEVICE_UDID}" -b || true
+
+          echo "destination=id=${DEVICE_UDID}" >> "$GITHUB_OUTPUT"
+          echo "Using destination id=${DEVICE_UDID}"
+
+      - name: Build
+        run: |
+          xcodebuild \
+            -project SOPA.xcodeproj \
+            -scheme SOPA \
+            -destination '${{ steps.sim.outputs.destination }}' \
+            build
+
+      - name: Test
+        run: |
+          xcodebuild \
+            -project SOPA.xcodeproj \
+            -scheme SOPA \
+            -destination '${{ steps.sim.outputs.destination }}' \
+            -resultBundlePath TestResults.xcresult \
+            test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcresult
+          path: TestResults.xcresult
+          if-no-files-found: ignore

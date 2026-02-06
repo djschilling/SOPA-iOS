@@ -51,13 +51,48 @@ jobs:
             | grep -m1 "platform:iOS Simulator" || true
           )
 
-          DEVICE_UDID=$(echo "${DEST_LINE}" | sed -n 's/.*id:\([^,}]*\).*/\1/p' | tr -d ' ')
+          DEVICE_UDID=$(echo "${DEST_LINE}" | sed -n 's/.*id:\([0-9A-F-]\{36\}\).*/\1/p')
 
           if [[ -z "${DEVICE_UDID:-}" ]]; then
-            echo "No usable iOS Simulator destination found for scheme SOPA."
-            xcodebuild -project SOPA.xcodeproj -scheme SOPA -showdestinations
-            exit 1
+            echo "No concrete simulator destination found, creating one via simctl."
+
+            RUNTIME_ID=$(
+              xcrun simctl list runtimes available \
+              | sed -n 's/.*(\(com\.apple\.CoreSimulator\.SimRuntime\.iOS-[^)]*\)).*/\1/p' \
+              | tail -n 1
+            )
+
+            DEVICE_TYPE_ID=$(
+              xcrun simctl list devicetypes \
+              | sed -n 's/.*iPhone 16.*(\(com\.apple\.CoreSimulator\.SimDeviceType\.[^)]*\)).*/\1/p' \
+              | head -n 1
+            )
+
+            if [[ -z "${DEVICE_TYPE_ID:-}" ]]; then
+              DEVICE_TYPE_ID=$(
+                xcrun simctl list devicetypes \
+                | sed -n 's/.*iPhone.*(\(com\.apple\.CoreSimulator\.SimDeviceType\.[^)]*\)).*/\1/p' \
+                | head -n 1
+              )
+            fi
+
+            if [[ -z "${RUNTIME_ID:-}" || -z "${DEVICE_TYPE_ID:-}" ]]; then
+              echo "Unable to resolve runtime/device type for simulator creation."
+              xcrun simctl list runtimes available
+              xcrun simctl list devicetypes
+              exit 1
+            fi
+
+            DEVICE_UDID=$(xcrun simctl create "SOPA-CI-iPhone" "${DEVICE_TYPE_ID}" "${RUNTIME_ID}")
+
+            if [[ -z "${DEVICE_UDID:-}" ]]; then
+              echo "Failed to create simulator device."
+              exit 1
+            fi
           fi
+
+          xcrun simctl boot "${DEVICE_UDID}" || true
+          xcrun simctl bootstatus "${DEVICE_UDID}" -b || true
 
           echo "destination=id=${DEVICE_UDID}" >> "$GITHUB_OUTPUT"
           echo "Using destination id=${DEVICE_UDID}"

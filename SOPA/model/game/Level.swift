@@ -23,10 +23,8 @@ class Level {
     init(level: Level) {
         copyTilesFrom(tiles: level.tiles)
         self.id = level.id
-        if level.levelInfo == nil {
-            levelInfo = nil;
-        } else {
-            levelInfo = LevelInfo(levelInfo: level.levelInfo!);
+        if let info = level.levelInfo {
+            levelInfo = LevelInfo(levelInfo: info)
         }
         minimumMovesToSolve = level.minimumMovesToSolve;
         startX = level.startX;

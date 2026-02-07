@@ -60,7 +60,6 @@ Die iOS-Version soll sich in der **Spiellogik** wie die Android-Version verhalte
 
 **Android-seitig vorhanden, iOS-seitig unvollständig/fehlend:**
 - [x] Hauptmenü
-- [ ] Settings (entfernt, da aktuell kein Audio im iOS-Build aktiv ist)
 - [x] Credits
 - [x] Tutorial/Onboarding
 - [x] Levelmode-Completion
@@ -123,7 +122,7 @@ Die iOS-Version soll sich in der **Spiellogik** wie die Android-Version verhalte
 ## Empfohlene Reihenfolge
 1. Crash-Fixes + 100-Level-Parität
 2. JustPlay vollständig (Timer/Score/Lost/Score/Highscore)
-3. Fehlende Flows (Menü/Settings/Tutorial/Credits/Completion)
+3. Fehlende Flows (Menü/Tutorial/Credits/Completion)
 4. Release-Härtung + Testausbau
 5. Build-/Store-Modernisierung und finaler Release-Check
 

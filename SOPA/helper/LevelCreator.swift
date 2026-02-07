@@ -89,9 +89,13 @@ class LevelCreator {
                 startY = Int.random(in: 1..<height - 1)
                 direction = 3
                 tiles[startX][startY] = startTile
-                
+
             default:
-                fatalError()
+                startTile = Tile(top: false, bottom: true, left: false, right: false, tileType: TileType.START, shortcut: "s")
+                startX = 1
+                startY = 0
+                direction = 0
+                tiles[startX][startY] = startTile
             }
             
             var x = startX
@@ -137,9 +141,9 @@ class LevelCreator {
                 case 3:
                     tiles[x][y].left = true
                     tiles[xNew][yNew].right = true
-                    
+
                 default:
-                    fatalError()
+                    break
                 }
                 
                 x = xNew

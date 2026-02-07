@@ -7,20 +7,27 @@
 //
 import CoreData
 import Foundation
+import OSLog
 public class LevelInfoDataSource {
     let appDelegate: AppDelegate
     let context: NSManagedObjectContext
+    private let logger = Logger(subsystem: "SOPA", category: "LevelInfoDataSource")
     init(appDelegate: AppDelegate){
         self.appDelegate = appDelegate
         self.context = appDelegate.persistentContainer.viewContext
     }
     
     func createLevelInfo(levelInfo: LevelInfo) -> LevelInfo {
-        if(getLevelInfoById(id: levelInfo.levelId) != nil) {
-            fatalError()
+        if getLevelInfoById(id: levelInfo.levelId) != nil {
+            logger.error("LevelInfo already exists for id \(levelInfo.levelId)")
+            return levelInfo
         }
         let entity = NSEntityDescription.entity(forEntityName: "LevelInfo", in: context)
-        let newLevelInfo = NSManagedObject(entity: entity!, insertInto: context)
+        guard let entity = entity else {
+            logger.error("Missing LevelInfo entity description")
+            return levelInfo
+        }
+        let newLevelInfo = NSManagedObject(entity: entity, insertInto: context)
         newLevelInfo.setValue(levelInfo.levelId, forKey: "id")
         newLevelInfo.setValue(levelInfo.fewestMoves, forKey: "fewest_moves")
         newLevelInfo.setValue(levelInfo.locked, forKey: "locked")
@@ -36,9 +43,13 @@ public class LevelInfoDataSource {
         do {
             let fetchedLevelInfos = try context.fetch(oldLevelFetch)
             if(fetchedLevelInfos.count != 1) {
-                fatalError()
+                logger.error("Expected 1 LevelInfo, got \(fetchedLevelInfos.count) for id \(levelInfo.levelId)")
+                return levelInfo
             }
-            let oldLevel = fetchedLevelInfos[0] as! LevelInfoMO
+            guard let oldLevel = fetchedLevelInfos[0] as? LevelInfoMO else {
+                logger.error("LevelInfo fetch returned unexpected type")
+                return levelInfo
+            }
             oldLevel.stars = Int16(levelInfo.stars)
             oldLevel.fewest_moves = Int16(levelInfo.fewestMoves)
             oldLevel.locked = levelInfo.locked
@@ -46,7 +57,8 @@ public class LevelInfoDataSource {
             appDelegate.saveContext()
             return levelInfo
         } catch {
-            fatalError()
+            logger.error("Failed to update LevelInfo for id \(levelInfo.levelId): \(error.localizedDescription)")
+            return levelInfo
         }
     }
     
@@ -61,7 +73,8 @@ public class LevelInfoDataSource {
             }
             return levelInfos
         } catch {
-            fatalError()
+            logger.error("Failed to fetch LevelInfo list: \(error.localizedDescription)")
+            return []
         }
     }
     
@@ -77,7 +90,8 @@ public class LevelInfoDataSource {
             let levelInfo = LevelInfo(levelInfoMO: levelInfoMO)
             return levelInfo
         } catch {
-            fatalError()
+            logger.error("Failed to fetch LevelInfo for id \(id): \(error.localizedDescription)")
+            return nil
         }
     }
     
@@ -97,7 +111,8 @@ public class LevelInfoDataSource {
             }
             return LevelInfo(levelInfoMO: unlockedLevelsMO[0])
         } catch {
-            fatalError()
+            logger.error("Failed to fetch last unlocked LevelInfo: \(error.localizedDescription)")
+            return nil
         }
     }
     
@@ -109,7 +124,7 @@ public class LevelInfoDataSource {
                 context.delete(levelInfoMO)
             }
         } catch {
-            fatalError()
+            logger.error("Failed to delete LevelInfos: \(error.localizedDescription)")
         }
     }
     
@@ -134,7 +149,7 @@ public class LevelInfoDataSource {
             }
             appDelegate.saveContext()
         } catch {
-            fatalError()
+            logger.error("Failed to save JustPlay score: \(error.localizedDescription)")
         }
     }
     
@@ -152,7 +167,8 @@ public class LevelInfoDataSource {
             let solvedLevels = Int(currentBest.value(forKey: "solvedLevels") as? Int64 ?? 0)
             return JustPlayScore(points: points, solvedLevels: solvedLevels)
         } catch {
-            fatalError()
+            logger.error("Failed to fetch JustPlay high score: \(error.localizedDescription)")
+            return nil
         }
     }
 }

@@ -7,10 +7,16 @@
 //
 
 import Foundation
+import OSLog
 class LevelServiceImpl: LevelService {
+    private let logger = Logger(subsystem: "SOPA", category: "LevelService")
     func getLevelById(id: Int) -> Level? {
         let level: Level = levelFileService.getLevel(id: id)
-        level.levelInfo = levelInfoDataSource.getLevelInfoById(id: level.id!)
+        guard let levelId = level.id else {
+            logger.error("Loaded level without id for requested id \(id)")
+            return nil
+        }
+        level.levelInfo = levelInfoDataSource.getLevelInfoById(id: levelId)
         return level
     }
     
@@ -75,26 +81,41 @@ class LevelServiceImpl: LevelService {
     }
     
     func calculateLevelResult(level: Level) -> LevelResult {
-        let stars = starCalculator.getStars(neededMoves: level.movesCounter, minimumMoves: level.minimumMovesToSolve!)
-        return LevelResult(levelId: level.id!, moveCount: level.movesCounter, stars: stars, time: Double.nan)
+        guard let minimumMoves = level.minimumMovesToSolve else {
+            logger.error("Missing minimum moves for level \(level.id ?? -1)")
+            return LevelResult(levelId: level.id ?? 0, moveCount: level.movesCounter, stars: 0, time: Double.nan)
+        }
+        guard let levelId = level.id else {
+            logger.error("Missing level id when calculating result")
+            return LevelResult(levelId: 0, moveCount: level.movesCounter, stars: 0, time: Double.nan)
+        }
+        let stars = starCalculator.getStars(neededMoves: level.movesCounter, minimumMoves: minimumMoves)
+        return LevelResult(levelId: levelId, moveCount: level.movesCounter, stars: stars, time: Double.nan)
     }
     
     func persistLevelResult(levelResult: LevelResult) -> LevelInfo {
-        let levelInfo = levelInfoDataSource.getLevelInfoById(id: levelResult.levelId)
-        
-        if levelInfo!.fewestMoves == -1 || levelInfo!.fewestMoves > levelResult.moveCount {
-            levelInfo?.fewestMoves = levelResult.moveCount
-            levelInfo?.stars = levelResult.stars
+        guard let levelInfo = levelInfoDataSource.getLevelInfoById(id: levelResult.levelId) else {
+            logger.error("Missing LevelInfo for level \(levelResult.levelId); creating fallback entry")
+            let newLevelInfo = LevelInfo(levelId: levelResult.levelId, locked: false, fewestMoves: levelResult.moveCount, stars: levelResult.stars, time: levelResult.time)
+            return levelInfoDataSource.createLevelInfo(levelInfo: newLevelInfo)
         }
-        levelInfo?.time = levelResult.time
 
-        return levelInfoDataSource.updateLevelInfo(levelInfo: levelInfo!)
+        if levelInfo.fewestMoves == -1 || levelInfo.fewestMoves > levelResult.moveCount {
+            levelInfo.fewestMoves = levelResult.moveCount
+            levelInfo.stars = levelResult.stars
+        }
+        levelInfo.time = levelResult.time
+
+        return levelInfoDataSource.updateLevelInfo(levelInfo: levelInfo)
     }
     
     func unlockLevel(levelId: Int) {
-        let levelInfo = levelInfoDataSource.getLevelInfoById(id: levelId)
-        levelInfo?.locked = false
-        _ = levelInfoDataSource.updateLevelInfo(levelInfo: levelInfo!)
+        guard let levelInfo = levelInfoDataSource.getLevelInfoById(id: levelId) else {
+            logger.error("Missing LevelInfo when unlocking level \(levelId)")
+            return
+        }
+        levelInfo.locked = false
+        _ = levelInfoDataSource.updateLevelInfo(levelInfo: levelInfo)
     }
     
     func deleteAllLevelInfos() {

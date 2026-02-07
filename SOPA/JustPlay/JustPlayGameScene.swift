@@ -254,12 +254,12 @@ class JustPlayGameScene: GameScene, JustPlaySceneObserver {
 
     override func addButtons() {
         let restartSide = proportionSet.buttonSize()
-        restartButton = SpriteButton(texture: makeRestartButtonTexture(side: restartSide), onClick: restartLevel)
+        restartButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "arrow.counterclockwise", side: restartSide), onClick: restartLevel)
         restartButton!.position = proportionSet.restartButtonPos()
         addChild(restartButton!)
 
         let side = proportionSet.levelChoiceSize()
-        levelChoiceButton = SpriteButton(texture: makeBackButtonTexture(side: side), onClick: loadStartMenuScene)
+        levelChoiceButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.left", side: side), onClick: loadStartMenuScene)
         levelChoiceButton!.position = proportionSet.levelChoicePos()
         addChild(levelChoiceButton!)
     }
@@ -404,13 +404,13 @@ class JustPlayScoreScene: SKScene {
     private func addButtons() {
         let side = min(size.width, size.height) * 0.20
 
-        let nextLevel = SpriteButton(texture: makeNextButtonTexture(side: side)) {
+        let nextLevel = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.right", side: side)) {
             ResourcesManager.getInstance().storyService?.loadNextJustPlayGameScene()
         }
         nextLevel.position = CGPoint(x: size.width * 0.72, y: size.height * 0.17)
         addChild(nextLevel)
 
-        let levelChoice = SpriteButton(texture: makeBackButtonTexture(side: side)) {
+        let levelChoice = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.left", side: side)) {
             ResourcesManager.getInstance().storyService?.loadStartMenuScene()
         }
         levelChoice.size = CGSize(width: side, height: side)
@@ -618,14 +618,14 @@ class JustPlayLostScene: SKScene {
     private func addButtons() {
         let side = proportionSet.buttonSize()
 
-        let restart = SpriteButton(texture: makeRestartButtonTexture(side: side)) {
+        let restart = SpriteButton(texture: makeCircleButtonTexture(symbolName: "arrow.counterclockwise", side: side)) {
             ResourcesManager.getInstance().storyService?.loadJustPlaySceneFromMenuScene()
         }
         restart.size = CGSize(width: side, height: side)
         restart.position = CGPoint(x: size.width * 0.72, y: size.height * 0.18)
         addChild(restart)
 
-        let levelChoice = SpriteButton(texture: makeBackButtonTexture(side: proportionSet.buttonSize())) {
+        let levelChoice = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.left", side: proportionSet.buttonSize())) {
             ResourcesManager.getInstance().storyService?.loadStartMenuScene()
         }
         levelChoice.size = CGSize(width: proportionSet.buttonSize(), height: proportionSet.buttonSize())

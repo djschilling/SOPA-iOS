@@ -33,12 +33,12 @@ class LevelModeGameScene: GameScene {
     }
     override func addButtons() {
         let restartSide = proportionSet.buttonSize()
-        restartButton = SpriteButton(texture: makeRestartButtonTexture(side: restartSide), onClick: restartLevel)
+        restartButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "arrow.counterclockwise", side: restartSide), onClick: restartLevel)
         restartButton!.position = proportionSet.restartButtonPos()
         addChild(restartButton!)
         
         let side = proportionSet.levelChoiceSize()
-        levelChoiceButton = SpriteButton(texture: makeBackButtonTexture(side: side), onClick: loadLevelChoiceScene)
+        levelChoiceButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.left", side: side), onClick: loadLevelChoiceScene)
         levelChoiceButton!.position = proportionSet.levelChoicePos()
         addChild(levelChoiceButton!)
 

@@ -25,9 +25,9 @@ class LevelModeScoreScene: SKScene {
 
     private func addButtons() {
         let side = min(size.width, size.height) * 0.20
-        let restartButton = SpriteButton(texture: makeRestartButtonTexture(side: side), onClick: restartLevel)
-        let levelChoiceButton = SpriteButton(texture: makeBackButtonTexture(side: min(size.width, size.height) * 0.20), onClick: levelChoiceMenu)
-        let nextLevelButton = SpriteButton(texture: makeNextButtonTexture(side: side), onClick: startNextLevel)
+        let restartButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "arrow.counterclockwise", side: side), onClick: restartLevel)
+        let levelChoiceButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "square.grid.2x2", side: side), onClick: levelChoiceMenu)
+        let nextLevelButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.right", side: side), onClick: startNextLevel)
 
         let buttonSize = CGSize(width: side, height: side)
         restartButton.size = buttonSize

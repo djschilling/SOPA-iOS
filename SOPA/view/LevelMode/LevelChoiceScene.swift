@@ -10,29 +10,28 @@ import Foundation
 import SpriteKit
 import UIKit
 
-func makeSymbolButtonTexture(symbolName: String, side: CGFloat) -> SKTexture {
+func makeCircleButtonTexture(symbolName: String, side: CGFloat) -> SKTexture {
     let textureSize = CGSize(width: side, height: side)
+    let circleColor = UIColor(white: 0.94, alpha: 1.0)
+    let iconColor = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255.0, alpha: 1.0)
     let renderer = UIGraphicsImageRenderer(size: textureSize)
     let image = renderer.image { _ in
-        let config = UIImage.SymbolConfiguration(pointSize: side * 0.92, weight: .semibold)
+        circleColor.setFill()
+        UIBezierPath(ovalIn: CGRect(origin: .zero, size: textureSize)).fill()
+
+        let config = UIImage.SymbolConfiguration(pointSize: side * 0.42, weight: .semibold)
         if let symbol = UIImage(systemName: symbolName, withConfiguration: config)?
-            .withTintColor(UIColor(white: 0.94, alpha: 1.0), renderingMode: .alwaysOriginal) {
-            symbol.draw(in: CGRect(origin: .zero, size: textureSize))
+            .withTintColor(iconColor, renderingMode: .alwaysOriginal) {
+            let symbolRect = CGRect(
+                x: (side - symbol.size.width) / 2.0,
+                y: (side - symbol.size.height) / 2.0,
+                width: symbol.size.width,
+                height: symbol.size.height
+            )
+            symbol.draw(in: symbolRect)
         }
     }
     return SKTexture(image: image)
-}
-
-func makeBackButtonTexture(side: CGFloat) -> SKTexture {
-    makeSymbolButtonTexture(symbolName: "chevron.left.circle.fill", side: side)
-}
-
-func makeRestartButtonTexture(side: CGFloat) -> SKTexture {
-    makeSymbolButtonTexture(symbolName: "arrow.counterclockwise.circle.fill", side: side)
-}
-
-func makeNextButtonTexture(side: CGFloat) -> SKTexture {
-    makeSymbolButtonTexture(symbolName: "chevron.right.circle.fill", side: side)
 }
 
 class LevelChoiceScene: SKScene {
@@ -53,7 +52,7 @@ class LevelChoiceScene: SKScene {
     
     private func addButtons() {
         let side = size.height * 0.08
-        menuButton = SpriteButton(texture: makeBackButtonTexture(side: side), onClick: backToStartMenu)
+        menuButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.left", side: side), onClick: backToStartMenu)
         menuButton?.position = CGPoint(x: size.height * 0.057, y: size.height * 0.91)
         addChild(menuButton!)
     }
@@ -230,7 +229,7 @@ class CreditsScene: SKScene {
 
     private func addBackButton() {
         let side = size.height * 0.08
-        let backButton = SpriteButton(texture: makeBackButtonTexture(side: side)) {
+        let backButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.left", side: side)) {
             ResourcesManager.getInstance().storyService?.loadStartMenuScene()
         }
         backButton.position = CGPoint(x: size.height * 0.057, y: size.height * 0.91)
@@ -303,7 +302,7 @@ class TutorialScene: SKScene {
 
     private func addBackButton() {
         let side = size.height * 0.08
-        let backButton = SpriteButton(texture: makeBackButtonTexture(side: side)) {
+        let backButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.left", side: side)) {
             ResourcesManager.getInstance().storyService?.loadStartMenuScene()
         }
         backButton.position = CGPoint(x: size.height * 0.057, y: size.height * 0.91)
@@ -482,11 +481,11 @@ class TutorialGameScene: GameScene {
 
     override func addButtons() {
         let side = proportionSet.levelChoiceSize()
-        restartButton = SpriteButton(texture: makeRestartButtonTexture(side: side), onClick: restartTutorial)
+        restartButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "arrow.counterclockwise", side: side), onClick: restartTutorial)
         restartButton!.position = CGPoint(x: size.width - size.height * 0.057, y: size.height * 0.91)
         addChild(restartButton!)
 
-        menuButton = SpriteButton(texture: makeBackButtonTexture(side: side), onClick: backToStartMenu)
+        menuButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.left", side: side), onClick: backToStartMenu)
         menuButton!.position = proportionSet.levelChoicePos()
         addChild(menuButton!)
     }

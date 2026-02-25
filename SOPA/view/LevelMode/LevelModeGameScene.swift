@@ -36,12 +36,22 @@ class LevelModeGameScene: GameScene {
 
     override func addButtons() {
         let backSide = min(size.width, size.height) * 0.09
-        levelChoiceButton = SpriteButton(texture: makeMinimalBackTexture(side: backSide), onClick: loadLevelChoiceScene)
+        levelChoiceButton = SpriteButton(texture: ButtonTextureFactory.makeMinimalBackTexture(side: backSide), onClick: loadLevelChoiceScene)
         levelChoiceButton!.position = CGPoint(x: size.width * 0.08, y: size.height * 0.95)
         addChild(levelChoiceButton!)
 
         let restartSide = min(size.width, size.height) * 0.18
-        restartButton = SpriteButton(texture: makeGameplayCircleButtonTexture(symbolName: "arrow.counterclockwise", side: restartSide), onClick: restartLevel)
+        restartButton = SpriteButton(
+            texture: ButtonTextureFactory.makeCircleButtonTexture(
+                symbolName: "arrow.counterclockwise",
+                side: restartSide,
+                circleColor: UIColor(white: 0.96, alpha: 1.0),
+                iconColor: UIColor(white: 0.05, alpha: 1.0),
+                symbolScale: 0.52,
+                symbolWeight: .bold
+            ),
+            onClick: restartLevel
+        )
         restartButton!.position = CGPoint(x: size.width * 0.86, y: size.height * 0.12)
         addChild(restartButton!)
     }
@@ -109,48 +119,6 @@ class LevelModeGameScene: GameScene {
         movesLabels.addChild(currentMovesNode)
     }
 
-    private func makeGameplayCircleButtonTexture(symbolName: String, side: CGFloat) -> SKTexture {
-        let textureSize = CGSize(width: side, height: side)
-        let renderer = UIGraphicsImageRenderer(size: textureSize)
-        let image = renderer.image { _ in
-            UIColor(white: 0.96, alpha: 1.0).setFill()
-            UIBezierPath(ovalIn: CGRect(origin: .zero, size: textureSize)).fill()
-
-            let config = UIImage.SymbolConfiguration(pointSize: side * 0.52, weight: .bold)
-            if let symbol = UIImage(systemName: symbolName, withConfiguration: config)?
-                .withTintColor(UIColor(white: 0.05, alpha: 1.0), renderingMode: .alwaysOriginal) {
-                let symbolRect = CGRect(
-                    x: (side - symbol.size.width) / 2.0,
-                    y: (side - symbol.size.height) / 2.0,
-                    width: symbol.size.width,
-                    height: symbol.size.height
-                )
-                symbol.draw(in: symbolRect)
-            }
-        }
-        return SKTexture(image: image)
-
-    }
-
-    private func makeMinimalBackTexture(side: CGFloat) -> SKTexture {
-        let textureSize = CGSize(width: side, height: side)
-        let renderer = UIGraphicsImageRenderer(size: textureSize)
-        let image = renderer.image { _ in
-            let config = UIImage.SymbolConfiguration(pointSize: side * 0.72, weight: .semibold)
-            if let symbol = UIImage(systemName: "chevron.left", withConfiguration: config)?
-                .withTintColor(UIColor(white: 0.86, alpha: 0.92), renderingMode: .alwaysOriginal) {
-                let symbolRect = CGRect(
-                    x: (side - symbol.size.width) / 2.0,
-                    y: (side - symbol.size.height) / 2.0,
-                    width: symbol.size.width,
-                    height: symbol.size.height
-                )
-                symbol.draw(in: symbolRect)
-            }
-        }
-        return SKTexture(image: image)
-    }
-    
     func restartLevel() {
       ResourcesManager.getInstance().storyService?.reloadLevelModeGameScene(levelId: gameService.getLevel().id!)
     }

@@ -38,23 +38,81 @@ class LevelChoiceScene: SKScene {
     private let levelInfos: [LevelInfo]
     private var levelButtonArea: LevelButtonArea?
     private var menuButton: SpriteButton?
+    private var leftArrowButton: SpriteButton?
+    private var rightArrowButton: SpriteButton?
 
     init(size: CGSize, levelService: LevelService) {
         levelInfos = levelService.getLevelInfos()
         super.init(size: size)
         levelButtonArea = LevelButtonArea(size: size, levelInfos: levelInfos, update: update)
         addChild(levelButtonArea!)
+        backgroundColor = .black
         addButtons()
-        self.backgroundColor = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255, alpha: 1.0)
+        addPageArrows()
+        update()
 
 
     }
     
     private func addButtons() {
-        let side = size.height * 0.08
-        menuButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.left", side: side), onClick: backToStartMenu)
-        menuButton?.position = CGPoint(x: size.height * 0.057, y: size.height * 0.91)
+        let side = min(size.width * 0.095, size.height * 0.07)
+        menuButton = SpriteButton(texture: makeMenuBackTexture(side: side), onClick: backToStartMenu)
+        menuButton?.position = CGPoint(x: size.width * 0.085, y: size.height * 0.90)
+        menuButton?.zPosition = 20
         addChild(menuButton!)
+    }
+
+    private func makeMenuBackTexture(side: CGFloat) -> SKTexture {
+        let textureSize = CGSize(width: side, height: side)
+        let renderer = UIGraphicsImageRenderer(size: textureSize)
+        let image = renderer.image { _ in
+            let config = UIImage.SymbolConfiguration(pointSize: side * 0.72, weight: .semibold)
+            if let symbol = UIImage(systemName: "chevron.left", withConfiguration: config)?
+                .withTintColor(UIColor(red: 160.0 / 255.0, green: 164.0 / 255.0, blue: 170.0 / 255.0, alpha: 0.95), renderingMode: .alwaysOriginal) {
+                let symbolRect = CGRect(
+                    x: (side - symbol.size.width) / 2.0,
+                    y: (side - symbol.size.height) / 2.0,
+                    width: symbol.size.width,
+                    height: symbol.size.height
+                )
+                symbol.draw(in: symbolRect)
+            }
+        }
+        return SKTexture(image: image)
+    }
+
+    private func addPageArrows() {
+        let arrowSide = min(size.width * 0.16, size.height * 0.13)
+        leftArrowButton = SpriteButton(texture: makePageArrowTexture(imageNamed: "ArrowLeft", side: arrowSide), onClick: goToPreviousPage)
+        leftArrowButton?.position = CGPoint(x: size.width * 0.08, y: size.height * 0.21)
+        leftArrowButton?.zPosition = 20
+        addChild(leftArrowButton!)
+
+        rightArrowButton = SpriteButton(texture: makePageArrowTexture(imageNamed: "ArrowRight", side: arrowSide), onClick: goToNextPage)
+        rightArrowButton?.position = CGPoint(x: size.width * 0.92, y: size.height * 0.21)
+        rightArrowButton?.zPosition = 20
+        addChild(rightArrowButton!)
+    }
+
+    private func makePageArrowTexture(imageNamed: String, side: CGFloat) -> SKTexture {
+        let texture = SKTexture(imageNamed: imageNamed)
+        let imageSize = texture.size()
+        let ratio = imageSize.width / max(1, imageSize.height)
+        let targetSize = CGSize(width: side * ratio, height: side)
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        let image = renderer.image { _ in
+            let rect = CGRect(origin: .zero, size: targetSize)
+            UIImage(named: imageNamed)?.draw(in: rect)
+        }
+        return SKTexture(image: image)
+    }
+
+    private func goToPreviousPage() {
+        levelButtonArea?.swipeLeft()
+    }
+
+    private func goToNextPage() {
+        levelButtonArea?.swipeRight()
     }
     
     private func backToStartMenu() {
@@ -62,7 +120,16 @@ class LevelChoiceScene: SKScene {
     }
     
     func update() {
-        // Intentionally empty: level paging is swipe-only.
+        guard let area = levelButtonArea else {
+            leftArrowButton?.isHidden = true
+            rightArrowButton?.isHidden = true
+            return
+        }
+
+        let isFirstPage = area.currentLevelPage == 0
+        let isLastPage = area.currentLevelPage >= area.pageCount - 1
+        leftArrowButton?.isHidden = isFirstPage
+        rightArrowButton?.isHidden = isLastPage || area.pageCount <= 1
     }
     
     
@@ -74,109 +141,221 @@ class LevelChoiceScene: SKScene {
 }
 
 class StartMenuScene: SKScene {
-    private let background = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255, alpha: 1.0)
-    private let textColor = UIColor(red: 240.0 / 255.0, green: 239.0 / 255.0, blue: 238.0 / 255.0, alpha: 1.0)
-    
+    private let background = UIColor.black
+    private let titleColor = UIColor(red: 214.0 / 255.0, green: 214.0 / 255.0, blue: 214.0 / 255.0, alpha: 1.0)
+    private let neonColor = UIColor(red: 111.0 / 255.0, green: 227.0 / 255.0, blue: 1.0, alpha: 1.0)
+    private let neonGlowColor = UIColor(red: 23.0 / 255.0, green: 183.0 / 255.0, blue: 1.0, alpha: 1.0)
+    private let twitterUrl = "https://twitter.com/sopagame"
+    private let shareText = "I played SOPA: https://play.google.com/store/apps/details?id=com.sopaapp"
+
     override init(size: CGSize) {
         super.init(size: size)
-        self.backgroundColor = background
+        backgroundColor = background
         addTitle()
         addButtons()
+        addSocialButtons()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func addTitle() {
-        let title = SKLabelNode(fontNamed: "Optima-Bold")
+        let title = SKLabelNode(fontNamed: "Impact")
         title.text = "SOPA"
-        title.fontSize = size.height * 0.12
-        title.fontColor = textColor
-        title.position = CGPoint(x: size.width / 2, y: size.height * 0.78)
+        title.fontSize = size.height * 0.14
+        title.fontColor = titleColor
+        title.position = CGPoint(x: size.width / 2, y: size.height * 0.77)
         addChild(title)
-        
-        let subtitle = SKLabelNode(fontNamed: "Optima-Bold")
-        subtitle.text = "Choose a mode"
-        subtitle.fontSize = size.height * 0.04
-        subtitle.fontColor = textColor
-        subtitle.position = CGPoint(x: size.width / 2, y: size.height * 0.70)
-        addChild(subtitle)
     }
-    
+
     private func addButtons() {
-        let horizontalPadding = size.width * 0.10
-        let interButtonGap = size.width * 0.06
-        let maxButtonWidthFromScreen = (size.width - (horizontalPadding * 2.0) - interButtonGap) / 2.0
-        let buttonSize = min(size.height * 0.20, maxButtonWidthFromScreen)
-        let iconTextureSize = CGSize(width: buttonSize, height: buttonSize)
-        let totalGroupWidth = buttonSize * 2.0 + interButtonGap
-        let leftCenterX = (size.width - totalGroupWidth) / 2.0 + buttonSize / 2.0
-        let rightCenterX = leftCenterX + buttonSize + interButtonGap
-        let buttonCenterY = size.height * 0.42
-        
-        let levelModeButton = SpriteButton(texture: makeModeTexture(symbolName: "square.grid.2x2", textureSize: iconTextureSize)) {
-            ResourcesManager.getInstance().storyService?.loadLevelCoiceScene()
-        }
-        levelModeButton.position = CGPoint(x: leftCenterX, y: buttonCenterY)
-        addChild(levelModeButton)
-        
-        let levelModeLabel = SKLabelNode(fontNamed: "Optima-Bold")
-        levelModeLabel.text = "Level Mode"
-        levelModeLabel.fontSize = size.height * 0.035
-        levelModeLabel.fontColor = textColor
-        levelModeLabel.position = CGPoint(x: 0, y: -buttonSize * 0.70)
-        levelModeButton.addChild(levelModeLabel)
-        
-        let justPlayButton = SpriteButton(texture: makeModeTexture(symbolName: "bolt.fill", textureSize: iconTextureSize)) {
-            ResourcesManager.getInstance().storyService?.loadJustPlaySceneFromMenuScene()
-        }
-        justPlayButton.position = CGPoint(x: rightCenterX, y: buttonCenterY)
-        addChild(justPlayButton)
-        
-        let justPlayLabel = SKLabelNode(fontNamed: "Optima-Bold")
-        justPlayLabel.text = "Just Play"
-        justPlayLabel.fontSize = size.height * 0.035
-        justPlayLabel.fontColor = textColor
-        justPlayLabel.position = CGPoint(x: 0, y: -buttonSize * 0.70)
-        justPlayButton.addChild(justPlayLabel)
+        let menuItems: [(title: String, action: () -> Void)] = [
+            ("LEVEL MODE", { ResourcesManager.getInstance().storyService?.loadLevelCoiceScene() }),
+            ("JUST PLAY", { ResourcesManager.getInstance().storyService?.loadJustPlaySceneFromMenuScene() }),
+            // Keep this wired until a dedicated Settings scene exists on iOS.
+            ("SETTINGS", { ResourcesManager.getInstance().storyService?.loadTutorialSceneFromMenuScene() }),
+            ("CREDITS", { ResourcesManager.getInstance().storyService?.loadCreditsSceneFromMenuScene() })
+        ]
 
-        let utilityButtonY = size.height * 0.20
-        let utilityButtonSize = CGSize(width: size.width * 0.30, height: size.height * 0.075)
-        let utilityGap = size.width * 0.04
-        let totalUtilityWidth = utilityButtonSize.width * 2.0 + utilityGap
-        let firstUtilityX = (size.width - totalUtilityWidth) / 2.0 + utilityButtonSize.width / 2.0
+        let buttonSize = CGSize(width: size.width * 0.76, height: size.height * 0.095)
+        let firstY = size.height * 0.62
+        let verticalGap = size.height * 0.11
 
-        let tutorialButton = SpriteButton(texture: makeTextButtonTexture(title: "Tutorial", size: utilityButtonSize)) {
-            ResourcesManager.getInstance().storyService?.loadTutorialSceneFromMenuScene()
+        for (index, item) in menuItems.enumerated() {
+            let button = SpriteButton(texture: makeNeonTextTexture(title: item.title, size: buttonSize), onClick: item.action)
+            button.position = CGPoint(x: size.width / 2.0, y: firstY - CGFloat(index) * verticalGap)
+            addChild(button)
         }
-        tutorialButton.position = CGPoint(x: firstUtilityX, y: utilityButtonY)
-        addChild(tutorialButton)
-
-        let creditsButton = SpriteButton(texture: makeTextButtonTexture(title: "Credits", size: utilityButtonSize)) {
-            ResourcesManager.getInstance().storyService?.loadCreditsSceneFromMenuScene()
-        }
-        creditsButton.position = CGPoint(x: firstUtilityX + utilityButtonSize.width + utilityGap, y: utilityButtonY)
-        addChild(creditsButton)
     }
-    
-    private func makeModeTexture(symbolName: String, textureSize: CGSize) -> SKTexture {
+
+    private func addSocialButtons() {
+        let buttonSide = min(size.width * 0.18, size.height * 0.10)
+
+        let shareButton = SpriteButton(
+            texture: makeSocialButtonTexture(symbolName: "point.3.connected.trianglepath.dotted", size: CGSize(width: buttonSide, height: buttonSide), fillBackground: true),
+            onClick: shareApp
+        )
+        shareButton.position = CGPoint(x: size.width * 0.20, y: size.height * 0.14)
+        addChild(shareButton)
+
+        let twitterButton = SpriteButton(
+            texture: makeSocialButtonTexture(symbolName: "paperplane.fill", size: CGSize(width: buttonSide * 1.15, height: buttonSide * 1.15), fillBackground: false),
+            onClick: openTwitter
+        )
+        twitterButton.position = CGPoint(x: size.width * 0.74, y: size.height * 0.14)
+        addChild(twitterButton)
+    }
+
+    private func makeNeonTextTexture(title: String, size: CGSize) -> SKTexture {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let image = renderer.image { _ in
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+
+            let glowShadow = NSShadow()
+            glowShadow.shadowColor = neonGlowColor
+            glowShadow.shadowBlurRadius = size.height * 0.22
+            glowShadow.shadowOffset = .zero
+
+            let font = UIFont(name: "HelveticaNeue-Light", size: size.height * 0.60)
+                ?? UIFont.systemFont(ofSize: size.height * 0.60, weight: .light)
+            let textRect = CGRect(x: 0, y: size.height * 0.22, width: size.width, height: size.height * 0.60)
+
+            let glowAttributes: [NSAttributedString.Key: Any] = [
+                .font: font,
+                .foregroundColor: neonColor,
+                .strokeColor: neonColor,
+                .strokeWidth: -1.2,
+                .paragraphStyle: paragraphStyle,
+                .shadow: glowShadow
+            ]
+            title.draw(in: textRect, withAttributes: glowAttributes)
+
+            let coreAttributes: [NSAttributedString.Key: Any] = [
+                .font: font,
+                .foregroundColor: UIColor(red: 183.0 / 255.0, green: 245.0 / 255.0, blue: 1.0, alpha: 1.0),
+                .paragraphStyle: paragraphStyle
+            ]
+            title.draw(in: textRect, withAttributes: coreAttributes)
+        }
+        return SKTexture(image: image)
+    }
+
+    private func makeSocialButtonTexture(symbolName: String, size: CGSize, fillBackground: Bool) -> SKTexture {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let image = renderer.image { _ in
+            let blueColor = UIColor(red: 99.0 / 255.0, green: 177.0 / 255.0, blue: 230.0 / 255.0, alpha: 1.0)
+            if fillBackground {
+                let backgroundPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: size), cornerRadius: size.width * 0.18)
+                blueColor.setFill()
+                backgroundPath.fill()
+            }
+
+            let pointSize = fillBackground ? size.width * 0.50 : size.width * 0.75
+            let config = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .semibold)
+            guard let baseSymbol = UIImage(systemName: symbolName, withConfiguration: config) else {
+                return
+            }
+
+            let iconColor = fillBackground ? UIColor.white : blueColor
+            let symbol = baseSymbol.withTintColor(iconColor, renderingMode: .alwaysOriginal)
+            let symbolRect = CGRect(
+                x: (size.width - symbol.size.width) / 2.0,
+                y: (size.height - symbol.size.height) / 2.0,
+                width: symbol.size.width,
+                height: symbol.size.height
+            )
+            symbol.draw(in: symbolRect)
+        }
+        return SKTexture(image: image)
+    }
+
+    private func openTwitter() {
+        guard let url = URL(string: twitterUrl) else {
+            return
+        }
+        UIApplication.shared.open(url)
+    }
+
+    private func shareApp() {
+        guard let controller = topViewController() else {
+            return
+        }
+        let shareController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        shareController.popoverPresentationController?.sourceView = controller.view
+        controller.present(shareController, animated: true)
+    }
+
+    private func topViewController(base: UIViewController? = nil) -> UIViewController? {
+        let initialController: UIViewController?
+        if let base = base {
+            initialController = base
+        } else {
+            initialController = UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first { $0.isKeyWindow }?.rootViewController
+        }
+
+        if let navController = initialController as? UINavigationController {
+            return topViewController(base: navController.visibleViewController)
+        }
+        if let tabController = initialController as? UITabBarController {
+            return topViewController(base: tabController.selectedViewController)
+        }
+        if let presented = initialController?.presentedViewController {
+            return topViewController(base: presented)
+        }
+        return initialController
+    }
+}
+
+class CreditsScene: SKScene {
+    private let background = UIColor.black
+    private let titleColor = UIColor(red: 214.0 / 255.0, green: 214.0 / 255.0, blue: 214.0 / 255.0, alpha: 1.0)
+    private let sectionColor = UIColor(red: 111.0 / 255.0, green: 227.0 / 255.0, blue: 1.0, alpha: 1.0)
+    private let textColor = UIColor(red: 230.0 / 255.0, green: 236.0 / 255.0, blue: 242.0 / 255.0, alpha: 1.0)
+
+    override init(size: CGSize) {
+        super.init(size: size)
+        backgroundColor = background
+        addBackButton()
+        addTitle()
+        addCreditsContent()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func addBackButton() {
+        let side = size.height * 0.08
+        let backButton = SpriteButton(texture: makeBackButtonTexture(side: side)) {
+            ResourcesManager.getInstance().storyService?.loadStartMenuScene()
+        }
+        backButton.position = CGPoint(x: size.height * 0.057, y: size.height * 0.91)
+        addChild(backButton)
+    }
+
+    private func makeBackButtonTexture(side: CGFloat) -> SKTexture {
+        let textureSize = CGSize(width: side, height: side)
         let renderer = UIGraphicsImageRenderer(size: textureSize)
         let image = renderer.image { _ in
-            let frame = CGRect(origin: .zero, size: textureSize).insetBy(dx: textureSize.width * 0.05, dy: textureSize.height * 0.05)
-            let backgroundPath = UIBezierPath(roundedRect: frame, cornerRadius: textureSize.width * 0.18)
+            let frame = CGRect(origin: .zero, size: textureSize)
+            let path = UIBezierPath(roundedRect: frame, cornerRadius: side * 0.25)
             UIColor(white: 1.0, alpha: 0.10).setFill()
-            backgroundPath.fill()
-            UIColor(white: 1.0, alpha: 0.22).setStroke()
-            backgroundPath.lineWidth = textureSize.width * 0.03
-            backgroundPath.stroke()
+            path.fill()
+            UIColor(white: 1.0, alpha: 0.20).setStroke()
+            path.lineWidth = side * 0.05
+            path.stroke()
 
-            let config = UIImage.SymbolConfiguration(pointSize: textureSize.width * 0.44, weight: .semibold)
-            if let symbol = UIImage(systemName: symbolName, withConfiguration: config)?
-                .withTintColor(textColor, renderingMode: .alwaysOriginal) {
+            let config = UIImage.SymbolConfiguration(pointSize: side * 0.44, weight: .bold)
+            if let symbol = UIImage(systemName: "chevron.left", withConfiguration: config)?
+                .withTintColor(sectionColor, renderingMode: .alwaysOriginal) {
                 let symbolRect = CGRect(
-                    x: (textureSize.width - symbol.size.width) / 2.0,
-                    y: (textureSize.height - symbol.size.height) / 2.0,
+                    x: (side - symbol.size.width) / 2.0,
+                    y: (side - symbol.size.height) / 2.0,
                     width: symbol.size.width,
                     height: symbol.size.height
                 )
@@ -186,84 +365,69 @@ class StartMenuScene: SKScene {
         return SKTexture(image: image)
     }
 
-    private func makeTextButtonTexture(title: String, size: CGSize) -> SKTexture {
-        let renderer = UIGraphicsImageRenderer(size: size)
-        let image = renderer.image { _ in
-            let frame = CGRect(origin: .zero, size: size).insetBy(dx: size.width * 0.01, dy: size.height * 0.04)
-            let backgroundPath = UIBezierPath(roundedRect: frame, cornerRadius: size.height * 0.25)
-            UIColor(white: 1.0, alpha: 0.10).setFill()
-            backgroundPath.fill()
-            UIColor(white: 1.0, alpha: 0.22).setStroke()
-            backgroundPath.lineWidth = size.height * 0.07
-            backgroundPath.stroke()
-
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = .center
-            let attributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont(name: "Optima-Bold", size: size.height * 0.40) ?? UIFont.systemFont(ofSize: size.height * 0.40, weight: .semibold),
-                .foregroundColor: textColor,
-                .paragraphStyle: paragraphStyle
-            ]
-            let textRect = CGRect(x: 0.0, y: size.height * 0.28, width: size.width, height: size.height * 0.5)
-            title.draw(in: textRect, withAttributes: attributes)
-        }
-        return SKTexture(image: image)
-    }
-}
-
-class CreditsScene: SKScene {
-    private let background = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255, alpha: 1.0)
-    private let textColor = UIColor(red: 240.0 / 255.0, green: 239.0 / 255.0, blue: 238.0 / 255.0, alpha: 1.0)
-
-    override init(size: CGSize) {
-        super.init(size: size)
-        self.backgroundColor = background
-        addBackButton()
-        addTitle()
-        addLines()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func addBackButton() {
-        let side = size.height * 0.08
-        let backButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.left", side: side)) {
-            ResourcesManager.getInstance().storyService?.loadStartMenuScene()
-        }
-        backButton.position = CGPoint(x: size.height * 0.057, y: size.height * 0.91)
-        addChild(backButton)
-    }
-
     private func addTitle() {
-        let title = SKLabelNode(fontNamed: "Optima-Bold")
-        title.text = "Credits"
-        title.fontSize = size.height * 0.10
-        title.fontColor = textColor
+        let title = SKLabelNode(fontNamed: "Impact")
+        title.text = "CREDITS"
+        title.fontSize = size.height * 0.09
+        title.fontColor = titleColor
         title.position = CGPoint(x: size.width * 0.5, y: size.height * 0.78)
         addChild(title)
     }
 
-    private func addLines() {
-        addLine(text: "Design and Development", y: size.height * 0.62, sizeFactor: 0.038)
-        addLine(text: "David Schilling", y: size.height * 0.55, sizeFactor: 0.048)
-        addLine(text: "Raphael Schilling", y: size.height * 0.49, sizeFactor: 0.048)
-        addLine(text: "Gameplay and Product Iteration", y: size.height * 0.39, sizeFactor: 0.038)
-        addLine(text: "SOPA Team", y: size.height * 0.33, sizeFactor: 0.048)
+    private func addCreditsContent() {
+        let content: [(section: String, entries: [String])] = [
+            ("DEVELOPMENT", ["David Schilling - @schillda710", "Raphael Schilling - @ubuntius"]),
+            ("DESIGN", ["Raphael Schilling - @ubuntius"]),
+            ("MUSIC", ["Menu - axtoncrolley on opengameart.org"])
+        ]
+
+        var currentY = size.height * 0.70
+        for block in content {
+            addSectionLine(text: block.section, y: currentY)
+            currentY -= size.height * 0.045
+
+            for entry in block.entries {
+                addBodyLine(text: entry, y: currentY)
+                currentY -= size.height * 0.038
+            }
+            currentY -= size.height * 0.028
+        }
     }
 
-    private func addLine(text: String, y: CGFloat, sizeFactor: CGFloat) {
-        let line = SKLabelNode(fontNamed: "Optima-Bold")
+    private func addSectionLine(text: String, y: CGFloat) {
+        let line = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+        line.horizontalAlignmentMode = .left
+        line.verticalAlignmentMode = .center
         line.text = text
-        line.fontSize = fittedFontSize(for: text, preferredSize: size.height * sizeFactor, maxWidth: size.width * 0.86)
-        line.fontColor = textColor
-        line.position = CGPoint(x: size.width * 0.5, y: y)
+        line.fontSize = fittedFontSize(
+            for: text,
+            fontName: "HelveticaNeue-Bold",
+            preferredSize: size.height * 0.032,
+            maxWidth: size.width * 0.88
+        )
+        line.fontColor = sectionColor
+        line.position = CGPoint(x: size.width * 0.06, y: y)
         addChild(line)
     }
 
-    private func fittedFontSize(for text: String, preferredSize: CGFloat, maxWidth: CGFloat) -> CGFloat {
-        let label = SKLabelNode(fontNamed: "Optima-Bold")
+    private func addBodyLine(text: String, y: CGFloat) {
+        let line = SKLabelNode(fontNamed: "HelveticaNeue")
+        line.horizontalAlignmentMode = .left
+        line.verticalAlignmentMode = .center
+        line.text = text
+        line.fontSize = fittedFontSize(
+            for: text,
+            fontName: "HelveticaNeue",
+            preferredSize: size.height * 0.026,
+            maxWidth: size.width * 0.90
+        )
+        line.fontColor = textColor
+        line.position = CGPoint(x: size.width * 0.09, y: y)
+        addChild(line)
+    }
+
+    private func fittedFontSize(for text: String, fontName: String, preferredSize: CGFloat, maxWidth: CGFloat) -> CGFloat {
+        let label = SKLabelNode(fontNamed: fontName)
         label.text = text
         var currentSize = preferredSize
         label.fontSize = currentSize

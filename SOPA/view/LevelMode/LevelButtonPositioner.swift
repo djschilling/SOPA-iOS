@@ -16,7 +16,7 @@ class LevelButtonPositioner {
     
     init(size: CGSize) {
         self.size = size
-        self.buttonSize = CGSize(width: size.width * 0.3, height: size.width * 0.3)
+        self.buttonSize = CGSize(width: size.width * 0.24, height: size.width * 0.24)
         self.drawingHeight = size.height
     }
     
@@ -26,7 +26,7 @@ class LevelButtonPositioner {
         let column = idOnPage % 3
         let row = idOnPage / 3
         let xPos: CGFloat = size.width / 4.0 * CGFloat(1 + column) + (size.width * CGFloat(page))
-        let yPos: CGFloat = size.height - (drawingHeight / 5.0 * CGFloat(row + 1))
+        let yPos: CGFloat = size.height - (drawingHeight / 5.0 * CGFloat(row + 1)) + size.height * 0.03
         let position = CGPoint(x: xPos, y: yPos)
         
         return position

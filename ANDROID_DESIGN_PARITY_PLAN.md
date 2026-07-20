@@ -121,19 +121,24 @@ Der Settings-Screen in Android ist ein **Musik-Mute-Toggle** (`SettingsService`:
 iOS aktuell: der 3. Menüpunkt wurde von „SETTINGS" auf **„TUTORIAL"** umbenannt und öffnet
 das (Text-)Tutorial. Es gibt auf iOS **keinerlei Audio/Musik** und keinen Settings-Screen.
 
-- [ ] Entscheidung: Menü an Android angleichen (SETTINGS statt TUTORIAL) – setzt Settings-Screen
-      + Audio voraus – **oder** iOS bewusst mit TUTORIAL-Eintrag abweichen lassen
-- [ ] Social-Icons an Android angleichen: Share-Glyph + klassischer Twitter-Vogel
-      (iOS nutzt SF-Symbols `point.3.connected.trianglepath.dotted` / `paperplane.fill`,
-      `StartMenuScene.swift:54/61`)
+- [x] Social-Icons an Android angeglichen: Android-`ShareThis` + Twitter-Vogel importiert und
+      im `StartMenuScene` statt der SF-Symbol-Texturen verwendet
+- [~] **Entscheidung getroffen (Nutzer):** iOS weicht bewusst ab – Menüpunkt bleibt „TUTORIAL",
+      **kein** SETTINGS-Eintrag. Settings/Audio werden vorerst **nicht** gebaut.
 
-## P3 – Audio/Musik + Settings (Voraussetzung für „SETTINGS")
+## P3 – Audio/Musik + Settings (zurückgestellt)
 
 Android hat Menü-Musik und einen Mute-Toggle; iOS hat aktuell **kein Audio**.
+**Auf Nutzerwunsch vorerst zurückgestellt** – wird derzeit nicht umgesetzt.
 
-- [ ] Musik-Playback (z. B. `AVAudioPlayer`) + Mute-Persistenz (analog `SettingsService`)
-- [ ] Settings-Szene mit Mute/Unmute-Button (schwarz, Neon-Stil)
-- [ ] Erststart-Logik (`isFirstTime`) für automatischen Tutorial-Aufruf
+- [ ] (später) Musik-Playback (z. B. `AVAudioPlayer`) + Mute-Persistenz
+- [ ] (später) Settings-Szene mit Mute/Unmute-Button
+- [ ] (später) Erststart-Logik (`isFirstTime`) für automatischen Tutorial-Aufruf
+
+## Tutorial-Einstiegspunkt (zurückgestellt)
+
+Android startet das Tutorial aus der Level-Auswahl / beim Erststart. iOS behält auf
+Nutzerwunsch den **Menü-Eintrag „TUTORIAL"**; eine Verlegung des Einstiegs wird nicht gemacht.
 
 ---
 
@@ -147,5 +152,9 @@ Android hat Menü-Musik und einen Mute-Toggle; iOS hat aktuell **kein Audio**.
 
 1. ~~**P1** – Hintergründe schwarz + Just-Play-HUD~~ ✅ erledigt
 2. ~~**P2** – Level Complete, Just-Play Highscore, Tutorial-Neuaufbau~~ ✅ erledigt
-3. **P3** – Menü-Entscheidung (SETTINGS vs. TUTORIAL) + Tutorial-Einstiegspunkt,
-   Audio/Settings, Social-Icons
+3. ~~**P3** – Social-Icons~~ ✅ erledigt; Settings/Audio + Tutorial-Einstieg auf
+   Nutzerwunsch zurückgestellt
+
+Damit ist die sichtbare Design-Parität für alle vorhandenen Screens erreicht.
+Offen bleiben nur die bewusst zurückgestellten Punkte (Audio/Settings) sowie kleinere
+Feinschliff-Optionen (Level-Complete-Titelstil, Sterne-Optik).

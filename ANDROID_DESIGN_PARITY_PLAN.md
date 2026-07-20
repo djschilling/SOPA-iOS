@@ -15,10 +15,10 @@ Score erscheinen nur nach gelöstem Puzzle und wurden über den Quellcode abgegl
 | Hauptmenü | `StartMenuScene.swift` | 🟢 fast fertig | Menüpunkt-Label + Social-Icons; kein Settings-Screen |
 | Level-Auswahl | `LevelChoiceScene` + `LevelButtonArea` + `LevelSelectButton` | 🟢 (live bestätigt) | fehlender Tutorial-Einstieg |
 | Level-Mode Spiel | `LevelModeGameScene.swift` | 🟢 (live bestätigt) | Back-Button (Android hat keinen) |
-| Level Complete | `LevelModeScoreScene.swift` | 🟡 BG schwarz (P1) | Wording + Button-Icon offen |
+| Level Complete | `LevelModeScoreScene.swift` | 🟢 (P2 erledigt) | Wording + Play-Icon angepasst |
 | Just-Play Spiel | `JustPlayGameScene.swift` (+ Basis `GameScene`) | 🟢 (P1 erledigt) | – (schwarz + Android-HUD) |
-| Just-Play Highscore | `JustPlayLostScene` (in `JustPlayGameScene.swift`) | 🟡 BG schwarz (P1) | keine Farbbalken, kein „Share Score" |
-| Tutorial | `TutorialScene.swift` / `TutorialGameScene.swift` | 🔴 anderes Konzept | Text-Seiten statt visuellem Grid; brauner BG; Einstiegspunkt |
+| Just-Play Highscore | `JustPlayLostScene` (in `JustPlayGameScene.swift`) | 🟢 (P2 erledigt) | Farbbalken + „Share Score" ergänzt |
+| Tutorial | `TutorialScene.swift` / `TutorialGameScene.swift` | 🟢 (P2 erledigt) | visuelle Android-Screens; Einstiegspunkt offen (P3) |
 | Credits | `CreditsScene.swift` | 🟢 (kein Referenz-Screenshot) | – |
 
 Grundursache vieler roter Punkte: Die Basis-Klasse `GameScene` (`SOPA/view/GameScene.swift:33`)
@@ -79,11 +79,11 @@ in Level-Mode/JustPlay inzwischen durch absolute Layouts überschrieben.
 Android: **schwarzer** Hintergrund, Titel „N. Level Complete", „Your moves: X",
 „Moves for 3 Stars: Y", 3 goldene Sterne, unten 3 weiße Kreis-Buttons (Grid / Restart / Play).
 
-- [ ] Hintergrund schwarz (siehe P1)
-- [ ] Titel-Wording auf „N. Level Complete" + Font/Größe an Android angleichen
-      (`LevelModeScoreScene.swift:49`, aktuell „Level N Complete", Optima statt Impact)
-- [ ] Untertitel „3-star target: N" → „Moves for 3 Stars: N" (`:68`)
-- [ ] „Next"-Button: Icon `chevron.right` → gefülltes Play-Dreieck (`:30`)
+- [x] Hintergrund schwarz (P1)
+- [x] Titel-Wording auf „N. Level Complete"
+- [x] Untertitel „Moves for 3 Stars: N"
+- [x] „Next"-Button: gefülltes Play-Dreieck (`play.fill`)
+- [ ] Optional: Titel-Font/Größe/links-Ausrichtung noch näher an Android (aktuell zentriert, Optima)
 - [ ] Sterne-Optik gegen Android prüfen (`star_score`/`starSW_score`)
 
 ## P2 – Just-Play Highscore an Android angleichen
@@ -91,11 +91,11 @@ Android: **schwarzer** Hintergrund, Titel „N. Level Complete", „Your moves: 
 Android: schwarzer Hintergrund, Titel „New Highscore", **blauer Balken** „Score: N",
 **gelber Balken** „Level: N", unten 3 Kreis-Buttons: Zurück-Pfeil, Restart, **„SHARE SCORE"**.
 
-- [ ] Hintergrund schwarz (siehe P1)
-- [ ] Score/Level als farbige Balken (blau/gelb) statt reinem Text (`JustPlayGameScene.swift:546–560`)
-- [ ] **„SHARE SCORE"-Button ergänzen** (fehlt komplett) – Share-Flow wie im Menü nutzen
-- [ ] Button-Set an Android angleichen (Zurück-Pfeil statt `chevron.left`)
-- [ ] Entscheiden: Konfetti/„Highscore:"-Zeile beibehalten (iOS-Extra) oder für Parität entfernen
+- [x] Hintergrund schwarz (P1)
+- [x] Score/Level als farbige Balken (blau/gelb) statt reinem Text
+- [x] **„SHARE SCORE"-Button ergänzt** (neuer `makeCircleTextButtonTexture`)
+- [x] Button-Set an Android angeglichen (Zurück-Pfeil / Restart / Share)
+- [x] „Reached Level"/„Highscore"-Klartextzeilen für Parität entfernt (Konfetti bleibt als iOS-Extra bei neuem Highscore)
 
 ## P2 – Tutorial neu aufbauen (anderes Konzept)
 
@@ -105,13 +105,12 @@ Erklärtext („Connect the **GREEN** and the **RED** gate, using the **BLUE** t
 Wird in Android **aus der Level-Auswahl** gestartet (`loadTutorialSceneFromLevelChoiceScene`)
 bzw. beim Erststart, nicht aus dem Menü.
 
-iOS aktuell: reines **Text-Tutorial** (Seiten „Goal"/„How It Works"/„Try It Now") mit
-„Let's Go"-Button, brauner Hintergrund, gestartet aus dem Menü.
-
-- [ ] Tutorial als visuellen Screen mit Spielfeld-Grid + farbigem Erklärtext umbauen
-- [ ] Farbige Keywords (GREEN/RED/BLUE) im Text
-- [ ] Einstiegspunkt an Android angleichen: aus der Level-Auswahl (+ optional Erststart)
-- [ ] Übergänge Tutorial → erstes Level bzw. → Level-Auswahl analog Android
+- [x] Tutorial als visuelle Screens umgebaut – Android-Artwork nach
+      `Assets.xcassets/tutorial` importiert (first/second Screen A+B, Let's Go)
+- [x] Farbige Keywords (GREEN/RED/BLUE) – über die importierten Screens abgedeckt
+- [x] 2-Screen-Ablauf + „Lets GO" → interaktives Tutorial-Level (analog Android)
+- [ ] Einstiegspunkt: Android startet aus der Level-Auswahl / beim Erststart; iOS startet
+      aktuell aus dem Menü (hängt an der SETTINGS/TUTORIAL-Entscheidung, siehe P3)
 
 ## P3 – Menü: Settings vs. Tutorial klären + Social-Icons
 
@@ -146,6 +145,7 @@ Android hat Menü-Musik und einen Mute-Toggle; iOS hat aktuell **kein Audio**.
 
 ## Empfohlene Reihenfolge
 
-1. **P1** – Hintergründe schwarz + Just-Play-HUD (kleiner Aufwand, größter sichtbarer Effekt)
-2. **P2** – Level Complete, Just-Play Highscore, Tutorial-Neuaufbau
-3. **P3** – Menü-Entscheidung, Audio/Settings, Social-Icons
+1. ~~**P1** – Hintergründe schwarz + Just-Play-HUD~~ ✅ erledigt
+2. ~~**P2** – Level Complete, Just-Play Highscore, Tutorial-Neuaufbau~~ ✅ erledigt
+3. **P3** – Menü-Entscheidung (SETTINGS vs. TUTORIAL) + Tutorial-Einstiegspunkt,
+   Audio/Settings, Social-Icons

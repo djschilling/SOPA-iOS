@@ -11,7 +11,7 @@ import SpriteKit
 
 class LevelModeScoreScene: SKScene {
     private let levelResult: LevelResult
-    private let background = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255.0, alpha: 1.0)
+    private let background = UIColor.black
     private let textColor = UIColor(red: 240.0 / 255.0, green: 239.0 / 255.0, blue: 238.0 / 255.0, alpha: 1.0)
 
     init(size: CGSize, levelResult: LevelResult) {

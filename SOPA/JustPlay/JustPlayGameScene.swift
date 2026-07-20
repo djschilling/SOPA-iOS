@@ -216,7 +216,7 @@ class JustPlayGameScene: GameScene, JustPlaySceneObserver {
     private var leaveScene = false
     private var restartButton: SpriteButton?
     private var levelChoiceButton: SpriteButton?
-    private var leftTimeNode = SKLabelNode(fontNamed: "Optima-Bold")
+    private var leftTimeNode = SKLabelNode(fontNamed: "Impact")
     private var warningOverlay: SKSpriteNode?
 
     init(size: CGSize, proportionSet: ProportionSet, justPlayLevel: JustPlayLevel, justPlayService: JustPlayService, timeBasedGameService: TimeBasedGameService) {
@@ -253,32 +253,77 @@ class JustPlayGameScene: GameScene, JustPlaySceneObserver {
     }
 
     override func addButtons() {
-        let restartSide = proportionSet.buttonSize()
+        let restartSide = min(size.width, size.height) * 0.18
         restartButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "arrow.counterclockwise", side: restartSide), onClick: restartLevel)
-        restartButton!.position = proportionSet.restartButtonPos()
+        restartButton!.position = CGPoint(x: size.width * 0.86, y: size.height * 0.12)
         addChild(restartButton!)
 
-        let side = proportionSet.levelChoiceSize()
-        levelChoiceButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.left", side: side), onClick: loadStartMenuScene)
-        levelChoiceButton!.position = proportionSet.levelChoicePos()
+        let backSide = min(size.width, size.height) * 0.09
+        levelChoiceButton = SpriteButton(texture: ButtonTextureFactory.makeMinimalBackTexture(side: backSide), onClick: loadStartMenuScene)
+        levelChoiceButton!.position = CGPoint(x: size.width * 0.08, y: size.height * 0.95)
         addChild(levelChoiceButton!)
     }
 
+    private let headingColor = UIColor(white: 0.90, alpha: 1.0)
+    private let valueColor = UIColor(white: 0.96, alpha: 1.0)
+    private let hudFont = "Impact"
+
+    override func addStaticLabels() {
+        addChild(movesLabels)
+
+        let minTitle = SKLabelNode(fontNamed: hudFont)
+        minTitle.text = "Min. Moves"
+        minTitle.horizontalAlignmentMode = .center
+        minTitle.verticalAlignmentMode = .center
+        minTitle.fontSize = min(size.width, size.height) * 0.055
+        minTitle.fontColor = headingColor
+        minTitle.position = CGPoint(x: size.width * 0.14, y: size.height * 0.90)
+        movesLabels.addChild(minTitle)
+
+        let minValue = SKLabelNode(fontNamed: hudFont)
+        minValue.text = String(gameService.getLevel().minimumMovesToSolve ?? 0)
+        minValue.horizontalAlignmentMode = .center
+        minValue.verticalAlignmentMode = .center
+        minValue.fontSize = min(size.width, size.height) * 0.15
+        minValue.fontColor = valueColor
+        minValue.position = CGPoint(x: size.width * 0.04, y: size.height * 0.84)
+        movesLabels.addChild(minValue)
+
+        let currentTitle = SKLabelNode(fontNamed: hudFont)
+        currentTitle.text = "Current Moves"
+        currentTitle.horizontalAlignmentMode = .center
+        currentTitle.verticalAlignmentMode = .center
+        currentTitle.fontSize = min(size.width, size.height) * 0.055
+        currentTitle.fontColor = headingColor
+        currentTitle.position = CGPoint(x: size.width * 0.84, y: size.height * 0.90)
+        movesLabels.addChild(currentTitle)
+    }
+
+    override func addDynamicLabels() {
+        currentMovesNode.text = String(gameService.getLevel().movesCounter)
+        currentMovesNode.horizontalAlignmentMode = .center
+        currentMovesNode.verticalAlignmentMode = .center
+        currentMovesNode.fontSize = min(size.width, size.height) * 0.15
+        currentMovesNode.position = CGPoint(x: size.width * 0.80, y: size.height * 0.84)
+        currentMovesNode.fontColor = valueColor
+        movesLabels.addChild(currentMovesNode)
+    }
+
     private func addTimerLabels() {
-        let leftTimeLabel = SKLabelNode(fontNamed: fontName)
+        let leftTimeLabel = SKLabelNode(fontNamed: hudFont)
         leftTimeLabel.text = "Left Time"
         leftTimeLabel.horizontalAlignmentMode = .left
-        leftTimeLabel.verticalAlignmentMode = .top
-        leftTimeLabel.position = CGPoint(x: proportionSet.movesFontSize() * -2.6, y: proportionSet.movesFontSize() * 1.4)
-        leftTimeLabel.fontSize = proportionSet.movesFontSize()
-        leftTimeLabel.fontColor = fontColor
+        leftTimeLabel.verticalAlignmentMode = .center
+        leftTimeLabel.fontSize = min(size.width, size.height) * 0.06
+        leftTimeLabel.fontColor = headingColor
+        leftTimeLabel.position = CGPoint(x: size.width * 0.04, y: size.height * 0.11)
         movesLabels.addChild(leftTimeLabel)
 
-        leftTimeNode.horizontalAlignmentMode = .right
-        leftTimeNode.verticalAlignmentMode = .top
-        leftTimeNode.position = CGPoint(x: proportionSet.movesFontSize() * 2.7, y: proportionSet.movesFontSize() * 1.4)
-        leftTimeNode.fontSize = proportionSet.movesFontSize()
-        leftTimeNode.fontColor = fontColor
+        leftTimeNode.horizontalAlignmentMode = .left
+        leftTimeNode.verticalAlignmentMode = .center
+        leftTimeNode.fontSize = min(size.width, size.height) * 0.15
+        leftTimeNode.fontColor = valueColor
+        leftTimeNode.position = CGPoint(x: size.width * 0.04, y: size.height * 0.045)
         movesLabels.addChild(leftTimeNode)
     }
 
@@ -361,7 +406,7 @@ class JustPlayGameScene: GameScene, JustPlaySceneObserver {
 class JustPlayScoreScene: SKScene {
     private let justPlayResult: JustPlayResult
     private let textColor = UIColor(red: 240.0 / 255.0, green: 239.0 / 255.0, blue: 238.0 / 255.0, alpha: 1.0)
-    private let background = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255.0, alpha: 1.0)
+    private let background = UIColor.black
 
     init(size: CGSize, proportionSet: ProportionSet, justPlayResult: JustPlayResult) {
         self.justPlayResult = justPlayResult
@@ -495,7 +540,7 @@ class JustPlayLostScene: SKScene {
         self.previousHighscore = ResourcesManager.getInstance().levelService?.getBestJustPlayScore()
         self.isNewHighscore = previousHighscore == nil || justPlayResult.score > previousHighscore!.points
         super.init(size: size)
-        self.backgroundColor = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255, alpha: 1.0)
+        self.backgroundColor = .black
         ResourcesManager.getInstance().levelService?.submitJustPlayScore(score: JustPlayScore(points: justPlayResult.score, solvedLevels: justPlayResult.levelCount))
         if isNewHighscore {
             addConfetti()

@@ -13,7 +13,7 @@ class TutorialScene: SKScene {
 
     override init(size: CGSize) {
         super.init(size: size)
-        self.backgroundColor = SopaTheme.warmBackground
+        self.backgroundColor = SopaTheme.blackBackground
         addBackButton()
         addTitle()
         addContentNodes()

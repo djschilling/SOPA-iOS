@@ -126,6 +126,39 @@ enum ButtonTextureFactory {
         return SKTexture(image: image)
     }
 
+    static func makeCircleTextButtonTexture(
+        title: String,
+        side: CGFloat,
+        circleColor: UIColor = SopaTheme.circleButtonFill,
+        textColor: UIColor = SopaTheme.circleButtonIcon
+    ) -> SKTexture {
+        let textureSize = CGSize(width: side, height: side)
+        let renderer = UIGraphicsImageRenderer(size: textureSize)
+        let image = renderer.image { _ in
+            circleColor.setFill()
+            UIBezierPath(ovalIn: CGRect(origin: .zero, size: textureSize)).fill()
+
+            let lines = title.split(separator: "\n").map(String.init)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            let fontSize = side * 0.20
+            let font = UIFont(name: "Impact", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize, weight: .bold)
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: font,
+                .foregroundColor: textColor,
+                .paragraphStyle: paragraphStyle
+            ]
+            let lineHeight = fontSize * 1.05
+            let totalHeight = lineHeight * CGFloat(lines.count)
+            var y = (side - totalHeight) / 2.0
+            for line in lines {
+                line.draw(in: CGRect(x: 0, y: y, width: side, height: lineHeight), withAttributes: attributes)
+                y += lineHeight
+            }
+        }
+        return SKTexture(image: image)
+    }
+
     static func makeTextButtonTexture(
         title: String,
         size: CGSize,

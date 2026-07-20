@@ -14,10 +14,10 @@ Score erscheinen nur nach gelöstem Puzzle und wurden über den Quellcode abgegl
 |---|---|---|---|
 | Hauptmenü | `StartMenuScene.swift` | 🟢 fast fertig | Menüpunkt-Label + Social-Icons; kein Settings-Screen |
 | Level-Auswahl | `LevelChoiceScene` + `LevelButtonArea` + `LevelSelectButton` | 🟢 (live bestätigt) | fehlender Tutorial-Einstieg |
-| Level-Mode Spiel | `LevelModeGameScene.swift` | 🟢 (live bestätigt) | Back-Button (Android hat keinen); Spielfeld sitzt zu weit oben |
-| Level Complete | `LevelModeScoreScene.swift` | 🔴 altes Design | brauner Hintergrund, Wording, Button-Icon |
-| Just-Play Spiel | `JustPlayGameScene.swift` (+ Basis `GameScene`) | 🔴 altes Design | brauner Hintergrund, kaputtes HUD, Notch-Kollision |
-| Just-Play Highscore | `JustPlayLostScene` (in `JustPlayGameScene.swift`) | 🔴 altes Design | brauner Hintergrund, keine Farbbalken, kein „Share Score" |
+| Level-Mode Spiel | `LevelModeGameScene.swift` | 🟢 (live bestätigt) | Back-Button (Android hat keinen) |
+| Level Complete | `LevelModeScoreScene.swift` | 🟡 BG schwarz (P1) | Wording + Button-Icon offen |
+| Just-Play Spiel | `JustPlayGameScene.swift` (+ Basis `GameScene`) | 🟢 (P1 erledigt) | – (schwarz + Android-HUD) |
+| Just-Play Highscore | `JustPlayLostScene` (in `JustPlayGameScene.swift`) | 🟡 BG schwarz (P1) | keine Farbbalken, kein „Share Score" |
 | Tutorial | `TutorialScene.swift` / `TutorialGameScene.swift` | 🔴 anderes Konzept | Text-Seiten statt visuellem Grid; brauner BG; Einstiegspunkt |
 | Credits | `CreditsScene.swift` | 🟢 (kein Referenz-Screenshot) | – |
 
@@ -34,11 +34,11 @@ Android nutzt durchgängig **Schwarz** als Hintergrund. Auf iOS sind noch braun:
 `LevelModeScoreScene`, `JustPlayScoreScene`, `JustPlayLostScene`, `TutorialScene` sowie die
 Basis `GameScene` (→ trifft `JustPlayGameScene` und `TutorialGameScene`).
 
-- [ ] `GameScene` Default-Hintergrund auf `SopaTheme.blackBackground` umstellen (`GameScene.swift:33`)
-- [ ] `LevelModeScoreScene` Hintergrund auf schwarz (`LevelModeScoreScene.swift:14/21`)
-- [ ] `JustPlayScoreScene` + `JustPlayLostScene` Hintergrund auf schwarz (`JustPlayGameScene.swift:364/498`)
-- [ ] `TutorialScene` Hintergrund auf schwarz (`TutorialScene.swift:16`)
-- [ ] Toten braunen `warmBackground`-Pfad nach der Umstellung entfernen bzw. dokumentieren
+- [x] `GameScene` Default-Hintergrund auf schwarz umgestellt (`GameScene.swift`)
+- [x] `LevelModeScoreScene` Hintergrund schwarz
+- [x] `JustPlayScoreScene` + `JustPlayLostScene` Hintergrund schwarz
+- [x] `TutorialScene` Hintergrund schwarz
+- [ ] Toten braunen `warmBackground`-Pfad in `SopaTheme` später entfernen
 
 ## P1 – Just-Play Spiel-HUD an Android angleichen
 
@@ -46,24 +46,33 @@ Android zeigt oben „Min. Moves"/„Current Moves" (Label + große Zahl darunte
 „Left Time" (große Zahl). iOS `JustPlayGameScene` erbt aktuell das alte Basis-HUD und
 addiert nur „Left Time" → doppelte/inkonsistente Beschriftung.
 
-- [ ] In `JustPlayGameScene` `addStaticLabels()` überschreiben, analog zu
-      `LevelModeGameScene.addStaticLabels()` (Impact-Font, Label + große Zahl)
-- [ ] „Left Time" ins gleiche Layout bringen (große Zahl unter Label)
+- [x] In `JustPlayGameScene` `addStaticLabels()`/`addDynamicLabels()` überschrieben, analog
+      zu `LevelModeGameScene` (Impact-Font, Label + große Zahl)
+- [x] „Left Time" ins gleiche Layout gebracht (Label oben, große Zahl darunter, unten links)
 - [ ] Prüfen, ob das rote Warn-Overlay bei ≤5 s dem Android-Verhalten entspricht
 
-Live bestätigt: Aktuell zeigt der JustPlay-Screen oben „1. Level" (kollidiert mit der
-Dynamic Island) und unten gestapelt „Left Time / Moves: / Optimum:" – also das alte
-Basis-HUD plus Timer, nicht Androids Layout.
+Live bestätigt (idb): JustPlay zeigt jetzt schwarz „Min. Moves / Current Moves" oben und
+„Left Time" unten links, Restart unten rechts – wie Android.
 
-## P1 – Safe-Area & Spielfeld-Positionierung (Layout)
+## P1 – Safe-Area / Notch (weitgehend erledigt)
 
-Live-Befund: Titel/Back-Button ragen im JustPlay/Tutorial in die **Dynamic Island**; das
-Level-Mode-Spielfeld sitzt zu weit oben, unten bleibt großer Leerraum. Ursache ist v. a. das
-hart verdrahtete `IPadProportionSet` (`StoryServiceImpl.swift:115`) auf iPhone-Geräten.
+Live-Befund war: im JustPlay ragte der „1. Level"-Titel (altes Basis-HUD) in die
+**Dynamic Island**, und die Spiel-Buttons überlappten die Labels.
 
-- [ ] Top-Elemente an den Safe-Area-Insets ausrichten (nicht an `size.height`)
-- [ ] Spielfeld vertikal zentrieren / iPhone-taugliches `ProportionSet` wählen
-- [ ] Auf mehreren iPhone-Größen gegenprüfen
+- [x] Ursache behoben durch den JustPlay-HUD-Umbau (kein Level-Titel oben mehr) und die
+      manuelle Button-Positionierung (Restart unten rechts, minimaler Back oben links)
+- [ ] Optional: Top-Labels zusätzlich an Safe-Area-Insets ausrichten (statt `size.height`),
+      auf mehreren iPhone-Größen gegenprüfen
+
+Hinweis: Der große Leerraum **unter** dem Spielfeld ist **kein** Parität-Fehler –
+Android platziert das Feld ebenfalls im oberen Bereich (`FIELD_SART_FROM_TOP = 0.2`,
+`GameFieldNode.swift:18`), der untere Bereich trägt das HUD. `GameFieldNode` bleibt
+daher unverändert; eine Zentrierung würde von Android *wegführen*.
+
+Zusatzbefund: `IPadProportionSet` ist nur eine leere Unterklasse von `IPhone6Proportionset`
+(`IPadProportionSet.swift`), also faktisch identisch – die frühere „iPad-hardcoded"-Sorge
+ist gegenstandslos. Positionswerte für das Spiel-HUD kommen aus `ProportionSet`, werden aber
+in Level-Mode/JustPlay inzwischen durch absolute Layouts überschrieben.
 
 ## P2 – Level Complete an Android angleichen
 

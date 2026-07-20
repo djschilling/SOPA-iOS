@@ -26,7 +26,6 @@ class LevelModeGameScene: GameScene {
     private func stopCounter() -> Double {
         let end = NSDate()
         let difference: Double = end.timeIntervalSince(start! as Date)
-        print(difference)
         return difference
     }
     

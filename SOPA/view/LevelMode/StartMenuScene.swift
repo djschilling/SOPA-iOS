@@ -31,8 +31,7 @@ class StartMenuScene: SKScene {
         let menuItems: [(title: String, action: () -> Void)] = [
             ("LEVEL MODE", { ResourcesManager.getInstance().storyService?.loadLevelCoiceScene() }),
             ("JUST PLAY", { ResourcesManager.getInstance().storyService?.loadJustPlaySceneFromMenuScene() }),
-            // Keep this wired until a dedicated Settings scene exists on iOS.
-            ("SETTINGS", { ResourcesManager.getInstance().storyService?.loadTutorialSceneFromMenuScene() }),
+            ("TUTORIAL", { ResourcesManager.getInstance().storyService?.loadTutorialSceneFromMenuScene() }),
             ("CREDITS", { ResourcesManager.getInstance().storyService?.loadCreditsSceneFromMenuScene() })
         ]
 

@@ -97,35 +97,6 @@ enum ButtonTextureFactory {
         return SKTexture(image: image)
     }
 
-    static func makeSocialButtonTexture(symbolName: String, size: CGSize, fillBackground: Bool) -> SKTexture {
-        let renderer = UIGraphicsImageRenderer(size: size)
-        let image = renderer.image { _ in
-            let blueColor = UIColor(red: 99.0 / 255.0, green: 177.0 / 255.0, blue: 230.0 / 255.0, alpha: 1.0)
-            if fillBackground {
-                let backgroundPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: size), cornerRadius: size.width * 0.18)
-                blueColor.setFill()
-                backgroundPath.fill()
-            }
-
-            let pointSize = fillBackground ? size.width * 0.50 : size.width * 0.75
-            let config = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .semibold)
-            guard let baseSymbol = UIImage(systemName: symbolName, withConfiguration: config) else {
-                return
-            }
-
-            let iconColor = fillBackground ? UIColor.white : blueColor
-            let symbol = baseSymbol.withTintColor(iconColor, renderingMode: .alwaysOriginal)
-            let symbolRect = CGRect(
-                x: (size.width - symbol.size.width) / 2.0,
-                y: (size.height - symbol.size.height) / 2.0,
-                width: symbol.size.width,
-                height: symbol.size.height
-            )
-            symbol.draw(in: symbolRect)
-        }
-        return SKTexture(image: image)
-    }
-
     static func makeCircleTextButtonTexture(
         title: String,
         side: CGFloat,

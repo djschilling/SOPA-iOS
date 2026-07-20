@@ -49,17 +49,14 @@ class StartMenuScene: SKScene {
     private func addSocialButtons() {
         let buttonSide = min(size.width * 0.18, size.height * 0.10)
 
-        let shareButton = SpriteButton(
-            texture: ButtonTextureFactory.makeSocialButtonTexture(symbolName: "point.3.connected.trianglepath.dotted", size: CGSize(width: buttonSide, height: buttonSide), fillBackground: true),
-            onClick: shareApp
-        )
+        let shareButton = SpriteButton(texture: SKTexture(imageNamed: "ShareThis"), onClick: shareApp)
+        shareButton.size = CGSize(width: buttonSide, height: buttonSide)
         shareButton.position = CGPoint(x: size.width * 0.20, y: size.height * 0.14)
         addChild(shareButton)
 
-        let twitterButton = SpriteButton(
-            texture: ButtonTextureFactory.makeSocialButtonTexture(symbolName: "paperplane.fill", size: CGSize(width: buttonSide * 1.15, height: buttonSide * 1.15), fillBackground: false),
-            onClick: openTwitter
-        )
+        let twitterWidth = buttonSide * 1.2
+        let twitterButton = SpriteButton(texture: SKTexture(imageNamed: "TwitterLogo"), onClick: openTwitter)
+        twitterButton.size = CGSize(width: twitterWidth, height: twitterWidth * 244.0 / 300.0)
         twitterButton.position = CGPoint(x: size.width * 0.74, y: size.height * 0.14)
         addChild(twitterButton)
     }

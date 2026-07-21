@@ -11,7 +11,7 @@ import SpriteKit
 
 class LevelModeScoreScene: SKScene {
     private let levelResult: LevelResult
-    private let background = UIColor(red: 90.6 / 255.0, green: 86.7 / 255.0, blue: 70.6 / 255.0, alpha: 1.0)
+    private let background = UIColor.black
     private let textColor = UIColor(red: 240.0 / 255.0, green: 239.0 / 255.0, blue: 238.0 / 255.0, alpha: 1.0)
 
     init(size: CGSize, levelResult: LevelResult) {
@@ -27,7 +27,7 @@ class LevelModeScoreScene: SKScene {
         let side = min(size.width, size.height) * 0.20
         let restartButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "arrow.counterclockwise", side: side), onClick: restartLevel)
         let levelChoiceButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "square.grid.2x2", side: side), onClick: levelChoiceMenu)
-        let nextLevelButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "chevron.right", side: side), onClick: startNextLevel)
+        let nextLevelButton = SpriteButton(texture: makeCircleButtonTexture(symbolName: "play.fill", side: side), onClick: startNextLevel)
 
         let buttonSize = CGSize(width: side, height: side)
         restartButton.size = buttonSize
@@ -46,7 +46,7 @@ class LevelModeScoreScene: SKScene {
 
     private func addStaticObjects() {
         let title = SKLabelNode(fontNamed: "Optima-Bold")
-        title.text = "Level \(levelResult.levelId) Complete"
+        title.text = "\(levelResult.levelId). Level Complete"
         title.horizontalAlignmentMode = .center
         title.verticalAlignmentMode = .center
         title.position = CGPoint(x: size.width * 0.5, y: size.height * 0.86)
@@ -65,7 +65,7 @@ class LevelModeScoreScene: SKScene {
 
         let level = ResourcesManager.getInstance().levelService!.getLevelById(id: levelResult.levelId)!
         let optimumLabel = SKLabelNode(fontNamed: "Optima-Bold")
-        optimumLabel.text = "3-star target: \(level.minimumMovesToSolve!)"
+        optimumLabel.text = "Moves for 3 Stars: \(level.minimumMovesToSolve!)"
         optimumLabel.horizontalAlignmentMode = .center
         optimumLabel.verticalAlignmentMode = .center
         optimumLabel.position = CGPoint(x: size.width * 0.5, y: size.height * 0.46)

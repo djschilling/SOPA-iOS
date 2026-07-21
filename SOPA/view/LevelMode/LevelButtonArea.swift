@@ -68,18 +68,16 @@ class LevelButtonArea: SKSpriteNode {
     }
     
     func tabOn(location: CGPoint) {
+        // Resolve the tapped node to its enclosing level button. The button's visuals are a mix
+        // of shape (neon frame), label (number) and sprite (stars) children, so walk up the
+        // parent chain instead of special-casing individual node types.
         var node: SKNode? = atPoint(location)
-
-        if !(node is LevelSelectButton) {
-            if node is SKLabelNode || node is SKSpriteNode {
-                node = node?.parent
-            }
+        while node != nil && !(node is LevelSelectButton) {
+            node = node?.parent
         }
-        
-        if node is LevelSelectButton {
-            if !(node as! LevelSelectButton).levelInfo.locked {
-                ResourcesManager.getInstance().storyService?.loadLevelModeGameSceneFromChoiceScene(levelId: (node as! LevelSelectButton).levelInfo.levelId)
-            }
+
+        if let levelButton = node as? LevelSelectButton, !levelButton.levelInfo.locked {
+            ResourcesManager.getInstance().storyService?.loadLevelModeGameSceneFromChoiceScene(levelId: levelButton.levelInfo.levelId)
         }
     }
     
